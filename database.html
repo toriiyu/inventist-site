@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>特許データベース｜inventist.jp</title>
+<meta name="description" content="キーワード・特許番号・出願人から、国内外の特許公報を検索。J-PlatPat（特許庁）および Google Patents の公式データベースに連携します。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
+    <nav><ul class="nav-links" id="navLinks">
+      <li><a href="database.html">特許データベース</a></li>
+      <li><a href="patent-acquisition.html">特許取得支援</a></li>
+      <li><a href="patent-trade.html">買収・売却</a></li>
+      <li><a href="company.html">会社情報</a></li>
+    </ul></nav>
+    <div class="nav-cta"><a href="company.html#contact" class="btn btn--primary">お問い合わせ</a></div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="pagehero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">ホーム</a> ／ 特許データベース</div>
+    <h1>特許データベース</h1>
+    <p>キーワード・特許番号・出願人から、国内外の特許公報を検索します。検索結果は、特許庁の J-PlatPat および Google Patents の公式データベースへ連携します。</p>
+  </div>
+</section>
+
+<!-- 統合検索 -->
+<section class="section">
+  <div class="container">
+    <div class="hero-search" style="max-width:760px;margin:0 auto 12px">
+      <form onsubmit="return goSearch(event)">
+        <input id="q" type="text" placeholder="キーワード・特許番号で検索（例：全固体電池 / JP2020123456 / US10000000）" aria-label="検索キーワード">
+        <button class="btn btn--primary" type="submit">検索</button>
+      </form>
+      <p class="hint" style="color:var(--muted)">検索先：
+        <label style="margin-right:14px"><input type="radio" name="engine" value="google" checked> Google Patents（国内外）</label>
+        <label><input type="radio" name="engine" value="jplatpat"> J-PlatPat（日本・特許庁）</label>
+      </p>
+    </div>
+    <p class="center" style="color:var(--muted);font-size:13px">＊ Phase 1 では自前で公報データを保持せず、信頼できる公式データベースへ橋渡しします。独自検索は Phase 2 で実装予定です。</p>
+  </div>
+</section>
+
+<!-- 各データベース -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">DATA SOURCES</span>
+      <h2>連携している特許データベース</h2>
+      <p>目的に応じて、最適な公式データベースを選んで検索できます。</p>
+    </div>
+    <div class="ext-search">
+
+      <div class="ext-card">
+        <h3>🇯🇵 J-PlatPat（特許情報プラットフォーム）</h3>
+        <p>特許庁（INPIT）が運営する、日本の特許・実用新案・意匠・商標の公式検索サービス。日本国内の権利化情報を調べるならまずこちら。</p>
+        <form onsubmit="return openJP(event)">
+          <input id="jpQ" type="text" placeholder="キーワードで検索">
+          <button class="btn btn--ghost" type="submit">J-PlatPatで検索</button>
+        </form>
+        <p class="form-note">運営：独立行政法人 工業所有権情報・研修館（INPIT）</p>
+      </div>
+
+      <div class="ext-card">
+        <h3>🌐 Google Patents</h3>
+        <p>世界各国の特許公報を横断検索できる無料データベース。英語・日本語の両方に対応し、引用関係や類似特許の把握にも便利。</p>
+        <form onsubmit="return openGP(event)">
+          <input id="gpQ" type="text" placeholder="キーワード・特許番号で検索">
+          <button class="btn btn--ghost" type="submit">Google Patentsで検索</button>
+        </form>
+        <p class="form-note">運営：Google</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 使い方ガイド -->
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2" style="gap:48px;align-items:start">
+      <div>
+        <span class="eyebrow">HOW TO SEARCH</span>
+        <h2 style="font-size:clamp(22px,2.5vw,28px);margin-bottom:18px">検索のヒント</h2>
+        <div class="steps">
+          <div class="step"><div class="n"></div><div><h4>キーワードを絞る</h4><p>技術の特徴を表す語を2〜3語組み合わせると、ヒット数を適度に絞れます。（例：「二次電池 固体電解質 硫化物」）</p></div></div>
+          <div class="step"><div class="n"></div><div><h4>特許番号で直接引く</h4><p>公開番号・登録番号が分かっていれば、番号での検索が最短です。（例：JP2020-123456、US10000000B2）</p></div></div>
+          <div class="step"><div class="n"></div><div><h4>出願人・発明者で追う</h4><p>競合や研究機関の出願動向を、出願人名で追跡できます。</p></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="note mb-m">
+          <strong>先行技術調査をご検討の方へ。</strong><br>
+          「この発明は新しいか」「すでに似た特許がないか」を確かめたい場合は、特許取得支援サービスで先行技術調査の簡易導線をご用意しています。
+          <div class="mt-s"><a href="patent-acquisition.html#research" class="btn btn--primary">先行技術調査を相談する</a></div>
+        </div>
+        <div class="note">
+          <strong>特定分野の母集団分析（Phase 2 以降）。</strong><br>
+          AI・半導体・バイオなど、特定分野の特許群を抽出して動向を可視化する分析機能を、オープンデータ／BigQuery 連携で順次提供予定です。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ロードマップ -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">ROADMAP</span><h2>データベースの拡張計画</h2></div>
+    <table class="table" style="background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden">
+      <tr><th>Phase 1（現在）</th><td>J-PlatPat / Google Patents への検索連携（外部公式DBへの橋渡し）。</td></tr>
+      <tr><th>Phase 2</th><td>特許庁オープンデータ（特許情報標準データ等）を取り込んだ独自検索。コラムによる技術解説。</td></tr>
+      <tr><th>Phase 3</th><td>Google Patents Public Datasets（BigQuery）連携による分野別の母集団抽出・トレンド分析。</td></tr>
+    </table>
+    <p class="disclaimer mt-m">＊ 各データソースには利用規約・リンク条件があります。inventist.jp は各規約に抵触しない形での連携・取り込みを前提に実装します。</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="brand">inventist<span class="dot">.</span>jp</div><p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。</p></div>
+      <div><h5>サービス</h5><ul><li><a href="database.html">特許データベース</a></li><li><a href="patent-acquisition.html">特許取得支援</a></li><li><a href="patent-trade.html">特許の買収・売却</a></li></ul></div>
+      <div><h5>会社</h5><ul><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
+      <div><h5>はじめる</h5><ul><li><a href="patent-trade.html#sell">売却を登録</a></li><li><a href="patent-trade.html#buy">買収ニーズを登録</a></li><li><a href="database.html">特許を検索</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 inventist.jp</span><span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span></div>
+  </div>
+</footer>
+
+<script>
+  var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');
+  if(t)t.addEventListener('click',function(){n.classList.toggle('open');});
+  function goSearch(e){
+    e.preventDefault();
+    var q=document.getElementById('q').value.trim();
+    var eng=document.querySelector('input[name=engine]:checked').value;
+    if(!q){ alert('検索キーワードを入力してください。'); return false; }
+    if(eng==='jplatpat'){ window.open('https://www.j-platpat.inpit.go.jp/c1801/PU/JP/'+encodeURIComponent(q)+'/','_blank','noopener'); }
+    else { window.open('https://patents.google.com/?q='+encodeURIComponent(q),'_blank','noopener'); }
+    return false;
+  }
+  function openJP(e){ e.preventDefault(); var q=document.getElementById('jpQ').value.trim();
+    if(q){ window.open('https://www.j-platpat.inpit.go.jp/c1801/PU/JP/'+encodeURIComponent(q)+'/','_blank','noopener'); }
+    else { window.open('https://www.j-platpat.inpit.go.jp/','_blank','noopener'); } return false; }
+  function openGP(e){ e.preventDefault(); var q=document.getElementById('gpQ').value.trim();
+    window.open('https://patents.google.com/'+(q?'?q='+encodeURIComponent(q):''),'_blank','noopener'); return false; }
+</script>
+</body>
+</html>

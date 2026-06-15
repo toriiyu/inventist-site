@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>会社情報・お問い合わせ｜inventist.jp</title>
+<meta name="description" content="inventist.jp の運営者情報とお問い合わせ窓口。特許の検索・取得支援・売買に関するご相談を受け付けています。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
+    <nav><ul class="nav-links" id="navLinks">
+      <li><a href="database.html">特許データベース</a></li>
+      <li><a href="patent-acquisition.html">特許取得支援</a></li>
+      <li><a href="patent-trade.html">買収・売却</a></li>
+      <li><a href="company.html">会社情報</a></li>
+    </ul></nav>
+    <div class="nav-cta"><a href="company.html#contact" class="btn btn--primary">お問い合わせ</a></div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="pagehero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">ホーム</a> ／ 会社情報・お問い合わせ</div>
+    <h1>会社情報・お問い合わせ</h1>
+    <p>inventist.jp は、発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォームです。</p>
+  </div>
+</section>
+
+<!-- ミッション -->
+<section class="section">
+  <div class="container">
+    <div class="lead-block" style="max-width:760px">
+      <span class="eyebrow">MISSION</span>
+      <h2 style="font-size:clamp(22px,2.6vw,30px);margin-bottom:16px">発明を、価値として循環させる。</h2>
+      <p style="color:var(--muted)">優れた発明や特許が、活かされないまま眠っている——そんな状況を変えたい。私たちは、特許を「探す・権利化する・取引する」という流れをひとつの場所でつなぎ、発明者・権利者・事業者・投資家それぞれにとって知財が動きやすい環境をつくります。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 運営者情報 -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">COMPANY</span><h2>運営者情報</h2></div>
+    <table class="table" style="background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:820px">
+      <tr><th>サービス名</th><td>inventist.jp</td></tr>
+      <tr><th>運営主体</th><td>（準備中）<span style="color:var(--muted);font-size:13px"> ＊ 運営法人名・代表者・所在地は確定後に掲載します。</span></td></tr>
+      <tr><th>事業内容</th><td>特許データベース（検索連携）／特許取得支援（提携弁理士への取次・知財戦略コンサルティング）／特許の買収・売却・ライセンスの仲介</td></tr>
+      <tr><th>お問い合わせ</th><td>下記フォーム、または <a href="mailto:contact@inventist.jp">contact@inventist.jp</a>（＊メールアドレスは確定後に差し替え）</td></tr>
+    </table>
+    <p class="disclaimer mt-m">＊ 特定商取引法・景品表示法に基づく表示は、サービス内容・料金の確定に合わせて整備します。</p>
+  </div>
+</section>
+
+<!-- お問い合わせ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="grid grid-2" style="gap:48px;align-items:start">
+      <div>
+        <span class="eyebrow">CONTACT</span>
+        <h2 style="font-size:clamp(22px,2.5vw,28px);margin:14px 0 14px">お問い合わせ</h2>
+        <p style="color:var(--muted);margin-bottom:20px">サービスに関するご質問、取材・提携のご相談など、どんなことでもお気軽にどうぞ。</p>
+        <ul class="checks">
+          <li>特許の検索・データベースについて</li>
+          <li>特許取得支援（出願・調査・戦略）について</li>
+          <li>特許の売却・買収・ライセンスについて</li>
+          <li>提携・取材・その他のお問い合わせ</li>
+        </ul>
+      </div>
+      <div class="form-wrap">
+        <h3 style="margin-bottom:18px">お問い合わせフォーム</h3>
+        <!-- action はデプロイ時にフォームサービスのURLへ差し替え -->
+        <form action="https://formspree.io/f/your-form-id" method="POST">
+          <input type="hidden" name="_subject" value="【inventist.jp】お問い合わせ">
+          <div class="form-row">
+            <div class="field"><label>お名前<span class="req">＊</span></label><input type="text" name="name" required></div>
+            <div class="field"><label>会社・組織名</label><input type="text" name="company"></div>
+          </div>
+          <div class="field"><label>メールアドレス<span class="req">＊</span></label><input type="email" name="email" required></div>
+          <div class="field"><label>お問い合わせ種別</label>
+            <select name="type"><option>特許データベースについて</option><option>特許取得支援について</option><option>特許の売却・買収について</option><option>提携・取材</option><option>その他</option></select>
+          </div>
+          <div class="field"><label>お問い合わせ内容<span class="req">＊</span></label><textarea name="message" required></textarea></div>
+          <div class="field consent"><input type="checkbox" id="c4" name="consent" required><label for="c4" style="font-weight:400"><a href="privacy.html" target="_blank">プライバシーポリシー</a>に同意します<span class="req">＊</span></label></div>
+          <button class="btn btn--primary btn--lg" type="submit" style="width:100%">送信する</button>
+          <p class="form-note">いただいた情報は、お問い合わせ対応の目的にのみ利用します。</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="brand">inventist<span class="dot">.</span>jp</div><p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。</p></div>
+      <div><h5>サービス</h5><ul><li><a href="database.html">特許データベース</a></li><li><a href="patent-acquisition.html">特許取得支援</a></li><li><a href="patent-trade.html">特許の買収・売却</a></li></ul></div>
+      <div><h5>会社</h5><ul><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
+      <div><h5>はじめる</h5><ul><li><a href="patent-trade.html#sell">売却を登録</a></li><li><a href="patent-trade.html#buy">買収ニーズを登録</a></li><li><a href="database.html">特許を検索</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 inventist.jp</span><span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span></div>
+  </div>
+</footer>
+
+<script>var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');if(t)t.addEventListener('click',function(){n.classList.toggle('open');});</script>
+</body>
+</html>

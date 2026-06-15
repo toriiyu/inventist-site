@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>inventist.jp｜特許の検索・取得支援・売買マッチングをつなぐ知財プラットフォーム</title>
+<meta name="description" content="inventist.jp は、発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。特許データベース検索、特許取得支援、特許の買収・売却マッチングを一つの入口から。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="database.html">特許データベース</a></li>
+        <li><a href="patent-acquisition.html">特許取得支援</a></li>
+        <li><a href="patent-trade.html">買収・売却</a></li>
+        <li><a href="company.html">会社情報</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a href="company.html#contact" class="btn btn--primary">お問い合わせ</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">発明を、価値に。</span>
+    <h1>特許の<span class="hl">検索</span>・<span class="hl">取得</span>・<span class="hl">売買</span>を、<br>ひとつの入口から。</h1>
+    <p class="lead">inventist.jp は、発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォームです。データベースで特許を探し、権利化を支援し、特許の買い手と売り手をマッチングします。</p>
+    <div class="hero-actions">
+      <a href="database.html" class="btn btn--on-navy btn--lg">特許を検索する</a>
+      <a href="#services" class="btn btn--ghost btn--lg" style="color:#fff;border-color:rgba(255,255,255,.3)">3つのサービス</a>
+    </div>
+
+    <div class="hero-search">
+      <form action="https://www.j-platpat.inpit.go.jp/" target="_blank" rel="noopener" onsubmit="return invSearch(event)">
+        <input id="heroQuery" type="text" placeholder="キーワード・特許番号・技術分野で検索（例：二次電池 固体電解質）" aria-label="特許検索">
+        <button class="btn btn--primary" type="submit">検索</button>
+      </form>
+      <p class="hint">J-PlatPat / Google Patents の公報検索に連携します。Phase 1 では外部の公式データベースへ橋渡しします。</p>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">3</div><div class="lbl">事業領域</div></div>
+      <div class="hero-stat"><div class="num">1億件＋</div><div class="lbl">国内外の特許公報（検索連携）</div></div>
+      <div class="hero-stat"><div class="num">無料</div><div class="lbl">初回相談・登録</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">SERVICES</span>
+      <h2>3つの事業で、知財のライフサイクルを支える</h2>
+      <p>「探す」から「権利化する」「取引する」まで。発明と特許が動くすべての局面に伴走します。</p>
+    </div>
+    <div class="grid grid-3">
+
+      <div class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
+        <span class="tag">01 ／ DATABASE</span>
+        <h3>特許データベース</h3>
+        <p>キーワード・特許番号・技術分野から、国内外の特許公報を検索。J-PlatPat や Google Patents の公式データベースへスムーズに連携します。</p>
+        <a class="card-link" href="database.html">特許を検索する</a>
+      </div>
+
+      <div class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 8-4.5-.5-8-3-8-8V7z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <span class="tag">02 ／ ACQUISITION</span>
+        <h3>特許取得支援</h3>
+        <p>発明の発掘・先行技術調査から、提携弁理士による出願・権利化までを支援。知財戦略のコンサルティングで事業化を後押しします。</p>
+        <a class="card-link" href="patent-acquisition.html">権利化を相談する</a>
+      </div>
+
+      <div class="card">
+        <div class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h13l-3-3"/><path d="M21 17H8l3 3"/></svg>
+        </div>
+        <span class="tag">03 ／ M&amp;A・LICENSE</span>
+        <h3>特許の買収・売却</h3>
+        <p>休眠特許を売りたい権利者と、ポートフォリオを強化したい事業会社・投資家をマッチング。売買・ライセンスの仲介を行います。</p>
+        <a class="card-link" href="patent-trade.html">案件を見る・登録する</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FLOW / VALUE -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="grid grid-2" style="align-items:center;gap:48px">
+      <div class="lead-block">
+        <span class="eyebrow">WHY INVENTIST</span>
+        <h2 style="font-size:clamp(22px,2.6vw,30px);margin-bottom:18px">知財を「眠らせない」ための導線設計</h2>
+        <p style="color:var(--muted);margin-bottom:22px">特許は、取得して終わりではありません。検索で技術動向をつかみ、必要な発明を権利化し、使われていない特許を必要とする人へ届ける——その一連の流れを、inventist.jp はひとつの場所で支えます。</p>
+        <ul class="checks">
+          <li>公式データベースに連携した、信頼できる特許検索</li>
+          <li>提携弁理士・特許事務所との連携による権利化支援</li>
+          <li>売り手と買い手をつなぐ、特許の売買・ライセンス仲介</li>
+          <li>秘密保持・本人確認に配慮した案件運用</li>
+        </ul>
+      </div>
+      <div>
+        <div class="steps">
+          <div class="step"><div class="n"></div><div><h4>探す</h4><p>技術動向や先行技術を、特許データベースで把握する。</p></div></div>
+          <div class="step"><div class="n"></div><div><h4>権利化する</h4><p>発明発掘・先行技術調査を経て、提携弁理士が出願・登録を担当。</p></div></div>
+          <div class="step"><div class="n"></div><div><h4>活かす・取引する</h4><p>保有特許を売却・ライセンス、あるいは必要な特許を取得する。</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">FOR WHOM</span>
+      <h2>こんな方に</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <span class="tag">取得支援</span>
+        <h3>発明者・スタートアップ・中小企業</h3>
+        <p>「自社の発明を権利化したい」。何から始めればよいか、費用や流れも含めて相談できます。</p>
+        <a class="card-link" href="patent-acquisition.html">取得支援を見る</a>
+      </div>
+      <div class="card">
+        <span class="tag">売却・ライセンス</span>
+        <h3>特許保有者・大学・研究機関</h3>
+        <p>「使われていない特許を売却・ライセンスしたい」。休眠特許の出口をつくります。</p>
+        <a class="card-link" href="patent-trade.html#sell">売却を登録する</a>
+      </div>
+      <div class="card">
+        <span class="tag">買収</span>
+        <h3>事業会社・投資家・知財ファンド</h3>
+        <p>「ポートフォリオを強化したい」。ニーズを登録し、条件に合う特許とマッチング。</p>
+        <a class="card-link" href="patent-trade.html#buy">買収ニーズを登録する</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="cta-band">
+      <h2>まずは、無料で相談・登録を。</h2>
+      <p>権利化のご相談も、特許の売却・買収のご登録も、初回は無料です。お気軽にお問い合わせください。</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="company.html#contact" class="btn btn--on-navy btn--lg">お問い合わせ</a>
+        <a href="patent-trade.html" class="btn btn--ghost btn--lg" style="color:#fff;border-color:rgba(255,255,255,.4)">案件を見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">inventist<span class="dot">.</span>jp</div>
+        <p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。特許の検索・取得支援・売買マッチングを提供します。</p>
+      </div>
+      <div>
+        <h5>サービス</h5>
+        <ul>
+          <li><a href="database.html">特許データベース</a></li>
+          <li><a href="patent-acquisition.html">特許取得支援</a></li>
+          <li><a href="patent-trade.html">特許の買収・売却</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>会社</h5>
+        <ul>
+          <li><a href="company.html">会社情報</a></li>
+          <li><a href="company.html#contact">お問い合わせ</a></li>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>はじめる</h5>
+        <ul>
+          <li><a href="patent-trade.html#sell">売却を登録</a></li>
+          <li><a href="patent-trade.html#buy">買収ニーズを登録</a></li>
+          <li><a href="database.html">特許を検索</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 inventist.jp</span>
+      <span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // モバイルメニュー
+  var t = document.getElementById('navToggle'), n = document.getElementById('navLinks');
+  if (t) t.addEventListener('click', function(){ n.classList.toggle('open'); });
+  // ヒーロー検索 → J-PlatPat 簡易検索（キーワード）へ
+  function invSearch(e){
+    e.preventDefault();
+    var q = document.getElementById('heroQuery').value.trim();
+    if(!q){ window.open('https://www.j-platpat.inpit.go.jp/','_blank','noopener'); return false; }
+    // Google Patents のキーワード検索に連携（公式・リンク可）
+    window.open('https://patents.google.com/?q=' + encodeURIComponent(q), '_blank', 'noopener');
+    return false;
+  }
+</script>
+</body>
+</html>
