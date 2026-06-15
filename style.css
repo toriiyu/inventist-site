@@ -1,31 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap');
+
 /* =========================================================
    inventist.jp  —  共通スタイルシート
-   信頼性・専門性を軸にしたクリーンな知財プラットフォーム
-   配色: ネイビー × ホワイト + アクセントのスチールブルー
+   高級感のある知財プラットフォーム
+   配色: ディープネイビー × ウォームゴールド + スチールブルー
    ========================================================= */
 
 :root {
-  --navy:        #0f2747;
-  --navy-deep:   #0a1c33;
+  --navy:        #0e2545;
+  --navy-deep:   #081627;
   --navy-soft:   #1d3a63;
   --steel:       #2e6fb0;
-  --steel-light: #4f8fd0;
-  --accent:      #c9a227;   /* 控えめなゴールド（信頼・知財の格） */
-  --ink:         #1a2330;
-  --text:        #38424f;
+  --steel-light: #6fa6dd;
+  --accent:      #c9a227;   /* ウォームゴールド（知財の格・高級感） */
+  --accent-soft: #e3c878;
+  --gold-grad:   linear-gradient(120deg,#e7cf8a,#c9a227 55%,#9c7c18);
+  --ink:         #16202e;
+  --text:        #3a4654;
   --muted:       #6b7785;
-  --line:        #e2e7ee;
+  --line:        #e6ebf2;
+  --line-strong: #d3dbe6;
   --bg:          #ffffff;
-  --bg-soft:     #f5f8fc;
+  --bg-soft:     #f6f9fc;
   --bg-tint:     #eef3f9;
+  --bg-cream:    #faf8f3;
   --white:       #ffffff;
-  --radius:      12px;
-  --radius-sm:   8px;
-  --shadow:      0 1px 2px rgba(15,39,71,.06), 0 8px 24px rgba(15,39,71,.06);
-  --shadow-lg:   0 12px 40px rgba(15,39,71,.12);
-  --maxw:        1120px;
+  --radius:      14px;
+  --radius-sm:   9px;
+  --shadow:      0 1px 2px rgba(14,37,69,.05), 0 10px 30px rgba(14,37,69,.07);
+  --shadow-lg:   0 24px 60px rgba(14,37,69,.16);
+  --maxw:        1160px;
   --font: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
           "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+  --display: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --serif-en: "Cormorant Garamond", "Noto Serif JP", serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -302,3 +310,111 @@ h1, h2, h3, h4 { color: var(--ink); line-height: 1.4; font-weight: 700; letter-s
   .footer-grid { grid-template-columns: 1fr; }
   .hero-stats { gap: 24px; }
 }
+
+/* =========================================================
+   PREMIUM LAYER — 高級感・動的演出
+   ========================================================= */
+
+/* --- 上質なディスプレイ書体（見出しは明朝で格を出す） --- */
+.hero h1, .pagehero h1, .section-head h2, .cta-band h2,
+.kb-card h3, .article h1, .article h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+.hero h1, .pagehero h1 { font-weight: 600; }
+.brand { letter-spacing: .01em; }
+.eyebrow { font-family: var(--serif-en); font-style: normal; letter-spacing: .35em; font-weight: 600; font-size: 12.5px; }
+
+/* --- ゴールドのヘアライン装飾 --- */
+.eyebrow::before { content:""; display:inline-block; width:26px; height:1px; background:var(--gold-grad); vertical-align:middle; margin-right:12px; opacity:.9; }
+.section-head { position: relative; }
+
+/* gradient gold text accent */
+.gold { background: var(--gold-grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+/* --- ヘッダー：スクロールでガラス質感 --- */
+.site-header { transition: background .3s, box-shadow .3s, border-color .3s; }
+.site-header.scrolled { background: rgba(255,255,255,.85); box-shadow: 0 6px 24px rgba(14,37,69,.08); border-bottom-color: transparent; backdrop-filter: saturate(180%) blur(14px); }
+.nav-links a { position: relative; }
+.nav-links a::after { content:""; position:absolute; left:0; bottom:-6px; width:0; height:2px; background:var(--gold-grad); transition:width .25s ease; border-radius:2px; }
+.nav-links a:hover::after { width:100%; }
+
+/* --- ボタンを上質に --- */
+.btn { border-radius: 999px; transition: all .22s cubic-bezier(.2,.7,.3,1); }
+.btn--primary { background: linear-gradient(120deg, var(--steel), var(--navy)); box-shadow: 0 6px 18px rgba(46,111,176,.28); }
+.btn--primary:hover { box-shadow: 0 10px 26px rgba(14,37,69,.34); transform: translateY(-2px); }
+.btn--on-navy { box-shadow: 0 8px 22px rgba(0,0,0,.18); }
+.btn--gold { background: var(--gold-grad); color: var(--navy-deep); font-weight: 800; box-shadow: 0 8px 22px rgba(201,162,39,.35); }
+.btn--gold:hover { color: var(--navy-deep); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(201,162,39,.45); }
+
+/* --- カードを上質に（ゴールドの上辺・浮遊） --- */
+.card { border-radius: var(--radius); position: relative; overflow: hidden; }
+.card::before { content:""; position:absolute; top:0; left:0; right:0; height:3px; background:var(--gold-grad); transform:scaleX(0); transform-origin:left; transition:transform .35s ease; }
+.card:hover::before { transform: scaleX(1); }
+.card .ic { background: linear-gradient(140deg, var(--bg-tint), #fff); border:1px solid var(--line); }
+.card:hover { box-shadow: var(--shadow-lg); }
+
+/* --- 番号ステップを上質に --- */
+.step .n { background: var(--navy); box-shadow: 0 6px 16px rgba(14,37,69,.25); position:relative; }
+.step .n::after { content:""; position:absolute; inset:-3px; border-radius:50%; border:1px solid rgba(201,162,39,.45); }
+
+/* --- セクション背景にクリーム面を追加できるように --- */
+.section--cream { background: var(--bg-cream); }
+.cta-band { background: radial-gradient(120% 140% at 0% 0%, var(--navy-soft), var(--navy-deep) 70%); position:relative; overflow:hidden; }
+.cta-band::after { content:""; position:absolute; inset:0; background-image: radial-gradient(rgba(201,162,39,.12) 1px, transparent 1px); background-size: 26px 26px; mask-image: radial-gradient(60% 80% at 50% 0%, #000, transparent); }
+
+/* =========================================================
+   DYNAMIC HERO — 動的ヒーロー
+   ========================================================= */
+.hero { padding: 120px 0 96px; }
+.hero-canvas { position:absolute; inset:0; width:100%; height:100%; z-index:0; }
+.hero .container { position: relative; z-index: 2; }
+.hero::before {
+  content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    radial-gradient(900px 500px at 78% 8%, rgba(111,166,221,.20), transparent 60%),
+    radial-gradient(700px 500px at 12% 90%, rgba(201,162,39,.12), transparent 60%);
+  animation: auroraShift 16s ease-in-out infinite alternate;
+}
+@keyframes auroraShift {
+  0% { transform: translate3d(0,0,0) scale(1); opacity:.9; }
+  100% { transform: translate3d(-2%,1.5%,0) scale(1.08); opacity:1; }
+}
+.hero h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.26; }
+.hero h1 .hl { background: var(--gold-grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.hero .lead { color:#cfdcef; }
+
+/* glass search */
+.hero-search { background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border:1px solid rgba(255,255,255,.6); box-shadow: 0 24px 60px rgba(0,0,0,.28); }
+
+/* badge row */
+.hero-eyebrow { display:inline-flex; align-items:center; gap:10px; padding:7px 16px 7px 12px; border:1px solid rgba(255,255,255,.18); border-radius:999px; background:rgba(255,255,255,.06); color:#dfe9f7; font-size:12.5px; letter-spacing:.14em; margin-bottom:22px; backdrop-filter:blur(6px); }
+.hero-eyebrow .dotmark { width:7px; height:7px; border-radius:50%; background:var(--accent-soft); box-shadow:0 0 0 4px rgba(201,162,39,.18); animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{ opacity:1 } 50%{ opacity:.35 } }
+
+/* stats: gold numerals */
+.hero-stat .num { font-family: var(--serif-en); font-size: 34px; line-height:1; background: var(--gold-grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.hero-stats { gap: 48px; }
+
+/* floating accent orbs */
+.orb { position:absolute; border-radius:50%; filter: blur(2px); z-index:1; pointer-events:none; opacity:.5; }
+.orb--1 { width:10px; height:10px; background:var(--accent-soft); top:24%; left:62%; animation: float1 7s ease-in-out infinite; }
+.orb--2 { width:7px; height:7px; background:var(--steel-light); top:62%; left:48%; animation: float2 9s ease-in-out infinite; }
+.orb--3 { width:5px; height:5px; background:#fff; top:38%; left:84%; animation: float1 11s ease-in-out infinite; }
+@keyframes float1 { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-22px) } }
+@keyframes float2 { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(18px) } }
+
+/* =========================================================
+   SCROLL REVEAL
+   ========================================================= */
+.reveal { opacity:0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); will-change: opacity, transform; }
+.reveal.in { opacity:1; transform: none; }
+.reveal.d1 { transition-delay:.08s } .reveal.d2 { transition-delay:.16s } .reveal.d3 { transition-delay:.24s }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity:1; transform:none; transition:none } .hero::before,.orb,.hero-eyebrow .dotmark { animation:none } }
+
+/* home teaser cards (knowledge / featured) */
+.feature-band { background: linear-gradient(180deg, var(--bg-soft), #fff); }
+.split { display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; }
+@media (max-width:900px){ .split{ grid-template-columns:1fr; gap:32px } .hero{ padding:84px 0 64px } }
+

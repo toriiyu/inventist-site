@@ -3,15 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>inventist.jp｜特許の検索・取得支援・売買マッチングをつなぐ知財プラットフォーム</title>
+<title>inventist.jp｜特許の検索・取得・売買をつなぐ知財プラットフォーム</title>
 <meta name="description" content="inventist.jp は、発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。特許データベース検索、特許取得支援、特許の買収・売却マッチングを一つの入口から。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- HEADER -->
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="container nav">
     <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
     <nav>
@@ -30,29 +29,31 @@
   </div>
 </header>
 
-<!-- HERO -->
+<!-- HERO（動的） -->
 <section class="hero">
+  <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+  <span class="orb orb--1"></span><span class="orb orb--2"></span><span class="orb orb--3"></span>
   <div class="container">
-    <span class="eyebrow">発明を、価値に。</span>
+    <span class="hero-eyebrow"><span class="dotmark"></span> PATENT PLATFORM ・ 発明を、価値に。</span>
     <h1>特許の<span class="hl">検索</span>・<span class="hl">取得</span>・<span class="hl">売買</span>を、<br>ひとつの入口から。</h1>
-    <p class="lead">inventist.jp は、発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォームです。データベースで特許を探し、権利化を支援し、特許の買い手と売り手をマッチングします。</p>
+    <p class="lead">inventist.jp は、発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。データベースで特許を探し、権利化を支援し、特許の買い手と売り手をマッチングします。</p>
     <div class="hero-actions">
-      <a href="database.html" class="btn btn--on-navy btn--lg">特許を検索する</a>
-      <a href="#services" class="btn btn--ghost btn--lg" style="color:#fff;border-color:rgba(255,255,255,.3)">3つのサービス</a>
+      <a href="database.html" class="btn btn--gold btn--lg">特許を検索する</a>
+      <a href="#services" class="btn btn--ghost btn--lg" style="color:#fff;border-color:rgba(255,255,255,.32)">3つのサービス</a>
     </div>
 
     <div class="hero-search">
-      <form action="https://www.j-platpat.inpit.go.jp/" target="_blank" rel="noopener" onsubmit="return invSearch(event)">
+      <form onsubmit="return invSearch(event)">
         <input id="heroQuery" type="text" placeholder="キーワード・特許番号・技術分野で検索（例：二次電池 固体電解質）" aria-label="特許検索">
         <button class="btn btn--primary" type="submit">検索</button>
       </form>
-      <p class="hint">J-PlatPat / Google Patents の公報検索に連携します。Phase 1 では外部の公式データベースへ橋渡しします。</p>
+      <p class="hint">J-PlatPat / Google Patents の公報検索に連携します。</p>
     </div>
 
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num">3</div><div class="lbl">事業領域</div></div>
-      <div class="hero-stat"><div class="num">1億件＋</div><div class="lbl">国内外の特許公報（検索連携）</div></div>
-      <div class="hero-stat"><div class="num">無料</div><div class="lbl">初回相談・登録</div></div>
+      <div class="hero-stat"><div class="num" data-count="3">0</div><div class="lbl">事業領域</div></div>
+      <div class="hero-stat"><div class="num" data-count="1" data-suffix="億件＋">0</div><div class="lbl">国内外の特許公報（検索連携）</div></div>
+      <div class="hero-stat"><div class="num" data-text="無料">無料</div><div class="lbl">初回相談・登録</div></div>
     </div>
   </div>
 </section>
@@ -60,37 +61,31 @@
 <!-- SERVICES -->
 <section class="section" id="services">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal" style="margin:0 auto 52px;text-align:center;max-width:760px">
       <span class="eyebrow">SERVICES</span>
       <h2>3つの事業で、知財のライフサイクルを支える</h2>
       <p>「探す」から「権利化する」「取引する」まで。発明と特許が動くすべての局面に伴走します。</p>
     </div>
     <div class="grid grid-3">
 
-      <div class="card">
-        <div class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        </div>
+      <div class="card reveal d1">
+        <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
         <span class="tag">01 ／ DATABASE</span>
         <h3>特許データベース</h3>
         <p>キーワード・特許番号・技術分野から、国内外の特許公報を検索。J-PlatPat や Google Patents の公式データベースへスムーズに連携します。</p>
         <a class="card-link" href="database.html">特許を検索する</a>
       </div>
 
-      <div class="card">
-        <div class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 8-4.5-.5-8-3-8-8V7z"/><path d="m9 12 2 2 4-4"/></svg>
-        </div>
+      <div class="card reveal d2">
+        <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 8-4.5-.5-8-3-8-8V7z"/><path d="m9 12 2 2 4-4"/></svg></div>
         <span class="tag">02 ／ ACQUISITION</span>
         <h3>特許取得支援</h3>
         <p>発明の発掘・先行技術調査から、提携弁理士による出願・権利化までを支援。知財戦略のコンサルティングで事業化を後押しします。</p>
         <a class="card-link" href="patent-acquisition.html">権利化を相談する</a>
       </div>
 
-      <div class="card">
-        <div class="ic" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h13l-3-3"/><path d="M21 17H8l3 3"/></svg>
-        </div>
+      <div class="card reveal d3">
+        <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h13l-3-3"/><path d="M21 17H8l3 3"/></svg></div>
         <span class="tag">03 ／ M&amp;A・LICENSE</span>
         <h3>特許の買収・売却</h3>
         <p>休眠特許を売りたい権利者と、ポートフォリオを強化したい事業会社・投資家をマッチング。売買・ライセンスの仲介を行います。</p>
@@ -102,13 +97,13 @@
 </section>
 
 <!-- FLOW / VALUE -->
-<section class="section section--soft">
+<section class="section section--cream">
   <div class="container">
-    <div class="grid grid-2" style="align-items:center;gap:48px">
-      <div class="lead-block">
+    <div class="split">
+      <div class="lead-block reveal">
         <span class="eyebrow">WHY INVENTIST</span>
-        <h2 style="font-size:clamp(22px,2.6vw,30px);margin-bottom:18px">知財を「眠らせない」ための導線設計</h2>
-        <p style="color:var(--muted);margin-bottom:22px">特許は、取得して終わりではありません。検索で技術動向をつかみ、必要な発明を権利化し、使われていない特許を必要とする人へ届ける——その一連の流れを、inventist.jp はひとつの場所で支えます。</p>
+        <h2 style="font-size:clamp(24px,2.8vw,34px);margin-bottom:18px">知財を「眠らせない」ための導線設計</h2>
+        <p style="color:var(--muted);margin-bottom:24px">特許は、取得して終わりではありません。検索で技術動向をつかみ、必要な発明を権利化し、使われていない特許を必要とする人へ届ける——その一連の流れを、inventist.jp はひとつの場所で支えます。</p>
         <ul class="checks">
           <li>公式データベースに連携した、信頼できる特許検索</li>
           <li>提携弁理士・特許事務所との連携による権利化支援</li>
@@ -116,7 +111,7 @@
           <li>秘密保持・本人確認に配慮した案件運用</li>
         </ul>
       </div>
-      <div>
+      <div class="reveal d1">
         <div class="steps">
           <div class="step"><div class="n"></div><div><h4>探す</h4><p>技術動向や先行技術を、特許データベースで把握する。</p></div></div>
           <div class="step"><div class="n"></div><div><h4>権利化する</h4><p>発明発掘・先行技術調査を経て、提携弁理士が出願・登録を担当。</p></div></div>
@@ -130,24 +125,24 @@
 <!-- AUDIENCE -->
 <section class="section">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal" style="margin:0 auto 48px;text-align:center;max-width:680px">
       <span class="eyebrow">FOR WHOM</span>
       <h2>こんな方に</h2>
     </div>
     <div class="grid grid-3">
-      <div class="card">
+      <div class="card reveal d1">
         <span class="tag">取得支援</span>
         <h3>発明者・スタートアップ・中小企業</h3>
         <p>「自社の発明を権利化したい」。何から始めればよいか、費用や流れも含めて相談できます。</p>
         <a class="card-link" href="patent-acquisition.html">取得支援を見る</a>
       </div>
-      <div class="card">
+      <div class="card reveal d2">
         <span class="tag">売却・ライセンス</span>
         <h3>特許保有者・大学・研究機関</h3>
         <p>「使われていない特許を売却・ライセンスしたい」。休眠特許の出口をつくります。</p>
         <a class="card-link" href="patent-trade.html#sell">売却を登録する</a>
       </div>
-      <div class="card">
+      <div class="card reveal d3">
         <span class="tag">買収</span>
         <h3>事業会社・投資家・知財ファンド</h3>
         <p>「ポートフォリオを強化したい」。ニーズを登録し、条件に合う特許とマッチング。</p>
@@ -157,14 +152,45 @@
   </div>
 </section>
 
-<!-- CTA -->
-<section class="section section--soft">
+<!-- KNOWLEDGE TEASER -->
+<section class="section feature-band">
   <div class="container">
-    <div class="cta-band">
+    <div class="section-head reveal" style="margin:0 auto 44px;text-align:center;max-width:680px">
+      <span class="eyebrow">KNOWLEDGE</span>
+      <h2>知財を、事業に活かすために</h2>
+      <p>取得・活用・売買の実務を、やさしく解説しています。</p>
+    </div>
+    <div class="grid grid-3">
+      <a class="card reveal d1" href="article-patent-application.html" style="text-decoration:none">
+        <span class="tag">特許取得</span>
+        <h3>特許出願の基本的な流れ</h3>
+        <p>アイデアから登録まで、はじめての方向けに全体像を整理します。</p>
+        <span class="card-link">記事を読む</span>
+      </a>
+      <a class="card reveal d2" href="article-dormant-patents.html" style="text-decoration:none">
+        <span class="tag">特許の売買</span>
+        <h3>休眠特許を「眠らせない」</h3>
+        <p>使われていない特許を、売却・ライセンスで価値に変える方法。</p>
+        <span class="card-link">記事を読む</span>
+      </a>
+      <a class="card reveal d3" href="article-prior-art-search.html" style="text-decoration:none">
+        <span class="tag">先行技術調査</span>
+        <h3>先行技術調査の重要性</h3>
+        <p>出願前に「似た特許」を確かめる。基本と無料ツールを紹介。</p>
+        <span class="card-link">記事を読む</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="container">
+    <div class="cta-band reveal">
       <h2>まずは、無料で相談・登録を。</h2>
       <p>権利化のご相談も、特許の売却・買収のご登録も、初回は無料です。お気軽にお問い合わせください。</p>
-      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-        <a href="company.html#contact" class="btn btn--on-navy btn--lg">お問い合わせ</a>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1">
+        <a href="company.html#contact" class="btn btn--gold btn--lg">お問い合わせ</a>
         <a href="patent-trade.html" class="btn btn--ghost btn--lg" style="color:#fff;border-color:rgba(255,255,255,.4)">案件を見る</a>
       </div>
     </div>
@@ -216,15 +242,92 @@
   // モバイルメニュー
   var t = document.getElementById('navToggle'), n = document.getElementById('navLinks');
   if (t) t.addEventListener('click', function(){ n.classList.toggle('open'); });
-  // ヒーロー検索 → J-PlatPat 簡易検索（キーワード）へ
+
+  // ヘッダー：スクロールでガラス化
+  var header = document.getElementById('siteHeader');
+  function onScroll(){ if(window.scrollY > 24) header.classList.add('scrolled'); else header.classList.remove('scrolled'); }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // ヒーロー検索
   function invSearch(e){
     e.preventDefault();
     var q = document.getElementById('heroQuery').value.trim();
     if(!q){ window.open('https://www.j-platpat.inpit.go.jp/','_blank','noopener'); return false; }
-    // Google Patents のキーワード検索に連携（公式・リンク可）
     window.open('https://patents.google.com/?q=' + encodeURIComponent(q), '_blank', 'noopener');
     return false;
   }
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // スクロールリビール
+  var revs = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, {threshold:.14});
+    revs.forEach(function(el){ io.observe(el); });
+  } else { revs.forEach(function(el){ el.classList.add('in'); }); }
+
+  // 数字カウントアップ
+  function countUp(el){
+    var text = el.getAttribute('data-text');
+    if(text){ el.textContent = text; return; }
+    var target = parseFloat(el.getAttribute('data-count'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    if(reduce){ el.textContent = target + suffix; return; }
+    var start = null, dur = 1200;
+    function step(ts){ if(!start)start=ts; var p=Math.min((ts-start)/dur,1); var val=Math.round(target*(0.5-Math.cos(p*Math.PI)/2)); el.textContent = val + suffix; if(p<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  var stats = document.querySelectorAll('.hero-stat .num');
+  if('IntersectionObserver' in window){
+    var io2 = new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ countUp(en.target); io2.unobserve(en.target); } }); }, {threshold:.5});
+    stats.forEach(function(el){ io2.observe(el); });
+  } else { stats.forEach(countUp); }
+
+  // 動的ヒーロー：特許ネットワーク（canvas）
+  (function(){
+    var canvas = document.getElementById('heroCanvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var w, h, dpr = Math.min(window.devicePixelRatio||1, 2), nodes = [], raf;
+    function resize(){
+      var r = canvas.getBoundingClientRect();
+      w = r.width; h = r.height;
+      canvas.width = w*dpr; canvas.height = h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      var count = Math.max(28, Math.min(64, Math.floor(w/26)));
+      nodes = [];
+      for(var i=0;i<count;i++){
+        nodes.push({ x:Math.random()*w, y:Math.random()*h, vx:(Math.random()-.5)*.22, vy:(Math.random()-.5)*.22, r:Math.random()*1.6+0.6, gold:Math.random()<0.18 });
+      }
+    }
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      for(var i=0;i<nodes.length;i++){
+        var a=nodes[i]; a.x+=a.vx; a.y+=a.vy;
+        if(a.x<0||a.x>w) a.vx*=-1; if(a.y<0||a.y>h) a.vy*=-1;
+        for(var j=i+1;j<nodes.length;j++){
+          var b=nodes[j], dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
+          if(d<128){
+            var o=(1-d/128)*0.5;
+            ctx.strokeStyle='rgba(120,164,214,'+o*0.55+')';
+            ctx.lineWidth=0.6; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+          }
+        }
+      }
+      for(var k=0;k<nodes.length;k++){
+        var p=nodes[k];
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = p.gold ? 'rgba(227,200,120,.9)' : 'rgba(170,200,235,.7)';
+        ctx.fill();
+        if(p.gold){ ctx.beginPath(); ctx.arc(p.x,p.y,p.r+3.5,0,Math.PI*2); ctx.strokeStyle='rgba(227,200,120,.25)'; ctx.lineWidth=1; ctx.stroke(); }
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    if(reduce){ resize(); /* draw a single static frame */ draw(); cancelAnimationFrame(raf); }
+    else { resize(); draw(); }
+    var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(resize,200); });
+  })();
 </script>
 </body>
 </html>
