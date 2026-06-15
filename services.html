@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>サービス一覧｜特許の検索・調査・取得・売買を網羅｜inventist.jp</title>
+<meta name="description" content="inventist.jp のサービス一覧。特許データベース、AIを活用した特許調査支援、知財ポートフォリオ管理、特許インテリジェンス、FTO調査、ブランド・商標、係争・ライセンス交渉、知財コンサルティング、特許取得支援、買収・売却まで。">
+<link rel="stylesheet" href="style.css">
+<style>
+  .svc-grid{display:grid;gap:22px;grid-template-columns:repeat(3,1fr)}
+  .svc{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s}
+  .svc::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold-grad);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+  .svc:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .svc:hover::before{transform:scaleX(1)}
+  .svc .ic{width:46px;height:46px;border-radius:11px;background:linear-gradient(140deg,var(--bg-tint),#fff);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--steel);margin-bottom:16px}
+  .svc .ic svg{width:23px;height:23px}
+  .svc h3{font-size:18px;margin-bottom:9px}
+  .svc p{color:var(--muted);font-size:14px;margin-bottom:16px}
+  .svc .lk{margin-top:auto;font-weight:700;font-size:14px;color:var(--steel)}
+  .svc .lk::after{content:" →"}
+  /* featured: 特許調査支援 */
+  .feat{position:relative;border-radius:var(--radius);overflow:hidden;background:radial-gradient(120% 140% at 0% 0%,var(--navy-soft),var(--navy-deep) 70%);color:#dce6f3;padding:48px}
+  .feat::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(201,162,39,.10) 1px,transparent 1px);background-size:24px 24px;mask-image:radial-gradient(70% 90% at 80% 0%,#000,transparent);pointer-events:none}
+  .feat .inner{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center}
+  .feat .tagrow{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.16em;color:var(--accent-soft);margin-bottom:14px}
+  .feat h2{color:#fff;font-size:clamp(24px,2.8vw,34px);margin-bottom:14px;line-height:1.35}
+  .feat .sub{color:#c2d1e6;margin-bottom:22px}
+  .feat .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .featlist{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .featlist .f{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 16px;backdrop-filter:blur(6px)}
+  .featlist .f .ft{font-weight:800;color:#fff;font-size:15px;margin-bottom:3px;display:flex;align-items:baseline;gap:6px}
+  .featlist .f .ft b{font-family:var(--serif-en);background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:20px}
+  .featlist .f .fd{font-size:12.5px;color:#b6c4d8}
+  @media(max-width:920px){.svc-grid{grid-template-columns:1fr 1fr}.feat .inner{grid-template-columns:1fr;gap:28px}.feat{padding:34px 24px}}
+  @media(max-width:620px){.svc-grid{grid-template-columns:1fr}.featlist{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="container nav">
+    <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
+    <nav><ul class="nav-links" id="navLinks">
+      <li><a href="services.html">サービス</a></li>
+      <li><a href="database.html">特許データベース</a></li>
+      <li><a href="patent-acquisition.html">特許取得支援</a></li>
+      <li><a href="patent-trade.html">買収・売却</a></li>
+      <li><a href="knowledge.html">ナレッジ</a></li>
+      <li><a href="company.html">会社情報</a></li>
+    </ul></nav>
+    <div class="nav-cta"><a href="company.html#contact" class="btn btn--primary">お問い合わせ</a></div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="pagehero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">ホーム</a> ／ サービス一覧</div>
+    <h1>サービス一覧</h1>
+    <p>特許の「探す・調べる・権利化する・活かす・取引する」をワンストップで。発明者・企業・投資家それぞれの知財ニーズに、データ・ツール・専門家でお応えします。</p>
+  </div>
+</section>
+
+<!-- 目玉：特許調査支援サービス -->
+<section class="section">
+  <div class="container">
+    <div class="feat reveal">
+      <div class="inner">
+        <div>
+          <div class="tagrow"><span class="dotmark" style="width:7px;height:7px;border-radius:50%;background:var(--accent-soft);display:inline-block"></span> FLAGSHIP ・ 特許調査支援サービス</div>
+          <h2>AIで、調査から分析までを<br>ひとつの画面で。</h2>
+          <p class="sub">キーワードのゆらぎを吸収するAI検索、約100カ国の特許文献の串刺し検索、AIによる自動分類、そして知財BIダッシュボードまで。現場の技術者でも、調査から分析までをワンストップで進められる特許調査支援サービスです。</p>
+          <div class="btns">
+            <a href="patent-research.html" class="btn btn--gold btn--lg">特許調査支援を詳しく見る</a>
+            <a href="company.html#contact" class="btn btn--ghost btn--lg" style="color:#fff;border-color:rgba(255,255,255,.32)">無料トライアルを相談</a>
+          </div>
+        </div>
+        <div class="featlist">
+          <div class="f"><div class="ft"><b>AI</b>検索</div><div class="fd">同義語・異表記・英訳を補完し、探し漏れを抑える検索支援。</div></div>
+          <div class="f"><div class="ft"><b>100</b>カ国＋</div><div class="fd">国内外の特許文献を串刺しで一括検索。</div></div>
+          <div class="f"><div class="ft">知財<b>BI</b></div><div class="fd">出願人・分野・年次をダッシュボードで可視化。</div></div>
+          <div class="f"><div class="ft"><b>AI</b>自動分類</div><div class="fd">大量の公報を自動で仕分け、母集団づくりを効率化。</div></div>
+          <div class="f"><div class="ft">ワン<b>STOP</b></div><div class="fd">調査から分析まで、ツールを行き来せず完結。</div></div>
+          <div class="f"><div class="ft"><b>無料</b>試用</div><div class="fd">まずは無料トライアルから。自動課金はありません。</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="disclaimer" style="text-align:center;max-width:760px;margin:16px auto 0">＊ 高度なAI検索・BI機能は順次提供します。現時点では、公式データベース連携の検索に加え、専門家による調査代行・分析レポートの形でご提供します。詳細・トライアルはお問い合わせください。</p>
+  </div>
+</section>
+
+<!-- コアサービス -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="section-head reveal" style="margin:0 auto 40px;text-align:center;max-width:680px">
+      <span class="eyebrow">CORE SERVICES</span>
+      <h2>知財のライフサイクルを支える3事業</h2>
+    </div>
+    <div class="svc-grid" style="grid-template-columns:repeat(3,1fr)">
+      <a class="svc reveal d1" href="database.html">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+        <h3>特許データベース</h3>
+        <p>キーワード・分野で特許を絞り込み検索。J-PlatPat / Google Patents の公式データベースへ連携。</p>
+        <span class="lk">特許を検索する</span>
+      </a>
+      <a class="svc reveal d2" href="patent-acquisition.html">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 8-4.5-.5-8-3-8-8V7z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>特許取得支援</h3>
+        <p>発明発掘・先行技術調査から、提携弁理士による出願・権利化まで。プラン診断シミュレーターも。</p>
+        <span class="lk">権利化を相談する</span>
+      </a>
+      <a class="svc reveal d3" href="patent-trade.html">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h13l-3-3"/><path d="M21 17H8l3 3"/></svg></div>
+        <h3>特許の買収・売却</h3>
+        <p>休眠特許の売り手と、技術を求める買い手をマッチング。条件で絞り込めるマーケットプレイス。</p>
+        <span class="lk">案件を見る・登録する</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 知財ソリューション -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal" style="margin:0 auto 40px;text-align:center;max-width:720px">
+      <span class="eyebrow">IP SOLUTIONS</span>
+      <h2>知財ソリューション</h2>
+      <p>調査・分析・管理から、ブランド・係争・戦略まで。専門家と連携して、幅広い知財ニーズに対応します。</p>
+    </div>
+    <div class="svc-grid">
+
+      <div class="svc reveal d1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 4-6"/></svg></div>
+        <h3>特許インテリジェンス／パテントマップ</h3>
+        <p>技術動向・競合の出願状況・ホワイトスペースを可視化。研究開発や事業戦略の意思決定を支えます。</p>
+        <a class="lk" href="company.html#contact">分析を相談する</a>
+      </div>
+
+      <div class="svc reveal d2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+        <h3>知財ポートフォリオ管理支援</h3>
+        <p>保有特許の棚卸し・年金管理・棚卸し基準づくり。使う権利・手放す権利を整理し、維持コストを最適化します。</p>
+        <a class="lk" href="company.html#contact">管理を相談する</a>
+      </div>
+
+      <div class="svc reveal d3">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 8-4.5-.5-8-3-8-8V7z"/><path d="M12 8v5M12 16h.01"/></svg></div>
+        <h3>FTO・侵害予防調査</h3>
+        <p>製品やサービスが他社特許に抵触しないか（自由実施＝FTO）を調査。事業化前のリスクを早期に把握します。</p>
+        <a class="lk" href="company.html#contact">調査を相談する</a>
+      </div>
+
+      <div class="svc reveal d1">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 17l-5.5 2.8 1-6.3L3 8.9 9 8z"/></svg></div>
+        <h3>ブランド・商標サポート</h3>
+        <p>商標調査・出願、ブランドの保護・活用。特許に加えてブランド領域も、提携専門家と連携して支援します。</p>
+        <a class="lk" href="company.html#contact">商標を相談する</a>
+      </div>
+
+      <div class="svc reveal d2">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v6l9 4 9-4V7"/></svg></div>
+        <h3>係争・ライセンス交渉サポート</h3>
+        <p>侵害・係争に関する情報整理、ライセンス条件の検討・交渉のコーディネート。代理は提携弁護士・弁理士が担当します。</p>
+        <a class="lk" href="company.html#contact">交渉を相談する</a>
+      </div>
+
+      <div class="svc reveal d3">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+        <h3>知財コンサルティング</h3>
+        <p>知財戦略の立案、出願ポートフォリオ設計、IPの事業化・収益化まで。経営と技術の両面から伴走します。</p>
+        <a class="lk" href="company.html#contact">戦略を相談する</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>どのサービスが合うか、まず相談を。</h2>
+      <p>「自社のケースでは何から始めるべきか」も含めて、初回は無料でご相談いただけます。</p>
+      <div style="position:relative;z-index:1;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="company.html#contact" class="btn btn--gold btn--lg">無料で相談する</a>
+        <a href="database.html" class="btn btn--ghost btn--lg" style="color:#fff;border-color:rgba(255,255,255,.4)">特許を検索する</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="brand">inventist<span class="dot">.</span>jp</div><p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。</p></div>
+      <div><h5>サービス</h5><ul><li><a href="services.html">サービス一覧</a></li><li><a href="database.html">特許データベース</a></li><li><a href="patent-acquisition.html">特許取得支援</a></li><li><a href="patent-trade.html">特許の買収・売却</a></li></ul></div>
+      <div><h5>会社</h5><ul><li><a href="knowledge.html">ナレッジ</a></li><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
+      <div><h5>はじめる</h5><ul><li><a href="patent-trade.html#sell">売却を登録</a></li><li><a href="patent-trade.html#buy">買収ニーズを登録</a></li><li><a href="database.html">特許を検索</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 inventist.jp</span><span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span></div>
+  </div>
+</footer>
+
+<script>
+  var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');
+  if(t)t.addEventListener('click',function(){n.classList.toggle('open');});
+  var header=document.getElementById('siteHeader');
+  function onScroll(){ if(window.scrollY>24) header.classList.add('scrolled'); else header.classList.remove('scrolled'); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revs=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.12});
+    revs.forEach(function(el){io.observe(el);});
+  } else { revs.forEach(function(el){el.classList.add('in');}); }
+</script>
+</body>
+</html>

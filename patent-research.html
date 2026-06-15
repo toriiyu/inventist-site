@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>特許調査支援サービス｜AIで調査から分析までワンストップ｜inventist.jp</title>
+<meta name="description" content="inventist.jp の特許調査支援サービス。AI自然文検索、知財BIダッシュボード、AI自動分類、新着監視（SDI）、共有・権限管理まで。調査から分析までをひとつの画面で。30日間無料トライアル。">
+<link rel="stylesheet" href="style.css">
+<style>
+  .pr-hero{background:radial-gradient(120% 140% at 0% 0%,var(--navy-soft),var(--navy-deep) 70%);color:#dce6f3;position:relative;overflow:hidden;padding:84px 0 76px}
+  .pr-hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(700px 380px at 80% 10%,#000,transparent 75%);pointer-events:none}
+  .pr-hero .container{position:relative;z-index:1}
+  .pr-hero h1{color:#fff;font-size:clamp(28px,4vw,46px);line-height:1.3;margin:14px 0 16px}
+  .pr-hero h1 .hl{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .pr-hero .lead{color:#c2d1e6;max-width:42em;margin-bottom:28px}
+  .pr-points{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:38px}
+  .pr-points .pt{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px;backdrop-filter:blur(6px)}
+  .pr-points .pt .v{font-family:var(--serif-en);font-size:24px;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+  .pr-points .pt .t{font-weight:800;color:#fff;font-size:15px;margin:2px 0 3px}
+  .pr-points .pt .d{font-size:12.5px;color:#b6c4d8}
+  /* 機能（4本柱） */
+  .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .pillar{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s}
+  .pillar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold-grad);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+  .pillar:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .pillar:hover::before{transform:scaleX(1)}
+  .pillar .h{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+  .pillar .h .ico{width:42px;height:42px;border-radius:11px;background:linear-gradient(140deg,var(--bg-tint),#fff);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--steel)}
+  .pillar .h .ico svg{width:22px;height:22px}
+  .pillar .h h3{font-size:19px}
+  .pillar .h .en{font-family:var(--serif-en);font-size:13px;color:var(--accent);letter-spacing:.1em}
+  .pillar>p{color:var(--muted);font-size:14px;margin:6px 0 14px}
+  .pillar ul{list-style:none;display:grid;gap:9px}
+  .pillar ul li{position:relative;padding-left:24px;font-size:14px;color:var(--text)}
+  .pillar ul li::before{content:"";position:absolute;left:0;top:7px;width:8px;height:8px;border-radius:2px;background:var(--gold-grad)}
+  /* 選ばれる理由 */
+  .why{display:grid;gap:14px;max-width:920px;margin:0 auto}
+  .why .r{display:flex;gap:18px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 24px}
+  .why .r .num{font-family:var(--serif-en);font-size:30px;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600;min-width:36px}
+  .why .r .tx b{display:block;font-size:16px;color:var(--ink);margin-bottom:2px}
+  .why .r .tx span{font-size:13.5px;color:var(--muted)}
+  /* 料金 */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:0 auto}
+  .plan{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;display:flex;flex-direction:column;position:relative}
+  .plan.featured{border-color:var(--accent);box-shadow:0 14px 40px rgba(201,162,39,.18)}
+  .plan .badge2{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold-grad);color:var(--navy-deep);font-size:11px;font-weight:800;padding:5px 14px;border-radius:999px}
+  .plan h3{font-size:18px;margin-bottom:4px}
+  .plan .price{font-family:var(--serif-en);font-size:30px;color:var(--ink);font-weight:600;margin:6px 0 2px}
+  .plan .price small{font-size:13px;color:var(--muted);font-family:var(--font)}
+  .plan .note2{font-size:12px;color:var(--muted);margin-bottom:16px}
+  .plan ul{list-style:none;display:grid;gap:9px;margin-bottom:20px}
+  .plan ul li{position:relative;padding-left:24px;font-size:13.5px;color:var(--text)}
+  .plan ul li::before{content:"✓";position:absolute;left:0;top:0;color:var(--steel);font-weight:800}
+  .plan .btn{margin-top:auto}
+  .spec{width:100%;border-collapse:collapse;font-size:14px;max-width:920px;margin:0 auto}
+  .spec th,.spec td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line)}
+  .spec th{background:var(--bg-soft);width:26%;color:var(--ink);font-weight:700;white-space:nowrap}
+  @media(max-width:880px){.pillars{grid-template-columns:1fr}.pr-points{grid-template-columns:1fr}.plans{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="container nav">
+    <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
+    <nav><ul class="nav-links" id="navLinks">
+      <li><a href="services.html">サービス</a></li>
+      <li><a href="database.html">特許データベース</a></li>
+      <li><a href="patent-acquisition.html">特許取得支援</a></li>
+      <li><a href="patent-trade.html">買収・売却</a></li>
+      <li><a href="knowledge.html">ナレッジ</a></li>
+      <li><a href="company.html">会社情報</a></li>
+    </ul></nav>
+    <div class="nav-cta"><a href="company.html#contact" class="btn btn--primary">お問い合わせ</a></div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="pr-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html" style="color:#b6c4d8">ホーム</a> ／ <a href="services.html" style="color:#b6c4d8">サービス</a> ／ 特許調査支援サービス</div>
+    <span class="hero-eyebrow"><span class="dotmark"></span> 特許調査支援サービス</span>
+    <h1>AIで、<span class="hl">調査から分析まで</span>を<br>ひとつの画面で。</h1>
+    <p class="lead">キーワードのゆらぎを吸収するAI自然文検索、約100カ国の特許文献の横断検索、AIによる自動分類、そして知財BIダッシュボード。特許調査に慣れていない技術者でも、調査から分析までをツールを行き来せずに進められます。</p>
+    <div class="hero-actions">
+      <a href="company.html#contact" class="btn btn--gold btn--lg">30日間 無料トライアルを相談</a>
+      <a href="database.html" class="btn btn--ghost btn--lg" style="color:#fff;border-color:rgba(255,255,255,.32)">いま検索を試す</a>
+    </div>
+    <div class="pr-points">
+      <div class="pt"><div class="v">AI検索</div><div class="t">表記ゆれを気にしない</div><div class="d">同義語・異表記・英訳を補完。自然文でそのまま検索。</div></div>
+      <div class="pt"><div class="v">100カ国＋</div><div class="t">国内外を横断検索</div><div class="d">日本・米国・欧州・PCT・中国・世界特許を一括で。</div></div>
+      <div class="pt"><div class="v">ワンストップ</div><div class="t">調査から分析まで</div><div class="d">検索・分析・共有・監視をひとつの環境で完結。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- お困り事 -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal" style="margin:0 auto 40px;text-align:center;max-width:720px">
+      <span class="eyebrow">CHALLENGES</span>
+      <h2>特許調査で、こんなお困りごとはありませんか</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card reveal d1"><span class="tag">検索</span><h3>キーワードが思いつかない</h3><p>新しい分野では適切な検索語や分類コードが分からず、探し漏れが起きやすい。AI自然文検索なら、文章を入れるだけで関連特許を引き当てます。</p></div>
+      <div class="card reveal d2"><span class="tag">時間</span><h3>短時間で調べたい</h3><p>日付・番号順の一覧では目的の文献にたどり着けない。AIスコア順で「関連性の高い順」に表示し、上から査読できます。</p></div>
+      <div class="card reveal d3"><span class="tag">分析</span><h3>調査と分析でツールを行き来している</h3><p>収集・整理・グラフ化で複数ツールを往復していると工数がかさむ。検索から分析・マップ化までを同じ画面で完結します。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 主な機能（4本柱） -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="section-head reveal" style="margin:0 auto 40px;text-align:center;max-width:720px">
+      <span class="eyebrow">FEATURES</span>
+      <h2>主な機能</h2>
+      <p>「検索」「分析」「共有」「監視」の4つで、知財実務をまるごと支えます。</p>
+    </div>
+    <div class="pillars">
+
+      <div class="pillar reveal d1">
+        <div class="h"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span><div><div class="en">SEARCH</div><h3>検索</h3></div></div>
+        <p>ビギナーからヘビーユーザーまで、利用シーンに合わせた検索を。経験に関係なく高品質な調査環境をご利用いただけます。</p>
+        <ul>
+          <li><strong>AI自然文検索</strong>：文章を入れるだけ。表記ゆれ・同義語・英訳を補完し、AIスコアの高い順に表示。</li>
+          <li><strong>プロフェッショナル検索</strong>：多数の検索項目を組み合わせた精緻な検索に対応。</li>
+          <li><strong>かんたん検索</strong>：シンプルなUIで、すぐに検索を始められる。</li>
+          <li><strong>抄録一覧</strong>：代表図や請求項の概要を一覧でわかりやすく把握。</li>
+        </ul>
+      </div>
+
+      <div class="pillar reveal d2">
+        <div class="h"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 4-6"/></svg></span><div><div class="en">ANALYTICS</div><h3>分析</h3></div></div>
+        <p>知財BIダッシュボードで、調査した母集団をその場で可視化。統計分析もパテントマップも、ブラウザだけで完結します。</p>
+        <ul>
+          <li><strong>知財BIダッシュボード</strong>：出願人×年次、ステータス推移、出願人×Fタームのヒートマップなどを即表示。</li>
+          <li><strong>注目特許ランキング</strong>：価値の高い順に並べ替え、注目特許を素早く把握。</li>
+          <li><strong>大量データ対応</strong>：大規模な母集団でも、ドリルアップ／ダウンでインタラクティブに分析。</li>
+          <li><strong>外部ツール連携</strong>：他の分析ツールへのデータ連携にも対応（順次拡充）。</li>
+        </ul>
+      </div>
+
+      <div class="pillar reveal d1">
+        <div class="h"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3 3-5 7-5"/><circle cx="17" cy="9" r="2.5"/><path d="M13.5 20c.5-2.5 2.5-4 4.5-4s3.7 1.2 4 3"/></svg></span><div><div class="en">SHARE</div><h3>共有</h3></div></div>
+        <p>プロジェクト単位で技術情報を共有。部署をまたいだ横断的なテーマ管理を実現します。</p>
+        <ul>
+          <li><strong>プロジェクト／グループ</strong>：部署別・テーマ別に任意のグループを構成。</li>
+          <li><strong>権限設定</strong>：センシティブな情報のアクセスを制御し、開示リスクを抑える。</li>
+          <li><strong>独自分類の付与</strong>：文献に独自分類を付け、差別化ポイントの洗い出しを効率化。</li>
+          <li><strong>〇×評価</strong>：ノイズと判断された文献をランクダウン。複数人の継続調査に。</li>
+        </ul>
+      </div>
+
+      <div class="pillar reveal d2">
+        <div class="h"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0-6 6c0 4-2 5-2 5h16s-2-1-2-5a6 6 0 0 0-6-6z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span><div><div class="en">WATCH</div><h3>監視（SDI）</h3></div></div>
+        <p>各国の新着公報や、注目特許の経過情報をタイムリーに把握。大事な動きを見逃しません。</p>
+        <ul>
+          <li><strong>新着公報の速報通知</strong>：登録した条件でフィルタし、メールでお知らせ。</li>
+          <li><strong>経過情報ウォッチ</strong>：監視対象の特許に変更があれば即通知。国内外に対応。</li>
+          <li><strong>抽出情報の共有</strong>：監視で抽出した情報を共有機能と組み合わせて蓄積。</li>
+          <li><strong>連携API</strong>：書誌情報などを自社システムから一括取得（オプション）。</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- AI自動分類 -->
+<section class="section">
+  <div class="container">
+    <div class="split">
+      <div class="reveal">
+        <span class="eyebrow">AI AUTO-CLASSIFY</span>
+        <h2 style="font-size:clamp(24px,2.6vw,32px);margin:14px 0 16px">社内分類・評価の付与を、AIで効率化</h2>
+        <p style="color:var(--muted);margin-bottom:18px">「分類付与の負担を減らしたい」「技術部門の評価を共有して活かしたい」。AI自動分類は、蓄積された評価データから学習し、現場の課題解決をお手伝いします。国内だけでなく、海外文献にも対応します。</p>
+        <ul class="checks">
+          <li>蓄積された社内分類データがあれば、すぐ運用開始</li>
+          <li>関連度の高い候補を提案し、評価のブレを補正</li>
+          <li>AIが客観的に分類付与し、評価者による偏りを防ぐ</li>
+        </ul>
+      </div>
+      <div class="reveal d1">
+        <div class="card" style="background:linear-gradient(180deg,var(--bg-cream),#fff)">
+          <span class="tag">分析例</span>
+          <h3>知財BIダッシュボードでできること</h3>
+          <ul class="checks" style="margin-top:10px">
+            <li>出願基準日 × 出願人・権利者名 ＝ プレイヤーと出願数の推移</li>
+            <li>出願基準日 × ステータス ＝ 技術の成長性を推測</li>
+            <li>出願人 × Fターム ＝ 開発課題をヒートマップで俯瞰</li>
+            <li>公報国出願数ランキング ＝ 生産国・販売国を推測</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 選ばれる理由 -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="section-head reveal" style="margin:0 auto 36px;text-align:center;max-width:680px">
+      <span class="eyebrow">WHY INVENTIST</span>
+      <h2>選ばれる理由</h2>
+    </div>
+    <div class="why">
+      <div class="r reveal"><span class="num">1</span><div class="tx"><b>特許文書に最適化した検索</b><span>特許特有の言い回しに合わせて調整した検索で、関連文献を取りこぼしにくい。</span></div></div>
+      <div class="r reveal"><span class="num">2</span><div class="tx"><b>調査から分析までワンストップ</b><span>検索・分析・共有・監視を同じ環境で。ツールの行き来をなくします。</span></div></div>
+      <div class="r reveal"><span class="num">3</span><div class="tx"><b>現場の技術者でも使える直感的UI</b><span>知財部門への質問を減らし、本来の研究開発に時間を使えます。</span></div></div>
+      <div class="r reveal"><span class="num">4</span><div class="tx"><b>専門家による調査・分析サポート</b><span>ツールに加え、必要に応じて専門家が調査代行・分析レポートまで支援。</span></div></div>
+      <div class="r reveal"><span class="num">5</span><div class="tx"><b>30日間の無料トライアル</b><span>まずは無料で。期間終了後の有料版への自動切り替えはありません。</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 料金 -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal" style="margin:0 auto 40px;text-align:center;max-width:720px">
+      <span class="eyebrow">PRICING</span>
+      <h2>料金プラン</h2>
+      <p>少人数の知財部門から、全社利用まで。用途に合わせて選べるプランをご用意します。</p>
+    </div>
+    <div class="plans">
+      <div class="plan reveal d1">
+        <h3>ライト</h3>
+        <div class="price">¥30,000<small> / 月〜</small></div>
+        <div class="note2">少人数・国内中心の調査に</div>
+        <ul>
+          <li>日本特許（審査経過含む）</li>
+          <li>かんたん／プロ検索</li>
+          <li>新着監視（SDI・国内）</li>
+          <li>スクリーニング・共有</li>
+        </ul>
+        <a href="company.html#contact" class="btn btn--ghost">相談する</a>
+      </div>
+      <div class="plan featured reveal d2">
+        <span class="badge2">おすすめ</span>
+        <h3>スタンダード</h3>
+        <div class="price">¥60,000<small> / 月〜</small></div>
+        <div class="note2">国内外の調査・分析をしっかり</div>
+        <ul>
+          <li>日本・米国・欧州・PCT・世界・中国</li>
+          <li>知財BIダッシュボード／マップ</li>
+          <li>新着・経過情報の監視</li>
+          <li>英日翻訳・ファミリ表示</li>
+        </ul>
+        <a href="company.html#contact" class="btn btn--gold">無料トライアル</a>
+      </div>
+      <div class="plan reveal d3">
+        <h3>プロ / 全社</h3>
+        <div class="price">要お見積り</div>
+        <div class="note2">AI検索・AI自動分類・API連携</div>
+        <ul>
+          <li>AI自然文検索（国内・外国）</li>
+          <li>AI自動分類（国内・外国）</li>
+          <li>分析ツール連携API</li>
+          <li>全社・複数部門での運用</li>
+        </ul>
+        <a href="company.html#contact" class="btn btn--ghost">見積りを依頼</a>
+      </div>
+    </div>
+    <p class="disclaimer" style="text-align:center;max-width:760px;margin:18px auto 0">＊ 上記は価格イメージ（税別）です。高度なAI検索・AI自動分類・API連携の提供範囲と費用は、ご利用規模に応じて個別にお見積りします。現時点では、公式データベース連携の検索と専門家による調査代行・分析レポートを基本提供とし、AI／BI機能は順次拡充します。</p>
+  </div>
+</section>
+
+<!-- 収録範囲 -->
+<section class="section section--soft">
+  <div class="container">
+    <div class="section-head reveal" style="margin:0 auto 32px;text-align:center;max-width:680px">
+      <span class="eyebrow">COVERAGE</span>
+      <h2>対応する特許文献（予定）</h2>
+      <p>主要国・地域の特許文献に対応します。収録年代・公報種別は順次拡充します。</p>
+    </div>
+    <table class="spec reveal">
+      <tr><th>日本特許</th><td>公開公報・登録公報・整理標準化データ（全文・図面・PDF）</td></tr>
+      <tr><th>米国特許</th><td>公開公報・登録公報・和文抄録（全文 英語表記）</td></tr>
+      <tr><th>欧州 / PCT</th><td>公開・登録公報・和文抄録（全文 英語／日本語表記）</td></tr>
+      <tr><th>世界特許</th><td>DOCDB ベース（約90カ国収録、国により収録範囲は相違）</td></tr>
+      <tr><th>中国特許</th><td>公開公報・登録公報</td></tr>
+      <tr><th>意匠</th><td>日本意匠公報ほか</td></tr>
+    </table>
+    <p class="disclaimer" style="text-align:center;max-width:760px;margin:16px auto 0">＊ 収録範囲・年代は提供フェーズにより異なります。最新の対応状況はお問い合わせください。動作環境（対応OS・ブラウザ）の詳細もあわせてご案内します。</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>まずは30日間、無料で試してみませんか。</h2>
+      <p>期間終了後に自動で有料版へ切り替わることはありません。詳しい情報・お見積りもお気軽に。</p>
+      <div style="position:relative;z-index:1;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="company.html#contact" class="btn btn--gold btn--lg">無料トライアルを申し込む</a>
+        <a href="services.html" class="btn btn--ghost btn--lg" style="color:#fff;border-color:rgba(255,255,255,.4)">他のサービスを見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="brand">inventist<span class="dot">.</span>jp</div><p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。</p></div>
+      <div><h5>サービス</h5><ul><li><a href="services.html">サービス一覧</a></li><li><a href="patent-research.html">特許調査支援</a></li><li><a href="database.html">特許データベース</a></li><li><a href="patent-trade.html">買収・売却</a></li></ul></div>
+      <div><h5>会社</h5><ul><li><a href="knowledge.html">ナレッジ</a></li><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
+      <div><h5>はじめる</h5><ul><li><a href="company.html#contact">無料トライアル</a></li><li><a href="patent-trade.html#sell">売却を登録</a></li><li><a href="database.html">特許を検索</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 inventist.jp</span><span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span></div>
+  </div>
+</footer>
+
+<script>
+  var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');
+  if(t)t.addEventListener('click',function(){n.classList.toggle('open');});
+  var header=document.getElementById('siteHeader');
+  function onScroll(){ if(window.scrollY>24) header.classList.add('scrolled'); else header.classList.remove('scrolled'); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revs=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.1});
+    revs.forEach(function(el){io.observe(el);});
+  } else { revs.forEach(function(el){el.classList.add('in');}); }
+</script>
+</body>
+</html>
