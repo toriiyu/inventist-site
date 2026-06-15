@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ナレッジ｜特許の取得・活用・売買を学ぶ｜inventist.jp</title>
+<meta name="description" content="特許出願の流れ、休眠特許の活用と売買、先行技術調査の基本など、知財を事業に活かすための実務ナレッジを発信します。">
+<link rel="stylesheet" href="style.css">
+<style>
+  .kb-grid{display:grid;gap:24px;grid-template-columns:repeat(3,1fr)}
+  .kb-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:transform .18s,box-shadow .18s}
+  .kb-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .kb-card .thumb{height:120px;background:linear-gradient(120deg,var(--navy),var(--steel));display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;letter-spacing:.12em}
+  .kb-card .body{padding:22px;display:flex;flex-direction:column;flex:1}
+  .kb-card .cat{font-size:12px;font-weight:700;color:var(--steel);letter-spacing:.08em;margin-bottom:8px}
+  .kb-card h3{font-size:17.5px;margin-bottom:10px;line-height:1.5}
+  .kb-card p{color:var(--muted);font-size:14px;margin-bottom:16px}
+  .kb-card .more{margin-top:auto;font-weight:700;font-size:14px}
+  .kb-card .more::after{content:" →"}
+  @media(max-width:880px){.kb-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
+    <nav><ul class="nav-links" id="navLinks">
+      <li><a href="database.html">特許データベース</a></li>
+      <li><a href="patent-acquisition.html">特許取得支援</a></li>
+      <li><a href="patent-trade.html">買収・売却</a></li>
+      <li><a href="knowledge.html">ナレッジ</a></li>
+      <li><a href="company.html">会社情報</a></li>
+    </ul></nav>
+    <div class="nav-cta"><a href="company.html#contact" class="btn btn--primary">お問い合わせ</a></div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="pagehero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">ホーム</a> ／ ナレッジ</div>
+    <h1>ナレッジ</h1>
+    <p>特許の取得・活用・売買を、実務目線でやさしく解説します。はじめての権利化から、眠っている特許の出口づくりまで。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="kb-grid">
+
+      <a class="kb-card" href="article-patent-application.html">
+        <div class="thumb">取得支援</div>
+        <div class="body">
+          <span class="cat">特許取得</span>
+          <h3>特許出願の基本的な流れ ― アイデアから登録まで</h3>
+          <p>「思いついた発明をどう権利にするのか」。出願前の準備から審査対応、登録までの全体像を、はじめての方向けに整理します。</p>
+          <span class="more">記事を読む</span>
+        </div>
+      </a>
+
+      <a class="kb-card" href="article-dormant-patents.html">
+        <div class="thumb">売買・活用</div>
+        <div class="body">
+          <span class="cat">特許の売買</span>
+          <h3>休眠特許を「眠らせない」 ― 売却・ライセンスという選択肢</h3>
+          <p>使われていない特許は、維持コストだけがかかる資産になりがち。売却・ライセンスで価値に変えるための考え方と進め方を解説します。</p>
+          <span class="more">記事を読む</span>
+        </div>
+      </a>
+
+      <a class="kb-card" href="article-prior-art-search.html">
+        <div class="thumb">調査</div>
+        <div class="body">
+          <span class="cat">先行技術調査</span>
+          <h3>先行技術調査の重要性 ― 出願前に「似た特許」を確かめる</h3>
+          <p>新規性・進歩性があるか。先行技術調査は権利化の成否とコストを左右します。基本的な進め方と無料で使えるツールを紹介します。</p>
+          <span class="more">記事を読む</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="note mt-l" style="max-width:760px">
+      <strong>具体的なご相談は無料で承ります。</strong> 記事を読んで「自社のケースはどうだろう」と思ったら、お気軽にご相談ください。
+      <div class="mt-s"><a href="company.html#contact" class="btn btn--primary">無料で相談する</a></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="brand">inventist<span class="dot">.</span>jp</div><p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。</p></div>
+      <div><h5>サービス</h5><ul><li><a href="database.html">特許データベース</a></li><li><a href="patent-acquisition.html">特許取得支援</a></li><li><a href="patent-trade.html">特許の買収・売却</a></li></ul></div>
+      <div><h5>会社</h5><ul><li><a href="knowledge.html">ナレッジ</a></li><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
+      <div><h5>はじめる</h5><ul><li><a href="patent-trade.html#sell">売却を登録</a></li><li><a href="patent-trade.html#buy">買収ニーズを登録</a></li><li><a href="database.html">特許を検索</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 inventist.jp</span><span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span></div>
+  </div>
+</footer>
+
+<script>var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');if(t)t.addEventListener('click',function(){n.classList.toggle('open');});</script>
+</body>
+</html>

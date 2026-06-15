@@ -4,8 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>特許データベース｜inventist.jp</title>
-<meta name="description" content="キーワード・特許番号・出願人から、国内外の特許公報を検索。J-PlatPat（特許庁）および Google Patents の公式データベースに連携します。">
+<meta name="description" content="キーワード・技術分野で特許を絞り込み検索。注目特許のキュレーションに加え、J-PlatPat（特許庁）・Google Patents の公式データベースへ連携します。">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* 検索フィルタ・結果（このページ専用コンポーネント） */
+  .search-panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;max-width:980px;margin:0 auto}
+  .search-row{display:flex;gap:10px;margin-bottom:14px}
+  .search-row input{flex:1;border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:13px 16px;font-size:15px;font-family:inherit;color:var(--ink)}
+  .search-row input:focus{outline:none;border-color:var(--steel);box-shadow:0 0 0 3px rgba(46,111,176,.12)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{border:1.5px solid var(--line);background:#fff;color:var(--text);font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;cursor:pointer;transition:.15s;font-family:inherit}
+  .chip:hover{border-color:var(--steel);color:var(--steel)}
+  .chip.active{background:var(--steel);border-color:var(--steel);color:#fff}
+  .result-meta{display:flex;justify-content:space-between;align-items:center;max-width:980px;margin:22px auto 14px;color:var(--muted);font-size:14px}
+  .results{display:grid;gap:16px;grid-template-columns:repeat(2,1fr);max-width:980px;margin:0 auto}
+  .pat{border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column}
+  .pat .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+  .pat .no{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em}
+  .pat .field{font-size:11.5px;font-weight:700;color:var(--steel);background:var(--bg-tint);padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .pat h3{font-size:16.5px;margin-bottom:8px;line-height:1.5}
+  .pat p{color:var(--muted);font-size:14px;margin-bottom:14px}
+  .pat .links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .pat .links a{font-size:13px;font-weight:700;padding:7px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--line)}
+  .pat .links a:hover{border-color:var(--steel);color:var(--steel)}
+  .empty{max-width:980px;margin:0 auto;text-align:center;color:var(--muted);padding:40px;border:1px dashed var(--line);border-radius:var(--radius)}
+  @media(max-width:760px){.results{grid-template-columns:1fr}.search-row{flex-direction:column}}
+</style>
 </head>
 <body>
 
@@ -16,6 +40,7 @@
       <li><a href="database.html">特許データベース</a></li>
       <li><a href="patent-acquisition.html">特許取得支援</a></li>
       <li><a href="patent-trade.html">買収・売却</a></li>
+      <li><a href="knowledge.html">ナレッジ</a></li>
       <li><a href="company.html">会社情報</a></li>
     </ul></nav>
     <div class="nav-cta"><a href="company.html#contact" class="btn btn--primary">お問い合わせ</a></div>
@@ -27,97 +52,79 @@
   <div class="container">
     <div class="breadcrumb"><a href="index.html">ホーム</a> ／ 特許データベース</div>
     <h1>特許データベース</h1>
-    <p>キーワード・特許番号・出願人から、国内外の特許公報を検索します。検索結果は、特許庁の J-PlatPat および Google Patents の公式データベースへ連携します。</p>
+    <p>注目分野の特許をキーワード・技術分野で絞り込めます。各特許から J-PlatPat（特許庁）・Google Patents の公式公報へ連携。全件検索は外部の公式データベースへ橋渡しします。</p>
   </div>
 </section>
 
-<!-- 統合検索 -->
+<!-- 独自検索（キュレーション） -->
 <section class="section">
   <div class="container">
-    <div class="hero-search" style="max-width:760px;margin:0 auto 12px">
-      <form onsubmit="return goSearch(event)">
-        <input id="q" type="text" placeholder="キーワード・特許番号で検索（例：全固体電池 / JP2020123456 / US10000000）" aria-label="検索キーワード">
-        <button class="btn btn--primary" type="submit">検索</button>
-      </form>
-      <p class="hint" style="color:var(--muted)">検索先：
-        <label style="margin-right:14px"><input type="radio" name="engine" value="google" checked> Google Patents（国内外）</label>
-        <label><input type="radio" name="engine" value="jplatpat"> J-PlatPat（日本・特許庁）</label>
-      </p>
+    <div class="section-head" style="margin:0 auto 28px;text-align:center;max-width:720px">
+      <span class="eyebrow">SEARCH</span>
+      <h2>特許を絞り込んで探す</h2>
+      <p>inventist.jp がキュレーションした注目特許から検索できます（サンプルデータベース）。</p>
     </div>
-    <p class="center" style="color:var(--muted);font-size:13px">＊ Phase 1 では自前で公報データを保持せず、信頼できる公式データベースへ橋渡しします。独自検索は Phase 2 で実装予定です。</p>
+
+    <div class="search-panel">
+      <div class="search-row">
+        <input id="q" type="text" placeholder="キーワードで絞り込み（例：電池 / AI / ドローン / 医療）" aria-label="キーワード検索">
+        <button class="btn btn--primary" id="searchBtn" type="button">検索</button>
+      </div>
+      <div class="chips" id="chips">
+        <button class="chip active" data-field="all">すべて</button>
+        <button class="chip" data-field="電池・材料">電池・材料</button>
+        <button class="chip" data-field="AI・ソフトウェア">AI・ソフトウェア</button>
+        <button class="chip" data-field="ロボティクス">ロボティクス</button>
+        <button class="chip" data-field="医療機器">医療機器</button>
+        <button class="chip" data-field="半導体">半導体</button>
+        <button class="chip" data-field="環境・エネルギー">環境・エネルギー</button>
+      </div>
+    </div>
+
+    <div class="result-meta">
+      <span id="count">—</span>
+      <span style="font-size:12.5px">＊ サンプル特許番号を含みます。実際の公報は各リンク先でご確認ください。</span>
+    </div>
+    <div class="results" id="results"></div>
+    <div class="empty" id="empty" style="display:none">該当する特許が見つかりませんでした。キーワードや分野を変えてお試しください。</div>
   </div>
 </section>
 
-<!-- 各データベース -->
+<!-- 全件検索（外部公式DB） -->
 <section class="section section--soft">
   <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">DATA SOURCES</span>
-      <h2>連携している特許データベース</h2>
-      <p>目的に応じて、最適な公式データベースを選んで検索できます。</p>
-    </div>
+    <div class="section-head"><span class="eyebrow">OFFICIAL DATABASES</span><h2>全件を検索する（公式データベース連携）</h2><p>国内外の全公報を調べるときは、信頼できる公式データベースへ。</p></div>
     <div class="ext-search">
-
       <div class="ext-card">
         <h3>🇯🇵 J-PlatPat（特許情報プラットフォーム）</h3>
-        <p>特許庁（INPIT）が運営する、日本の特許・実用新案・意匠・商標の公式検索サービス。日本国内の権利化情報を調べるならまずこちら。</p>
+        <p>特許庁（INPIT）が運営する、日本の特許・実用新案・意匠・商標の公式検索サービス。</p>
         <form onsubmit="return openJP(event)">
           <input id="jpQ" type="text" placeholder="キーワードで検索">
           <button class="btn btn--ghost" type="submit">J-PlatPatで検索</button>
         </form>
         <p class="form-note">運営：独立行政法人 工業所有権情報・研修館（INPIT）</p>
       </div>
-
       <div class="ext-card">
         <h3>🌐 Google Patents</h3>
-        <p>世界各国の特許公報を横断検索できる無料データベース。英語・日本語の両方に対応し、引用関係や類似特許の把握にも便利。</p>
+        <p>世界各国の特許公報を横断検索できる無料データベース。引用関係や類似特許の把握にも。</p>
         <form onsubmit="return openGP(event)">
           <input id="gpQ" type="text" placeholder="キーワード・特許番号で検索">
           <button class="btn btn--ghost" type="submit">Google Patentsで検索</button>
         </form>
         <p class="form-note">運営：Google</p>
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- 使い方ガイド -->
-<section class="section">
-  <div class="container">
-    <div class="grid grid-2" style="gap:48px;align-items:start">
-      <div>
-        <span class="eyebrow">HOW TO SEARCH</span>
-        <h2 style="font-size:clamp(22px,2.5vw,28px);margin-bottom:18px">検索のヒント</h2>
-        <div class="steps">
-          <div class="step"><div class="n"></div><div><h4>キーワードを絞る</h4><p>技術の特徴を表す語を2〜3語組み合わせると、ヒット数を適度に絞れます。（例：「二次電池 固体電解質 硫化物」）</p></div></div>
-          <div class="step"><div class="n"></div><div><h4>特許番号で直接引く</h4><p>公開番号・登録番号が分かっていれば、番号での検索が最短です。（例：JP2020-123456、US10000000B2）</p></div></div>
-          <div class="step"><div class="n"></div><div><h4>出願人・発明者で追う</h4><p>競合や研究機関の出願動向を、出願人名で追跡できます。</p></div></div>
-        </div>
-      </div>
-      <div>
-        <div class="note mb-m">
-          <strong>先行技術調査をご検討の方へ。</strong><br>
-          「この発明は新しいか」「すでに似た特許がないか」を確かめたい場合は、特許取得支援サービスで先行技術調査の簡易導線をご用意しています。
-          <div class="mt-s"><a href="patent-acquisition.html#research" class="btn btn--primary">先行技術調査を相談する</a></div>
-        </div>
-        <div class="note">
-          <strong>特定分野の母集団分析（Phase 2 以降）。</strong><br>
-          AI・半導体・バイオなど、特定分野の特許群を抽出して動向を可視化する分析機能を、オープンデータ／BigQuery 連携で順次提供予定です。
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- ロードマップ -->
-<section class="section section--soft">
+<section class="section">
   <div class="container">
     <div class="section-head"><span class="eyebrow">ROADMAP</span><h2>データベースの拡張計画</h2></div>
     <table class="table" style="background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden">
-      <tr><th>Phase 1（現在）</th><td>J-PlatPat / Google Patents への検索連携（外部公式DBへの橋渡し）。</td></tr>
-      <tr><th>Phase 2</th><td>特許庁オープンデータ（特許情報標準データ等）を取り込んだ独自検索。コラムによる技術解説。</td></tr>
-      <tr><th>Phase 3</th><td>Google Patents Public Datasets（BigQuery）連携による分野別の母集団抽出・トレンド分析。</td></tr>
+      <tr><th>現在</th><td>注目特許のキュレーション検索＋ J-PlatPat / Google Patents への全件連携。</td></tr>
+      <tr><th>次フェーズ</th><td>特許庁オープンデータ（特許情報標準データ等）を取り込んだ独自の全文検索。</td></tr>
+      <tr><th>発展</th><td>Google Patents Public Datasets（BigQuery）連携による分野別の母集団抽出・トレンド分析。</td></tr>
     </table>
     <p class="disclaimer mt-m">＊ 各データソースには利用規約・リンク条件があります。inventist.jp は各規約に抵触しない形での連携・取り込みを前提に実装します。</p>
   </div>
@@ -128,7 +135,7 @@
     <div class="footer-grid">
       <div class="footer-brand"><div class="brand">inventist<span class="dot">.</span>jp</div><p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。</p></div>
       <div><h5>サービス</h5><ul><li><a href="database.html">特許データベース</a></li><li><a href="patent-acquisition.html">特許取得支援</a></li><li><a href="patent-trade.html">特許の買収・売却</a></li></ul></div>
-      <div><h5>会社</h5><ul><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
+      <div><h5>会社</h5><ul><li><a href="knowledge.html">ナレッジ</a></li><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
       <div><h5>はじめる</h5><ul><li><a href="patent-trade.html#sell">売却を登録</a></li><li><a href="patent-trade.html#buy">買収ニーズを登録</a></li><li><a href="database.html">特許を検索</a></li></ul></div>
     </div>
     <div class="footer-bottom"><span>© 2026 inventist.jp</span><span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span></div>
@@ -138,20 +145,69 @@
 <script>
   var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');
   if(t)t.addEventListener('click',function(){n.classList.toggle('open');});
-  function goSearch(e){
-    e.preventDefault();
-    var q=document.getElementById('q').value.trim();
-    var eng=document.querySelector('input[name=engine]:checked').value;
-    if(!q){ alert('検索キーワードを入力してください。'); return false; }
-    if(eng==='jplatpat'){ window.open('https://www.j-platpat.inpit.go.jp/c1801/PU/JP/'+encodeURIComponent(q)+'/','_blank','noopener'); }
-    else { window.open('https://patents.google.com/?q='+encodeURIComponent(q),'_blank','noopener'); }
-    return false;
+
+  // ---- キュレーション特許データセット（サンプル）----
+  var PATENTS = [
+    {no:"特許第6789012号", field:"電池・材料", title:"全固体電池向け 硫化物系固体電解質の製造方法", desc:"量産時の歩留まりを改善する製法。粒径制御により界面抵抗を低減。", kw:"電池 固体電解質 硫化物 全固体 二次電池 材料"},
+    {no:"特許第6711234号", field:"電池・材料", title:"リチウムイオン電池の高速充電用負極材料", desc:"シリコン系負極の膨張を抑制する複合構造。サイクル寿命を向上。", kw:"電池 リチウム 負極 シリコン 急速充電 材料"},
+    {no:"特許第7012345号", field:"AI・ソフトウェア", title:"エッジ向け軽量モデルの推論高速化手法", desc:"量子化と枝刈りを組み合わせ、消費電力を抑えつつ精度を維持。", kw:"AI 機械学習 推論 エッジ 量子化 モデル ソフトウェア 画像認識"},
+    {no:"特許第7098765号", field:"AI・ソフトウェア", title:"異常検知のための自己教師あり学習システム", desc:"ラベルなしデータから正常パターンを学習し、製造ラインの異常を検出。", kw:"AI 異常検知 自己教師 学習 製造 ソフトウェア"},
+    {no:"特許第6955001号", field:"ロボティクス", title:"農業用ドローンの自動経路生成・散布制御", desc:"圃場形状に応じた経路最適化と、風況を考慮した散布量制御。", kw:"ドローン ロボット 農業 経路 自動 散布 ロボティクス"},
+    {no:"特許第6890777号", field:"ロボティクス", title:"協働ロボットの力覚センサレス接触検知", desc:"モータ電流から接触力を推定し、追加センサなしで安全停止を実現。", kw:"ロボット 協働 力覚 センサ 接触 安全 ロボティクス"},
+    {no:"特許第7033210号", field:"医療機器", title:"ウェアラブル生体信号のノイズ除去回路", desc:"心電・脈波計測のSNRを改善する適応フィルタ回路。試作評価済み。", kw:"医療 ウェアラブル 生体 心電 ノイズ センサ 機器"},
+    {no:"特許第6977654号", field:"医療機器", title:"内視鏡画像のリアルタイム病変強調表示", desc:"AIで病変候補を抽出し、術中映像に低遅延で重畳表示する。", kw:"医療 内視鏡 画像 AI 病変 診断 機器"},
+    {no:"特許第7101010号", field:"半導体", title:"GaN系パワーデバイスの低オン抵抗構造", desc:"電界集中を緩和する終端構造により高耐圧と低損失を両立。", kw:"半導体 GaN パワー デバイス 低損失 電力"},
+    {no:"特許第7056789号", field:"半導体", title:"3次元実装向けの低温接合プロセス", desc:"低温で銅同士を接合し、チップレット実装の歩留まりを向上。", kw:"半導体 実装 接合 チップレット 3次元 プロセス"},
+    {no:"特許第6844321号", field:"環境・エネルギー", title:"CO2を原料とする樹脂モノマー合成法", desc:"触媒設計により二酸化炭素から有用モノマーを高選択率で合成。", kw:"環境 CO2 二酸化炭素 樹脂 触媒 カーボン エネルギー"},
+    {no:"特許第7120987号", field:"環境・エネルギー", title:"ペロブスカイト太陽電池の耐久化封止構造", desc:"水分侵入を抑える多層封止により屋外耐久性を大幅に改善。", kw:"環境 太陽電池 ペロブスカイト 封止 発電 エネルギー"}
+  ];
+
+  var state={q:"",field:"all"};
+  var resultsEl=document.getElementById('results');
+  var countEl=document.getElementById('count');
+  var emptyEl=document.getElementById('empty');
+
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  function render(){
+    var q=state.q.trim().toLowerCase();
+    var list=PATENTS.filter(function(p){
+      var okF = state.field==='all' || p.field===state.field;
+      var hay=(p.title+' '+p.desc+' '+p.kw+' '+p.field).toLowerCase();
+      var okQ = !q || q.split(/\s+/).every(function(w){return hay.indexOf(w)>=0;});
+      return okF && okQ;
+    });
+    countEl.textContent = list.length + ' 件の特許';
+    if(!list.length){resultsEl.innerHTML='';emptyEl.style.display='block';return;}
+    emptyEl.style.display='none';
+    resultsEl.innerHTML = list.map(function(p){
+      var gp='https://patents.google.com/?q='+encodeURIComponent(p.title);
+      var jp='https://www.j-platpat.inpit.go.jp/c1801/PU/JP/'+encodeURIComponent(p.title)+'/';
+      return '<article class="pat">'+
+        '<div class="top"><span class="no">'+esc(p.no)+'</span><span class="field">'+esc(p.field)+'</span></div>'+
+        '<h3>'+esc(p.title)+'</h3>'+
+        '<p>'+esc(p.desc)+'</p>'+
+        '<div class="links"><a href="'+gp+'" target="_blank" rel="noopener">Google Patents ↗</a>'+
+        '<a href="'+jp+'" target="_blank" rel="noopener">J-PlatPat ↗</a>'+
+        '<a href="patent-trade.html#buy">この分野の買収を相談</a></div>'+
+      '</article>';
+    }).join('');
   }
-  function openJP(e){ e.preventDefault(); var q=document.getElementById('jpQ').value.trim();
-    if(q){ window.open('https://www.j-platpat.inpit.go.jp/c1801/PU/JP/'+encodeURIComponent(q)+'/','_blank','noopener'); }
-    else { window.open('https://www.j-platpat.inpit.go.jp/','_blank','noopener'); } return false; }
-  function openGP(e){ e.preventDefault(); var q=document.getElementById('gpQ').value.trim();
-    window.open('https://patents.google.com/'+(q?'?q='+encodeURIComponent(q):''),'_blank','noopener'); return false; }
+
+  document.getElementById('searchBtn').addEventListener('click',function(){state.q=document.getElementById('q').value;render();});
+  document.getElementById('q').addEventListener('keydown',function(e){if(e.key==='Enter'){state.q=this.value;render();}});
+  document.getElementById('q').addEventListener('input',function(){state.q=this.value;render();});
+  document.getElementById('chips').addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b)return;
+    [].forEach.call(this.querySelectorAll('.chip'),function(c){c.classList.remove('active');});
+    b.classList.add('active'); state.field=b.getAttribute('data-field'); render();
+  });
+  render();
+
+  function openJP(e){e.preventDefault();var q=document.getElementById('jpQ').value.trim();
+    window.open('https://www.j-platpat.inpit.go.jp/'+(q?'c1801/PU/JP/'+encodeURIComponent(q)+'/':''),'_blank','noopener');return false;}
+  function openGP(e){e.preventDefault();var q=document.getElementById('gpQ').value.trim();
+    window.open('https://patents.google.com/'+(q?'?q='+encodeURIComponent(q):''),'_blank','noopener');return false;}
 </script>
 </body>
 </html>
