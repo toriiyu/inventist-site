@@ -4,12 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>特許取得支援｜inventist.jp</title>
-<meta name="description" content="発明の発掘・先行技術調査から、提携弁理士による出願・権利化までを支援。知財戦略コンサルティングで発明の事業化を後押しします。">
+<meta name="description" content="発明の発掘・先行技術調査から、提携弁理士による出願・権利化までを支援。プラン診断シミュレーターとFAQで、相談前の疑問を解消。知財戦略コンサルティングで事業化を後押しします。">
 <link rel="stylesheet" href="style.css">
+<style>
+  /* シミュレーター */
+  .sim{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;max-width:920px;margin:0 auto}
+  .sim-grid{display:grid;grid-template-columns:1fr 1fr}
+  .sim-q{padding:30px 32px;border-right:1px solid var(--line)}
+  .sim-q .qblock{margin-bottom:22px}
+  .sim-q label{display:block;font-weight:700;font-size:14px;color:var(--ink);margin-bottom:10px}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{border:1.5px solid var(--line);background:#fff;color:var(--text);font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:999px;cursor:pointer;transition:.15s;font-family:inherit}
+  .opt:hover{border-color:var(--steel);color:var(--steel)}
+  .opt.active{background:var(--navy);border-color:var(--navy);color:#fff}
+  .sim-out{padding:30px 32px;background:linear-gradient(180deg,var(--bg-cream),#fff)}
+  .sim-out .plan-tag{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--navy-deep);background:var(--gold-grad);padding:5px 14px;border-radius:999px;margin-bottom:12px}
+  .sim-out h3{font-size:20px;margin-bottom:10px}
+  .sim-out .plan-desc{color:var(--muted);font-size:14.5px;margin-bottom:18px}
+  .sim-steps{list-style:none;display:grid;gap:10px;margin-bottom:18px}
+  .sim-steps li{position:relative;padding-left:28px;font-size:14px;color:var(--text)}
+  .sim-steps li::before{content:counter(s);counter-increment:s;position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .sim-steps{counter-reset:s}
+  .est{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:14px;margin-bottom:6px}
+  .est .lbl{font-size:13px;color:var(--muted)}
+  .est .val{font-family:var(--serif-en);font-size:22px;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600}
+  /* FAQ */
+  .faq{max-width:820px;margin:0 auto;display:grid;gap:12px}
+  .faq details{border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;box-shadow:var(--shadow);overflow:hidden}
+  .faq summary{list-style:none;cursor:pointer;padding:18px 22px;font-weight:700;color:var(--ink);font-size:15.5px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";font-size:22px;color:var(--steel);font-weight:400;transition:transform .2s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq .a{padding:0 22px 20px;color:var(--text);font-size:14.5px}
+  @media(max-width:760px){.sim-grid{grid-template-columns:1fr}.sim-q{border-right:none;border-bottom:1px solid var(--line)}}
+</style>
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="container nav">
     <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
     <nav><ul class="nav-links" id="navLinks">
@@ -32,34 +64,85 @@
   </div>
 </section>
 
-<!-- 重要：弁理士法の建付け -->
+<!-- 建付け -->
 <section class="section">
   <div class="container">
-    <div class="note" style="border-left-color:var(--accent)">
+    <div class="note reveal" style="border-left-color:var(--accent)">
       <strong>サービスの建付けについて。</strong><br>
       特許出願の代理（出願書類の作成・手続代行）は、弁理士法に基づき<strong>弁理士の独占業務</strong>です。inventist.jp は自社で出願代理を行わず、<strong>提携弁理士・特許事務所への取次</strong>と、その前段にあたる<strong>発明発掘・先行技術調査・知財戦略コンサルティング</strong>を担います。出願実務は提携弁理士が責任をもって担当します。
     </div>
   </div>
 </section>
 
-<!-- 提供内容 -->
-<section class="section section--soft">
+<!-- シミュレーター -->
+<section class="section section--cream">
   <div class="container">
-    <div class="section-head"><span class="eyebrow">WHAT WE DO</span><h2>提供するサポート</h2></div>
+    <div class="section-head reveal" style="margin:0 auto 28px;text-align:center;max-width:720px">
+      <span class="eyebrow">PLAN SIMULATOR</span>
+      <h2>30秒でわかる、あなたに合った進め方</h2>
+      <p>いくつか選ぶだけで、おすすめのプラン・大まかな流れ・概算の費用感をその場で表示します。</p>
+    </div>
+
+    <div class="sim reveal">
+      <div class="sim-grid">
+        <div class="sim-q">
+          <div class="qblock">
+            <label>① 発明はどの段階ですか？</label>
+            <div class="opts" data-k="stage">
+              <button class="opt active" data-v="idea">アイデア段階</button>
+              <button class="opt" data-v="proto">試作・検証済み</button>
+              <button class="opt" data-v="product">製品化済み</button>
+            </div>
+          </div>
+          <div class="qblock">
+            <label>② 技術分野は？</label>
+            <div class="opts" data-k="field">
+              <button class="opt active" data-v="general">汎用・機械</button>
+              <button class="opt" data-v="soft">AI・ソフトウェア</button>
+              <button class="opt" data-v="chem">化学・材料・バイオ</button>
+            </div>
+          </div>
+          <div class="qblock">
+            <label>③ 先行技術調査は？</label>
+            <div class="opts" data-k="search">
+              <button class="opt active" data-v="no">まだしていない</button>
+              <button class="opt" data-v="done">自分で少し調べた</button>
+            </div>
+          </div>
+          <div class="qblock">
+            <label>④ 主な目的は？</label>
+            <div class="opts" data-k="goal">
+              <button class="opt active" data-v="protect">事業を守りたい</button>
+              <button class="opt" data-v="license">ライセンス収益化</button>
+              <button class="opt" data-v="fund">資金調達・PR</button>
+            </div>
+          </div>
+        </div>
+        <div class="sim-out" id="simOut" aria-live="polite"><!-- JSで描画 --></div>
+      </div>
+    </div>
+    <p class="disclaimer" style="text-align:center;max-width:720px;margin:16px auto 0">＊ 表示は一般的な目安であり、確定見積りではありません。費用は特許庁手数料・印紙代・提携弁理士費用により変動します。実際の方針と金額は無料相談のうえご提示します。</p>
+  </div>
+</section>
+
+<!-- 提供内容 -->
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal"><span class="eyebrow">WHAT WE DO</span><h2>提供するサポート</h2></div>
     <div class="grid grid-3">
-      <div class="card" id="research">
+      <div class="card reveal d1" id="research">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
         <span class="tag">調査</span>
         <h3>先行技術調査・発明発掘</h3>
         <p>その発明に新規性・進歩性があるか、似た特許がすでにないかを調査。出願すべきか否かの判断材料を整理します。</p>
       </div>
-      <div class="card">
+      <div class="card reveal d2">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l5 5v13H6z"/><path d="M14 3v6h6"/></svg></div>
         <span class="tag">取次</span>
         <h3>提携弁理士の紹介・出願取次</h3>
         <p>技術分野に強い提携弁理士・特許事務所をご紹介。出願・中間対応・登録の実務は弁理士が担当します。</p>
       </div>
-      <div class="card">
+      <div class="card reveal d3">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 14 4-4 3 3 5-6"/></svg></div>
         <span class="tag">戦略</span>
         <h3>知財戦略コンサルティング</h3>
@@ -69,13 +152,13 @@
   </div>
 </section>
 
-<!-- 流れ -->
-<section class="section">
+<!-- 流れ＋相談フォーム -->
+<section class="section section--soft">
   <div class="container">
-    <div class="grid grid-2" style="gap:48px;align-items:start">
-      <div>
+    <div class="split">
+      <div class="reveal">
         <span class="eyebrow">FLOW</span>
-        <h2 style="font-size:clamp(22px,2.5vw,28px);margin-bottom:20px">ご相談から権利化までの流れ</h2>
+        <h2 style="font-size:clamp(24px,2.6vw,32px);margin-bottom:20px">ご相談から権利化までの流れ</h2>
         <div class="steps">
           <div class="step"><div class="n"></div><div><h4>無料相談</h4><p>発明の概要をお聞きし、進め方の方向性をご提案します。</p></div></div>
           <div class="step"><div class="n"></div><div><h4>先行技術調査</h4><p>新規性・進歩性を確認し、権利化の見込みを評価します。</p></div></div>
@@ -84,11 +167,10 @@
           <div class="step"><div class="n"></div><div><h4>登録・活用</h4><p>権利化後の活用（ライセンス・売却・事業化）も支援します。</p></div></div>
         </div>
       </div>
-      <div>
+      <div class="reveal d1">
         <div class="form-wrap" id="consult">
           <h3 style="margin-bottom:6px">発明相談フォーム（無料）</h3>
           <p style="color:var(--muted);font-size:14px;margin-bottom:22px">まずはお気軽に。秘密は厳守します。<span style="color:#c0392b">＊</span>は必須項目です。</p>
-          <!-- action はデプロイ時にフォームサービス(Formspree等)のURLに差し替えてください -->
           <form action="https://formspree.io/f/your-form-id" method="POST">
             <input type="hidden" name="_subject" value="【inventist.jp】発明相談">
             <div class="form-row">
@@ -126,26 +208,48 @@
   </div>
 </section>
 
-<!-- 料金の考え方 -->
-<section class="section section--soft">
+<!-- FAQ -->
+<section class="section">
   <div class="container">
-    <div class="section-head"><span class="eyebrow">PRICING</span><h2>料金の考え方</h2><p>透明性を大切にしています。費用は事前に明示し、ご納得いただいてから進めます。</p></div>
-    <table class="table" style="background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden">
-      <tr><th>初回相談</th><td>無料</td></tr>
-      <tr><th>先行技術調査</th><td>調査範囲に応じてお見積り（着手前に金額をご提示）</td></tr>
-      <tr><th>知財戦略コンサルティング</th><td>内容・期間に応じてお見積り</td></tr>
-      <tr><th>出願・登録（弁理士費用・印紙代）</th><td>提携弁理士の料金体系に準じます。事前に総額の目安をご案内します。</td></tr>
-    </table>
-    <p class="disclaimer mt-m">＊ 具体的な金額・条件は、デザイン・建付け確定後に確定します。表示は景品表示法・特定商取引法に則り適正に行います。</p>
+    <div class="section-head reveal" style="margin:0 auto 36px;text-align:center;max-width:680px">
+      <span class="eyebrow">FAQ</span>
+      <h2>よくあるご質問</h2>
+    </div>
+    <div class="faq reveal">
+      <details>
+        <summary>費用はどのくらいかかりますか？</summary>
+        <div class="a">初回相談は無料です。先行技術調査・コンサルティングは内容に応じてお見積りし、着手前に金額をご提示します。出願・登録にかかる特許庁手数料・印紙代・提携弁理士費用は、方針が固まった段階で総額の目安をご案内します。上のシミュレーターでおおよその費用感を確認できます。</div>
+      </details>
+      <details>
+        <summary>権利化までどのくらい時間がかかりますか？</summary>
+        <div class="a">出願後、審査を受けるには「出願審査請求」が必要で、請求から最初の審査結果までおおむね1年前後が一つの目安です（分野や時期により変動します）。早期審査制度が使えるケースもあり、その場合は短縮できることがあります。</div>
+      </details>
+      <details>
+        <summary>自分で出願することもできますか？</summary>
+        <div class="a">ご自身で出願すること自体は可能です。ただし、権利範囲を決める「特許請求の範囲」の作り込みや審査対応には専門知識が必要で、ここで権利の強さが大きく変わります。inventist.jp は調査・戦略を支援し、出願実務は提携弁理士が担当する形で、品質とコストのバランスを取ります。</div>
+      </details>
+      <details>
+        <summary>inventist.jp は弁理士事務所ですか？</summary>
+        <div class="a">いいえ。特許出願の代理は弁理士の独占業務のため、当社は出願代理を行いません。発明発掘・先行技術調査・知財戦略コンサルティングと、提携弁理士・特許事務所へのお取次ぎを担います。出願実務は提携弁理士が責任をもって行います。</div>
+      </details>
+      <details>
+        <summary>相談時に発明の内容を話しても大丈夫ですか？</summary>
+        <div class="a">初回相談では、差し支えない範囲の概要をお伺いします。機微な技術情報の詳細は、秘密保持の取り決めをしたうえでお話しいただく流れですのでご安心ください。なお、公知になると新規性を失う場合があるため、出願前の公表・公開には注意が必要です。</div>
+      </details>
+      <details>
+        <summary>取得した特許を、あとで売却・ライセンスできますか？</summary>
+        <div class="a">はい。inventist.jp は<a href="patent-trade.html">特許の買収・売却マーケットプレイス</a>も運営しています。取得後に使わなくなった特許の売却・ライセンスまで、同じ場所で支援できます。</div>
+      </details>
+    </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section section--soft">
   <div class="container">
-    <div class="cta-band">
+    <div class="cta-band reveal">
       <h2>その発明、権利にできるか確かめてみませんか。</h2>
       <p>初回相談は無料。何から始めればよいか分からない段階でも大丈夫です。</p>
-      <a href="#consult" class="btn btn--on-navy btn--lg">無料相談を申し込む</a>
+      <div style="position:relative;z-index:1"><a href="#consult" class="btn btn--gold btn--lg">無料相談を申し込む</a></div>
     </div>
   </div>
 </section>
@@ -162,6 +266,68 @@
   </div>
 </footer>
 
-<script>var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');if(t)t.addEventListener('click',function(){n.classList.toggle('open');});</script>
+<script>
+  var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');
+  if(t)t.addEventListener('click',function(){n.classList.toggle('open');});
+  var header=document.getElementById('siteHeader');
+  function onScroll(){ if(window.scrollY>24) header.classList.add('scrolled'); else header.classList.remove('scrolled'); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revs=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.12});
+    revs.forEach(function(el){io.observe(el);});
+  } else { revs.forEach(function(el){el.classList.add('in');}); }
+
+  // ---- プラン診断シミュレーター ----
+  var sel={stage:"idea",field:"general",search:"no",goal:"protect"};
+  document.querySelectorAll('.sim-q .opts').forEach(function(group){
+    var k=group.getAttribute('data-k');
+    group.addEventListener('click',function(e){
+      var b=e.target.closest('.opt'); if(!b)return;
+      [].forEach.call(group.querySelectorAll('.opt'),function(x){x.classList.remove('active');});
+      b.classList.add('active'); sel[k]=b.getAttribute('data-v'); renderSim();
+    });
+  });
+
+  function yen(n){ return '約' + n.toLocaleString('ja-JP') + '円〜'; }
+  function renderSim(){
+    // ベースの出願関連目安（特許庁手数料＋印紙＋弁理士費用の概算レンジ・税別）
+    var base = 350000; // 一般的な出願一式の目安スタート
+    if(sel.field==='soft') base += 50000;
+    if(sel.field==='chem') base += 80000;
+    var research = sel.search==='no' ? 80000 : 40000;
+    var stageNote, plan, planDesc, steps;
+
+    if(sel.stage==='idea'){
+      plan='発明ブラッシュアップ・プラン';
+      planDesc='まだアイデア段階なら、まず「権利になる形」に発明を磨くところから。先行技術調査で新規性を確かめ、出願範囲を一緒に設計します。';
+      steps=['無料相談で発明の要点を整理','先行技術調査で新規性・進歩性を確認','出願範囲を設計し提携弁理士へ取次','弁理士が出願・審査対応'];
+    } else if(sel.stage==='proto'){
+      plan='スピード権利化プラン';
+      planDesc='試作・検証が済んでいるなら、要点が明確で出願に進みやすい段階。公表前の出願タイミングに注意しつつ、権利化を加速します。';
+      steps=['無料相談で技術の核を特定','先行技術調査（必要範囲）','提携弁理士と出願戦略を確定','出願・中間対応・登録'];
+    } else {
+      plan='事業ディフェンス・プラン';
+      planDesc='製品化済みなら、競合参入を防ぐ「守りの知財」が重要。コア技術の権利化に加え、周辺出願やポートフォリオ設計も検討します。';
+      steps=['無料相談で事業と競合状況を把握','コア・周辺技術の調査と棚卸し','ポートフォリオを設計し出願計画を立案','提携弁理士が出願・権利化を実行'];
+    }
+    if(sel.goal==='license'){ planDesc += ' ライセンス収益化を見据え、実施しやすい広めの権利範囲を意識します。'; }
+    if(sel.goal==='fund'){ planDesc += ' 資金調達・PR向けに、出願済みであることを対外的に示せる形を優先します。'; }
+
+    var low = base + research;
+    var out = document.getElementById('simOut');
+    out.innerHTML =
+      '<span class="plan-tag">おすすめプラン</span>'+
+      '<h3>'+plan+'</h3>'+
+      '<p class="plan-desc">'+planDesc+'</p>'+
+      '<ol class="sim-steps">'+steps.map(function(s){return '<li>'+s+'</li>';}).join('')+'</ol>'+
+      '<div class="est"><span class="lbl">調査＋出願一式の目安（税別・概算）</span><span class="val">'+yen(low)+'</span></div>'+
+      '<p style="font-size:12px;color:var(--muted);margin-bottom:16px">＊ 特許庁手数料・印紙代・提携弁理士費用を含む概算レンジのスタート目安。内容により変動します。</p>'+
+      '<a href="#consult" class="btn btn--primary" style="width:100%">このプランで無料相談する</a>';
+  }
+  renderSim();
+</script>
 </body>
 </html>
