@@ -3,13 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>特許の買収・売却｜inventist.jp</title>
-<meta name="description" content="休眠特許を売りたい権利者と、ポートフォリオを強化したい事業会社・投資家をマッチング。特許の売買・ライセンスの仲介を行います。">
+<title>特許の買収・売却マーケットプレイス｜inventist.jp</title>
+<meta name="description" content="休眠特許を売りたい権利者と、ポートフォリオを強化したい事業会社・投資家をマッチング。案件を技術分野・取引形態・ステータスで絞り込み。売買・ライセンスの仲介を行います。">
 <link rel="stylesheet" href="style.css">
+<style>
+  .mkt-panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;max-width:1000px;margin:0 auto}
+  .mkt-row{display:flex;gap:10px;margin-bottom:16px}
+  .mkt-row input{flex:1;border:1.5px solid var(--line);border-radius:999px;padding:13px 20px;font-size:15px;font-family:inherit;color:var(--ink)}
+  .mkt-row input:focus{outline:none;border-color:var(--steel);box-shadow:0 0 0 3px rgba(46,111,176,.12)}
+  .mkt-filters{display:flex;flex-direction:column;gap:12px}
+  .filter-line{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .filter-line .lab{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.06em;min-width:64px}
+  .chip{border:1.5px solid var(--line);background:#fff;color:var(--text);font-size:13px;font-weight:600;padding:6px 14px;border-radius:999px;cursor:pointer;transition:.15s;font-family:inherit}
+  .chip:hover{border-color:var(--steel);color:var(--steel)}
+  .chip.active{background:var(--navy);border-color:var(--navy);color:#fff}
+  .mkt-meta{display:flex;justify-content:space-between;align-items:center;max-width:1000px;margin:22px auto 16px;color:var(--muted);font-size:14px}
+  .deal-grid2{display:grid;gap:18px;grid-template-columns:repeat(2,1fr);max-width:1000px;margin:0 auto}
+  .dealc{border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);padding:24px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:transform .18s,box-shadow .18s}
+  .dealc::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold-grad);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+  .dealc:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .dealc:hover::before{transform:scaleX(1)}
+  .dealc .row1{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+  .dealc .id{font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.06em}
+  .dealc h4{font-size:17px;margin-bottom:10px;line-height:1.5}
+  .dealc p{color:var(--muted);font-size:14px;margin-bottom:14px}
+  .dealc .tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+  .dealc .tags span{font-size:11.5px;background:var(--bg-tint);color:var(--steel);padding:4px 10px;border-radius:999px;font-weight:600}
+  .dealc .act{margin-top:auto}
+  .stat{font-size:11px;font-weight:800;padding:4px 11px;border-radius:999px;white-space:nowrap;letter-spacing:.04em}
+  .stat--open{background:#e7f4ec;color:#1f7a45}
+  .stat--buy{background:#eaf1fb;color:#2256a8}
+  .stat--talk{background:#fdf3e1;color:#9a6b12}
+  .empty2{max-width:1000px;margin:0 auto;text-align:center;color:var(--muted);padding:44px;border:1px dashed var(--line);border-radius:var(--radius)}
+  @media(max-width:820px){.deal-grid2{grid-template-columns:1fr}.mkt-row{flex-direction:column}}
+</style>
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="container nav">
     <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
     <nav><ul class="nav-links" id="navLinks">
@@ -27,56 +58,71 @@
 <section class="pagehero">
   <div class="container">
     <div class="breadcrumb"><a href="index.html">ホーム</a> ／ 特許の買収・売却</div>
-    <h1>特許の買収・売却マッチング</h1>
-    <p>使われていない特許を売りたい権利者と、技術や権利を取得したい事業会社・投資家をつなぎます。売買・ライセンスの条件交渉から契約まで、仲介者として伴走します。</p>
+    <h1>特許の買収・売却マーケットプレイス</h1>
+    <p>使われていない特許を売りたい権利者と、技術や権利を取得したい事業会社・投資家をつなぎます。条件で案件を絞り込み、秘密保持の上でお繋ぎします。</p>
     <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap">
-      <a href="#sell" class="btn btn--on-navy">売却を登録する</a>
+      <a href="#sell" class="btn btn--gold">売却を登録する</a>
       <a href="#buy" class="btn btn--ghost" style="color:#fff;border-color:rgba(255,255,255,.4)">買収ニーズを登録する</a>
     </div>
   </div>
 </section>
 
-<!-- 案件一覧 -->
+<!-- マーケットプレイス -->
 <section class="section" id="deals">
   <div class="container">
-    <div class="section-head"><span class="eyebrow">DEALS</span><h2>掲載中の案件（サンプル）</h2><p>機微な情報は伏せた概要のみを掲載します。詳細は秘密保持の取り決めの上でご案内します。</p></div>
-    <div class="deal-grid">
-      <div class="deal">
-        <div class="deal-top"><span class="deal-id">INV-2026-001</span><span class="status status--open">売却募集中</span></div>
-        <h4>全固体電池向け 硫化物系固体電解質の製造方法</h4>
-        <p style="color:var(--muted);font-size:14px">量産時の歩留まりを改善する製法に関する登録特許。実施実績あり。</p>
-        <div class="meta"><span>分野：電池・材料</span><span>日本登録</span><span>譲渡 / 専用実施権</span></div>
+    <div class="section-head reveal" style="margin:0 auto 28px;text-align:center;max-width:720px">
+      <span class="eyebrow">MARKETPLACE</span>
+      <h2>掲載中の案件</h2>
+      <p>機微な情報は伏せた概要のみを掲載します。詳細は秘密保持の取り決めの上でご案内します。</p>
+    </div>
+
+    <div class="mkt-panel reveal">
+      <div class="mkt-row">
+        <input id="q" type="text" placeholder="キーワードで絞り込み（例：電池 / AI / ドローン / 医療）" aria-label="キーワード検索">
       </div>
-      <div class="deal">
-        <div class="deal-top"><span class="deal-id">INV-2026-002</span><span class="status status--talk">商談中</span></div>
-        <h4>画像認識における軽量モデルの推論高速化手法</h4>
-        <p style="color:var(--muted);font-size:14px">エッジデバイス向けの推論最適化に関する特許ファミリー（日米）。</p>
-        <div class="meta"><span>分野：AI・ソフトウェア</span><span>日本・米国</span><span>ライセンス可</span></div>
-      </div>
-      <div class="deal">
-        <div class="deal-top"><span class="deal-id">INV-2026-003</span><span class="status status--open">売却募集中</span></div>
-        <h4>農業用ドローンの自動経路生成・散布制御</h4>
-        <p style="color:var(--muted);font-size:14px">圃場形状に応じた経路最適化。大学発の研究成果に基づく権利。</p>
-        <div class="meta"><span>分野：ロボティクス</span><span>日本登録</span><span>譲渡</span></div>
-      </div>
-      <div class="deal">
-        <div class="deal-top"><span class="deal-id">INV-2026-004</span><span class="status status--open">買い手募集</span></div>
-        <h4>医療用ウェアラブルの生体信号ノイズ除去回路</h4>
-        <p style="color:var(--muted);font-size:14px">心電・脈波計測のSNR改善に関する回路特許。試作評価済み。</p>
-        <div class="meta"><span>分野：医療機器</span><span>日本登録</span><span>譲渡 / ライセンス</span></div>
+      <div class="mkt-filters">
+        <div class="filter-line">
+          <span class="lab">技術分野</span>
+          <button class="chip active" data-k="field" data-v="all">すべて</button>
+          <button class="chip" data-k="field" data-v="電池・材料">電池・材料</button>
+          <button class="chip" data-k="field" data-v="AI・ソフトウェア">AI・ソフトウェア</button>
+          <button class="chip" data-k="field" data-v="ロボティクス">ロボティクス</button>
+          <button class="chip" data-k="field" data-v="医療機器">医療機器</button>
+          <button class="chip" data-k="field" data-v="半導体">半導体</button>
+          <button class="chip" data-k="field" data-v="環境・エネルギー">環境・エネルギー</button>
+        </div>
+        <div class="filter-line">
+          <span class="lab">取引形態</span>
+          <button class="chip active" data-k="type" data-v="all">すべて</button>
+          <button class="chip" data-k="type" data-v="譲渡">譲渡</button>
+          <button class="chip" data-k="type" data-v="ライセンス">ライセンス</button>
+        </div>
+        <div class="filter-line">
+          <span class="lab">ステータス</span>
+          <button class="chip active" data-k="status" data-v="all">すべて</button>
+          <button class="chip" data-k="status" data-v="open">売却募集中</button>
+          <button class="chip" data-k="status" data-v="buy">買い手募集</button>
+          <button class="chip" data-k="status" data-v="talk">商談中</button>
+        </div>
       </div>
     </div>
-    <p class="disclaimer mt-m">＊ 上記は表示サンプルです。実際の案件は、権利者の同意と本人確認を経たうえで掲載します。</p>
+
+    <div class="mkt-meta">
+      <span id="count">—</span>
+      <span style="font-size:12.5px">＊ 表示はサンプルです。実案件は権利者の同意と本人確認を経て掲載します。</span>
+    </div>
+    <div class="deal-grid2" id="deals-list"></div>
+    <div class="empty2" id="empty" style="display:none">条件に合う案件が見つかりませんでした。フィルタを変えてお試しください。</div>
   </div>
 </section>
 
 <!-- 売却登録 -->
-<section class="section section--soft" id="sell">
+<section class="section section--cream" id="sell">
   <div class="container">
-    <div class="grid grid-2" style="gap:48px;align-items:start">
-      <div>
+    <div class="split">
+      <div class="reveal">
         <span class="eyebrow badge">権利者・売り手の方へ</span>
-        <h2 style="font-size:clamp(22px,2.5vw,28px);margin:16px 0 14px">特許の売却・ライセンスを登録</h2>
+        <h2 style="font-size:clamp(24px,2.6vw,32px);margin:16px 0 14px">特許の売却・ライセンスを登録</h2>
         <p style="color:var(--muted);margin-bottom:20px">保有する特許の概要をご登録ください。条件に合う買い手・ライセンシーへ、機微情報を伏せた形でお繋ぎします。</p>
         <ul class="checks">
           <li>掲載は概要のみ。詳細は秘密保持の上で開示</li>
@@ -85,9 +131,8 @@
         </ul>
         <div class="note mt-m"><strong>仲介の位置づけ。</strong>特許権そのものの売買・ライセンス仲介に、特別な業免許は原則不要です。inventist.jp は仲介者として、契約・表示・個人情報の取扱いを適正に整備して運用します。</div>
       </div>
-      <div class="form-wrap">
+      <div class="form-wrap reveal d1">
         <h3 style="margin-bottom:18px">売却・ライセンス登録フォーム</h3>
-        <!-- action はデプロイ時にフォームサービスのURLへ差し替え -->
         <form action="https://formspree.io/f/your-form-id" method="POST">
           <input type="hidden" name="_subject" value="【inventist.jp】売却・ライセンス登録">
           <div class="form-row">
@@ -115,8 +160,8 @@
 <!-- 買収登録 -->
 <section class="section" id="buy">
   <div class="container">
-    <div class="grid grid-2" style="gap:48px;align-items:start">
-      <div class="form-wrap">
+    <div class="split">
+      <div class="form-wrap reveal">
         <h3 style="margin-bottom:18px">買収ニーズ登録フォーム</h3>
         <form action="https://formspree.io/f/your-form-id" method="POST">
           <input type="hidden" name="_subject" value="【inventist.jp】買収ニーズ登録">
@@ -135,9 +180,9 @@
           <button class="btn btn--primary btn--lg" type="submit" style="width:100%">買収ニーズを登録する</button>
         </form>
       </div>
-      <div>
+      <div class="reveal d1">
         <span class="eyebrow badge">事業会社・投資家の方へ</span>
-        <h2 style="font-size:clamp(22px,2.5vw,28px);margin:16px 0 14px">買収・導入したい技術を登録</h2>
+        <h2 style="font-size:clamp(24px,2.6vw,32px);margin:16px 0 14px">買収・導入したい技術を登録</h2>
         <p style="color:var(--muted);margin-bottom:20px">求める技術分野や課題をご登録ください。条件に合う特許・権利者をお探しし、機微情報に配慮しながらお繋ぎします。</p>
         <ul class="checks">
           <li>ニーズ起点で、最適な特許・権利者を探索</li>
@@ -152,8 +197,8 @@
 <!-- 運用方針 -->
 <section class="section section--soft">
   <div class="container">
-    <div class="section-head"><span class="eyebrow">HOW IT WORKS</span><h2>マッチングの進め方</h2></div>
-    <div class="steps grid-3" style="grid-template-columns:repeat(3,1fr)">
+    <div class="section-head reveal"><span class="eyebrow">HOW IT WORKS</span><h2>マッチングの進め方</h2></div>
+    <div class="steps reveal" style="grid-template-columns:repeat(3,1fr);display:grid;gap:24px">
       <div class="step"><div class="n"></div><div><h4>登録</h4><p>売却 / 買収のいずれかをフォームから登録。</p></div></div>
       <div class="step"><div class="n"></div><div><h4>本人確認・秘密保持</h4><p>当事者を確認し、機微情報の開示範囲を取り決め。</p></div></div>
       <div class="step"><div class="n"></div><div><h4>条件交渉・契約</h4><p>条件をすり合わせ、譲渡・ライセンス契約の締結を支援。</p></div></div>
@@ -174,6 +219,74 @@
   </div>
 </footer>
 
-<script>var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');if(t)t.addEventListener('click',function(){n.classList.toggle('open');});</script>
+<script>
+  var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');
+  if(t)t.addEventListener('click',function(){n.classList.toggle('open');});
+  var header=document.getElementById('siteHeader');
+  function onScroll(){ if(window.scrollY>24) header.classList.add('scrolled'); else header.classList.remove('scrolled'); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revs=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.12});
+    revs.forEach(function(el){io.observe(el);});
+  } else { revs.forEach(function(el){el.classList.add('in');}); }
+
+  // ---- 案件データセット（サンプル）----
+  var DEALS=[
+    {id:"INV-2026-001",field:"電池・材料",title:"全固体電池向け 硫化物系固体電解質の製造方法",desc:"量産時の歩留まりを改善する製法に関する登録特許。実施実績あり。",region:"日本登録",type:["譲渡","ライセンス"],status:"open",kw:"電池 固体電解質 硫化物 全固体 材料"},
+    {id:"INV-2026-002",field:"AI・ソフトウェア",title:"画像認識における軽量モデルの推論高速化手法",desc:"エッジデバイス向けの推論最適化に関する特許ファミリー（日米）。",region:"日本・米国",type:["ライセンス"],status:"talk",kw:"AI 画像認識 推論 エッジ 軽量 ソフトウェア"},
+    {id:"INV-2026-003",field:"ロボティクス",title:"農業用ドローンの自動経路生成・散布制御",desc:"圃場形状に応じた経路最適化。大学発の研究成果に基づく権利。",region:"日本登録",type:["譲渡"],status:"open",kw:"ドローン ロボット 農業 経路 散布 自動"},
+    {id:"INV-2026-004",field:"医療機器",title:"医療用ウェアラブルの生体信号ノイズ除去回路",desc:"心電・脈波計測のSNR改善に関する回路特許。試作評価済み。",region:"日本登録",type:["譲渡","ライセンス"],status:"buy",kw:"医療 ウェアラブル 生体 心電 ノイズ センサ"},
+    {id:"INV-2026-005",field:"半導体",title:"GaN系パワーデバイスの低オン抵抗終端構造",desc:"高耐圧と低損失を両立する終端構造。EV・電源向けに需要見込み。",region:"日本・欧州",type:["ライセンス"],status:"open",kw:"半導体 GaN パワー 低損失 電力 デバイス"},
+    {id:"INV-2026-006",field:"環境・エネルギー",title:"CO2を原料とする樹脂モノマー合成法",desc:"触媒設計により二酸化炭素から有用モノマーを高選択率で合成。",region:"日本登録",type:["譲渡","ライセンス"],status:"open",kw:"環境 CO2 樹脂 触媒 カーボン エネルギー"},
+    {id:"INV-2026-007",field:"AI・ソフトウェア",title:"製造ライン向け自己教師あり異常検知システム",desc:"ラベルなしデータから正常を学習し欠陥を検出。導入実績あり。",region:"日本登録",type:["ライセンス"],status:"buy",kw:"AI 異常検知 自己教師 製造 検査 ソフトウェア"},
+    {id:"INV-2026-008",field:"電池・材料",title:"リチウムイオン電池 シリコン系負極の膨張抑制構造",desc:"サイクル寿命を改善する複合負極。量産検討フェーズ。",region:"日本登録",type:["譲渡"],status:"talk",kw:"電池 リチウム 負極 シリコン 材料"},
+    {id:"INV-2026-009",field:"ロボティクス",title:"協働ロボットのセンサレス接触検知",desc:"モータ電流から接触力を推定し追加センサ無しで安全停止。",region:"日本・米国",type:["ライセンス"],status:"open",kw:"ロボット 協働 力覚 接触 安全 ロボティクス"},
+    {id:"INV-2026-010",field:"医療機器",title:"内視鏡画像のリアルタイム病変強調表示",desc:"AIで病変候補を抽出し術中映像に低遅延で重畳表示。",region:"日本登録",type:["譲渡","ライセンス"],status:"buy",kw:"医療 内視鏡 画像 AI 病変 診断"},
+    {id:"INV-2026-011",field:"環境・エネルギー",title:"ペロブスカイト太陽電池の耐久化封止構造",desc:"水分侵入を抑える多層封止で屋外耐久性を大幅改善。",region:"日本登録",type:["ライセンス"],status:"open",kw:"環境 太陽電池 ペロブスカイト 封止 発電 エネルギー"},
+    {id:"INV-2026-012",field:"半導体",title:"チップレット実装向け低温銅接合プロセス",desc:"低温で銅同士を接合し3次元実装の歩留まりを向上。",region:"日本登録",type:["譲渡"],status:"talk",kw:"半導体 実装 接合 チップレット 3次元 プロセス"}
+  ];
+
+  var STAT={open:{cls:"stat--open",label:"売却募集中"},buy:{cls:"stat--buy",label:"買い手募集"},talk:{cls:"stat--talk",label:"商談中"}};
+  var state={q:"",field:"all",type:"all",status:"all"};
+  var listEl=document.getElementById('deals-list'), countEl=document.getElementById('count'), emptyEl=document.getElementById('empty');
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  function render(){
+    var q=state.q.trim().toLowerCase();
+    var list=DEALS.filter(function(d){
+      if(state.field!=='all' && d.field!==state.field) return false;
+      if(state.type!=='all' && d.type.indexOf(state.type)<0) return false;
+      if(state.status!=='all' && d.status!==state.status) return false;
+      if(q){ var hay=(d.title+' '+d.desc+' '+d.kw+' '+d.field).toLowerCase(); if(!q.split(/\s+/).every(function(w){return hay.indexOf(w)>=0;})) return false; }
+      return true;
+    });
+    countEl.textContent=list.length+' 件の案件';
+    if(!list.length){ listEl.innerHTML=''; emptyEl.style.display='block'; return; }
+    emptyEl.style.display='none';
+    listEl.innerHTML=list.map(function(d){
+      var st=STAT[d.status];
+      return '<article class="dealc">'+
+        '<div class="row1"><span class="id">'+esc(d.id)+'</span><span class="stat '+st.cls+'">'+st.label+'</span></div>'+
+        '<h4>'+esc(d.title)+'</h4>'+
+        '<p>'+esc(d.desc)+'</p>'+
+        '<div class="tags"><span>分野：'+esc(d.field)+'</span><span>'+esc(d.region)+'</span><span>'+d.type.map(esc).join(' / ')+'</span></div>'+
+        '<div class="act"><a href="company.html#contact" class="btn btn--ghost" style="padding:9px 18px;font-size:14px">この案件を問い合わせる</a></div>'+
+      '</article>';
+    }).join('');
+  }
+
+  document.getElementById('q').addEventListener('input',function(){state.q=this.value;render();});
+  [].forEach.call(document.querySelectorAll('.chip'),function(c){
+    c.addEventListener('click',function(){
+      var k=this.getAttribute('data-k');
+      [].forEach.call(document.querySelectorAll('.chip[data-k='+k+']'),function(x){x.classList.remove('active');});
+      this.classList.add('active'); state[k]=this.getAttribute('data-v'); render();
+    });
+  });
+  render();
+</script>
 </body>
 </html>
