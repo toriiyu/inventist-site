@@ -34,6 +34,18 @@ export async function onRequestPost(context) {
     // ハニーポット（ボット対策）: _gotcha に入力があれば成功扱いで破棄
     if (data._gotcha) return json({ ok: true });
 
+    // Cloudflare Turnstile 検証（任意）: TURNSTILE_SECRET 設定時のみ有効化される
+    if (env.TURNSTILE_SECRET) {
+      const token = data['cf-turnstile-response'] || data.turnstile || '';
+      const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'secret=' + encodeURIComponent(env.TURNSTILE_SECRET) + '&response=' + encodeURIComponent(token)
+      });
+      const vr = await verify.json();
+      if (!vr.success) return json({ ok: false, error: 'turnstile_failed' }, 400);
+    }
+
     if (!data.email || !data.name) return json({ ok: false, error: 'missing_fields' }, 400);
 
     const to = env.CONTACT_TO;
