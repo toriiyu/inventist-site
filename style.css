@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap');
+/* フォントは各HTMLの<head>でpreconnect＋linkで先読み（描画ブロック回避） */
 
 /* =========================================================
    inventist.jp  —  共通スタイルシート
@@ -418,3 +418,14 @@ h1, h2, h3, h4 { color: var(--ink); line-height: 1.4; font-weight: 700; letter-s
 .split { display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; }
 @media (max-width:900px){ .split{ grid-template-columns:1fr; gap:32px } .hero{ padding:84px 0 64px } }
 
+
+/* =========================================================
+   アクセシビリティ・パフォーマンス（追記）
+   ========================================================= */
+img{max-width:100%;height:auto}
+:focus-visible{outline:2px solid var(--steel);outline-offset:2px;border-radius:3px}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--steel);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1!important;transform:none!important}
+}

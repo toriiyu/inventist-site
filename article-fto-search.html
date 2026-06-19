@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FTO調査（侵害予防調査）とは ― 製品を出す前に「他社特許」を確かめる｜inventist.jp</title>
+<meta name="description" content="FTO（Freedom to Operate）調査の目的、先行技術調査との違い、基本的な進め方、リスク評価と対応策（設計変更・ライセンス・無効資料調査）を実務目線でやさしく解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="canonical" href="https://inventist.jp/article-fto-search.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="inventist.jp">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="FTO調査（侵害予防調査）とは ― 製品を出す前に「他社特許」を確かめる｜inventist.jp">
+<meta property="og:description" content="FTO（Freedom to Operate）調査の目的、先行技術調査との違い、基本的な進め方、リスク評価と対応策を実務目線で解説します。">
+<meta property="og:url" content="https://inventist.jp/article-fto-search.html">
+<meta property="og:image" content="https://inventist.jp/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FTO調査（侵害予防調査）とは ― 製品を出す前に「他社特許」を確かめる｜inventist.jp">
+<meta name="twitter:description" content="FTO（Freedom to Operate）調査の目的、先行技術調査との違い、基本的な進め方、リスク評価と対応策を実務目線で解説します。">
+<meta name="twitter:image" content="https://inventist.jp/og-image.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "inventist.jp", "url": "https://inventist.jp/", "logo": "https://inventist.jp/favicon.svg", "image": "https://inventist.jp/og-image.png", "description": "発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。特許データベース検索、特許取得支援、特許の買収・売却マッチングを提供。", "email": "contact@inventist.jp", "areaServed": "JP", "sameAs": []}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "FTO調査（侵害予防調査）とは ― 製品を出す前に「他社特許」を確かめる", "description": "FTO（Freedom to Operate）調査の目的、先行技術調査との違い、基本的な進め方、リスク評価と対応策を実務目線で解説します。", "image": "https://inventist.jp/og-image.png", "datePublished": "2026-06-20", "dateModified": "2026-06-20", "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://inventist.jp/article-fto-search.html"}, "author": {"@type": "Organization", "name": "inventist.jp"}, "publisher": {"@type": "Organization", "name": "inventist.jp", "logo": {"@type": "ImageObject", "url": "https://inventist.jp/favicon.svg"}}}</script>
+<style>
+  .article{max-width:760px;margin:0 auto}
+  .article h2{font-size:clamp(20px,2.4vw,26px);margin:38px 0 14px}
+  .article h3{font-size:18px;margin:26px 0 10px}
+  .article p{margin-bottom:16px;color:var(--text)}
+  .article ul{margin:0 0 16px 0;padding-left:0;list-style:none;display:grid;gap:10px}
+  .article ul li{position:relative;padding-left:26px;color:var(--text)}
+  .article ul li::before{content:"●";position:absolute;left:0;top:5px;color:var(--steel);font-size:11px}
+  .article .lead{font-size:18px;color:var(--muted);margin-bottom:8px}
+  .article .meta{font-size:13px;color:var(--muted);margin-bottom:24px}
+  .article-cta{margin-top:40px}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
+    <nav><ul class="nav-links" id="navLinks">
+      <li><a href="services.html">サービス</a></li>
+      <li><a href="database.html">特許データベース</a></li>
+      <li><a href="patent-acquisition.html">特許取得支援</a></li>
+      <li><a href="patent-trade.html">買収・売却</a></li>
+      <li><a href="knowledge.html">ナレッジ</a></li>
+      <li><a href="company.html">会社情報</a></li>
+    </ul></nav>
+    <div class="nav-cta"><a href="company.html#contact" class="btn btn--primary">お問い合わせ</a></div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="pagehero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">ホーム</a> ／ <a href="knowledge.html">ナレッジ</a> ／ FTO調査とは</div>
+    <h1>FTO調査（侵害予防調査）とは ― 製品を出す前に「他社特許」を確かめる</h1>
+    <p>自社の発明が新しいかではなく、「製品を売っても他社特許を侵害しないか」を確かめる調査です。事業化の前に押さえておきたい基本を整理します。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <article class="article">
+      <p class="meta">特許調査 ／ 最終更新：2026年6月</p>
+      <p class="lead">FTO（Freedom to Operate）調査とは、自社の製品・サービスを市場に出したときに、他社の有効な特許を侵害しないかを確認する調査です。「事業の自由度」を確かめる、という意味で侵害予防調査とも呼ばれます。</p>
+
+      <h2>先行技術調査との違い</h2>
+      <p>混同しやすいのが先行技術調査との違いです。先行技術調査は「自分の発明が特許になるか（新規性・進歩性があるか）」を確かめるための調査で、過去のあらゆる公開文献が対象です。一方、FTO調査は「自分の製品が他社の<strong>生きている権利</strong>に当たらないか」を確かめるもので、権利が有効に存続している特許（とくに自社が事業を行う国の特許）が対象になります。</p>
+      <ul>
+        <li><strong>先行技術調査</strong>：目的は権利化の可否判断。対象は公知文献全般。期限切れ特許も新規性の証拠になる。</li>
+        <li><strong>FTO調査</strong>：目的は侵害リスクの把握。対象は存続中の権利。請求項（クレーム）の文言を厳密に読む。</li>
+      </ul>
+
+      <h2>なぜFTO調査が必要なのか</h2>
+      <p>特許は「自分が実施できる権利」ではなく「他人の実施を排除できる権利」です。つまり、自社が特許を持っていても、その製品が別の他社特許の範囲に入っていれば侵害になり得ます。製品を発売してから差止めや損害賠償を求められると、撤退・設計やり直し・在庫廃棄など影響は甚大です。投資・資金調達やM&Aのデューデリジェンスでも、FTOの状況はしばしば確認されます。</p>
+
+      <h2>基本的な進め方</h2>
+      <h3>1. 自社製品の技術的特徴を分解する</h3>
+      <p>製品を構成要素・機能ごとに分解し、「どの部分が他社権利に触れ得るか」の当たりをつけます。すべてを一度に調べるのではなく、新規性の高い中核部分から優先します。</p>
+      <h3>2. 対象国・存続中の権利に絞って検索する</h3>
+      <p>事業を行う国（例：日本・米国・欧州）の、権利が存続している特許を中心に検索します。出願中（公開済み・未登録）の案件も、将来権利化される可能性があるため監視対象に含めます。</p>
+      <h3>3. 請求項（クレーム）を読み込む</h3>
+      <p>FTOの核心は請求項の文言解釈です。製品が請求項に書かれた構成要件を「すべて」満たすと、原則として侵害が成立します（オールエレメントルール）。要素が一つでも欠ければ、文言上は外れる可能性があります。</p>
+      <h3>4. リスクを評価し、対応方針を決める</h3>
+      <p>関連しそうな権利が見つかったら、抵触の可能性を高・中・低で評価し、次の打ち手につなげます。</p>
+
+      <h2>リスクが見つかったときの対応策</h2>
+      <ul>
+        <li><strong>設計変更（回避設計）</strong>：請求項の構成要件の一部を満たさないように仕様を見直し、権利範囲の外に出ます。</li>
+        <li><strong>ライセンス交渉</strong>：権利者から実施許諾（ライセンス）を受けて、正当に実施します。</li>
+        <li><strong>無効資料調査</strong>：その特許に新規性・進歩性を否定する先行文献がないかを調べ、権利の有効性そのものを検討します。</li>
+        <li><strong>権利の買収</strong>：事業上重要であれば、対象特許自体を買い取る選択肢もあります。</li>
+      </ul>
+
+      <h2>専門家と組むべき理由</h2>
+      <p>請求項の解釈や侵害の成否判断は、技術と法律の両面の知識が必要で、最終的な法的判断は弁理士・弁護士の領域です。FTO調査は「調べて終わり」ではなく、結果をもとに事業判断につなげることが目的です。検索・分析の段階から専門家と連携することで、見落としと過剰な萎縮の両方を避けられます。</p>
+
+      <div class="note article-cta">
+        <strong>inventist.jp の調査支援。</strong> 製品化前のFTOの当たりづけから、関連特許の抽出・整理、回避や売買・ライセンスといった出口の検討までを支援します。最終的な法的判断は提携弁理士・弁護士と連携して進めます。初回相談は無料です。
+        <div class="mt-s" style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="patent-research.html" class="btn btn--primary">調査支援を見る</a>
+          <a href="company.html#contact" class="btn btn--ghost">無料で相談する</a>
+        </div>
+      </div>
+
+      <p class="disclaimer mt-l">＊ 本記事は一般的な情報の整理であり、法的助言ではありません。侵害の成否・権利の有効性の判断は弁理士・弁護士等の専門家にご確認ください。</p>
+    </article>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="brand">inventist<span class="dot">.</span>jp</div><p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。</p></div>
+      <div><h5>サービス</h5><ul><li><a href="services.html">サービス一覧</a></li><li><a href="patent-research.html">特許調査支援</a></li><li><a href="database.html">特許データベース</a></li><li><a href="patent-acquisition.html">特許取得支援</a></li><li><a href="patent-trade.html">特許の買収・売却</a></li></ul></div>
+      <div><h5>会社</h5><ul><li><a href="cases.html">導入事例</a></li><li><a href="resources.html">資料・セミナー</a></li><li><a href="knowledge.html">ナレッジ</a></li><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
+      <div><h5>はじめる</h5><ul><li><a href="patent-trade.html#sell">売却を登録</a></li><li><a href="patent-trade.html#buy">買収ニーズを登録</a></li><li><a href="database.html">特許を検索</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 inventist.jp</span><span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span></div>
+  </div>
+</footer>
+
+<script>var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');if(t)t.addEventListener('click',function(){n.classList.toggle('open');});</script>
+<!-- Cloudflare Web Analytics（Cookieレス）: ダッシュボードで取得したトークンを下記 TOKEN に貼り、この行のコメントを外すと有効化 -->
+<!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;REPLACE_WITH_TOKEN&quot;}"></script> -->
+</body>
+</html>

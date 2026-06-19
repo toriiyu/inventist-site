@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>パテントマップ入門 ― 特許情報を「地図」にして戦略に使う｜inventist.jp</title>
+<meta name="description" content="パテントマップとは何か。出願件数の推移、出願人ランキング、技術×課題のマトリクスなど代表的な種類と作り方、研究開発・知財戦略・新規参入の判断への活かし方を解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="canonical" href="https://inventist.jp/article-patent-map.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="inventist.jp">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="パテントマップ入門 ― 特許情報を「地図」にして戦略に使う｜inventist.jp">
+<meta property="og:description" content="パテントマップの代表的な種類と作り方、研究開発・知財戦略・新規参入の判断への活かし方を解説します。">
+<meta property="og:url" content="https://inventist.jp/article-patent-map.html">
+<meta property="og:image" content="https://inventist.jp/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="パテントマップ入門 ― 特許情報を「地図」にして戦略に使う｜inventist.jp">
+<meta name="twitter:description" content="パテントマップの代表的な種類と作り方、研究開発・知財戦略・新規参入の判断への活かし方を解説します。">
+<meta name="twitter:image" content="https://inventist.jp/og-image.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "inventist.jp", "url": "https://inventist.jp/", "logo": "https://inventist.jp/favicon.svg", "image": "https://inventist.jp/og-image.png", "description": "発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。特許データベース検索、特許取得支援、特許の買収・売却マッチングを提供。", "email": "contact@inventist.jp", "areaServed": "JP", "sameAs": []}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "パテントマップ入門 ― 特許情報を「地図」にして戦略に使う", "description": "パテントマップの代表的な種類と作り方、研究開発・知財戦略・新規参入の判断への活かし方を解説します。", "image": "https://inventist.jp/og-image.png", "datePublished": "2026-06-20", "dateModified": "2026-06-20", "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://inventist.jp/article-patent-map.html"}, "author": {"@type": "Organization", "name": "inventist.jp"}, "publisher": {"@type": "Organization", "name": "inventist.jp", "logo": {"@type": "ImageObject", "url": "https://inventist.jp/favicon.svg"}}}</script>
+<style>
+  .article{max-width:760px;margin:0 auto}
+  .article h2{font-size:clamp(20px,2.4vw,26px);margin:38px 0 14px}
+  .article h3{font-size:18px;margin:26px 0 10px}
+  .article p{margin-bottom:16px;color:var(--text)}
+  .article ul{margin:0 0 16px 0;padding-left:0;list-style:none;display:grid;gap:10px}
+  .article ul li{position:relative;padding-left:26px;color:var(--text)}
+  .article ul li::before{content:"●";position:absolute;left:0;top:5px;color:var(--steel);font-size:11px}
+  .article .lead{font-size:18px;color:var(--muted);margin-bottom:8px}
+  .article .meta{font-size:13px;color:var(--muted);margin-bottom:24px}
+  .article-cta{margin-top:40px}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
+    <nav><ul class="nav-links" id="navLinks">
+      <li><a href="services.html">サービス</a></li>
+      <li><a href="database.html">特許データベース</a></li>
+      <li><a href="patent-acquisition.html">特許取得支援</a></li>
+      <li><a href="patent-trade.html">買収・売却</a></li>
+      <li><a href="knowledge.html">ナレッジ</a></li>
+      <li><a href="company.html">会社情報</a></li>
+    </ul></nav>
+    <div class="nav-cta"><a href="company.html#contact" class="btn btn--primary">お問い合わせ</a></div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="pagehero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">ホーム</a> ／ <a href="knowledge.html">ナレッジ</a> ／ パテントマップ入門</div>
+    <h1>パテントマップ入門 ― 特許情報を「地図」にして戦略に使う</h1>
+    <p>大量の特許情報を、表やグラフに「見える化」したものがパテントマップです。研究開発の方向性や、参入すべき領域の判断に役立ちます。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <article class="article">
+      <p class="meta">知財戦略 ／ 最終更新：2026年6月</p>
+      <p class="lead">パテントマップとは、特許の書誌情報や内容を集計・分類し、グラフや表として「見える化」した資料です。一件ずつ読むだけでは見えない、業界全体の動きや空白領域を俯瞰するために使います。</p>
+
+      <h2>何のために作るのか</h2>
+      <p>個々の特許を読むのは「点」の作業ですが、パテントマップは特許群を「面」でとらえる作業です。どの企業が、どの技術領域に、いつから力を入れているのか。逆に、まだ誰も権利を固めていない空白はどこか。こうした問いに答えるための地図を作ることで、研究開発・知財・事業の意思決定を、勘ではなくデータで支えられます。</p>
+
+      <h2>代表的なマップの種類</h2>
+      <h3>1. 時系列マップ（出願件数の推移）</h3>
+      <p>年ごとの出願件数を折れ線・棒グラフにします。ある技術が伸びている分野か、すでに成熟・減速しているのかが一目でわかります。参入タイミングの検討に有効です。</p>
+      <h3>2. ランキングマップ（出願人別）</h3>
+      <p>出願人（企業・研究機関）ごとの件数を比較します。その領域の主要プレイヤー、競合の注力度、また売買・提携の相手候補を把握できます。</p>
+      <h3>3. マトリクスマップ（技術×課題）</h3>
+      <p>縦軸に「解決手段（技術）」、横軸に「課題・用途」を置き、各マスに該当特許数を入れます。件数が多いマスは競争が激しい領域、少ない・空白のマスは未開拓の可能性がある領域です。差別化の糸口を探すのに使われます。</p>
+      <h3>4. 引用・被引用マップ</h3>
+      <p>特許どうしの引用関係をネットワークで表します。多く引用されている特許は、その分野の基礎・中核技術である可能性が高く、重要特許の発見に役立ちます。</p>
+
+      <h2>作り方の基本ステップ</h2>
+      <ul>
+        <li><strong>目的を決める</strong>：「参入判断」「競合分析」「空白探索」など、何を知りたいかを先に定めます。目的次第で集める範囲も軸も変わります。</li>
+        <li><strong>母集団を作る</strong>：検索式や特許分類で対象特許を集めます。広すぎるとノイズが、狭すぎると見落としが増えるため、ここの精度が品質を左右します。</li>
+        <li><strong>分類・タグ付けする</strong>：各特許に技術・課題・用途などのタグを付け、集計できる形に整えます。</li>
+        <li><strong>集計・可視化する</strong>：軸を決めてグラフ化し、読み取れる示唆を言語化します。</li>
+      </ul>
+
+      <h2>活用するときの注意点</h2>
+      <p>パテントマップは強力ですが、件数の多寡がそのまま価値や強さを意味するわけではありません。少数でも事業を左右する重要特許はあります。母集団の作り方やタグ付けの基準で結論が変わるため、「どう作られたマップか」を理解したうえで判断することが大切です。定点観測として定期的に更新すると、業界の変化を継続的に追えます。</p>
+
+      <div class="note article-cta">
+        <strong>inventist.jp の調査・分析支援。</strong> 目的の整理から母集団づくり、マップ化と示唆の言語化までを支援します。知財BIダッシュボードによる可視化もご相談ください。初回相談は無料です。
+        <div class="mt-s" style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="patent-research.html" class="btn btn--primary">調査支援を見る</a>
+          <a href="company.html#contact" class="btn btn--ghost">無料で相談する</a>
+        </div>
+      </div>
+
+      <p class="disclaimer mt-l">＊ 本記事は一般的な情報の整理であり、法的助言ではありません。個別の戦略判断は専門家にご相談ください。</p>
+    </article>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="brand">inventist<span class="dot">.</span>jp</div><p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。</p></div>
+      <div><h5>サービス</h5><ul><li><a href="services.html">サービス一覧</a></li><li><a href="patent-research.html">特許調査支援</a></li><li><a href="database.html">特許データベース</a></li><li><a href="patent-acquisition.html">特許取得支援</a></li><li><a href="patent-trade.html">特許の買収・売却</a></li></ul></div>
+      <div><h5>会社</h5><ul><li><a href="cases.html">導入事例</a></li><li><a href="resources.html">資料・セミナー</a></li><li><a href="knowledge.html">ナレッジ</a></li><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li></ul></div>
+      <div><h5>はじめる</h5><ul><li><a href="patent-trade.html#sell">売却を登録</a></li><li><a href="patent-trade.html#buy">買収ニーズを登録</a></li><li><a href="database.html">特許を検索</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 inventist.jp</span><span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span></div>
+  </div>
+</footer>
+
+<script>var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');if(t)t.addEventListener('click',function(){n.classList.toggle('open');});</script>
+<!-- Cloudflare Web Analytics（Cookieレス）: ダッシュボードで取得したトークンを下記 TOKEN に貼り、この行のコメントを外すと有効化 -->
+<!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;REPLACE_WITH_TOKEN&quot;}"></script> -->
+</body>
+</html>
