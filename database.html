@@ -143,6 +143,7 @@
     <div id="dist" class="distwrap" aria-hidden="true"></div>
     <div class="results" id="results"></div>
     <div class="empty" id="empty" style="display:none">該当する特許が見つかりませんでした。キーワードや条件を変えてお試しください。</div>
+    <div style="text-align:center;margin-top:24px"><button id="moreBtn" class="btn btn--ghost" type="button" style="display:none">さらに表示</button></div>
   </div>
 </section>
 
@@ -202,160 +203,114 @@
   var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');
   if(t)t.addEventListener('click',function(){n.classList.toggle('open');});
 
-  // ---- キュレーション特許データセット（サンプル / イメージを含む）----
-  // status: 'live'=登録・権利存続 / 'pend'=審査中（公開）  holder: メーカー / 大学・研究機関 / スタートアップ・個人
-  var PATENTS = [
-    {no:"特許第6789012号", field:"電池・材料", title:"全固体電池向け 硫化物系固体電解質の製造方法", desc:"量産時の歩留まりを改善する製法。粒径制御により界面抵抗を低減。", year:2021, status:"live", holder:"メーカー", ipc:"H01M", kw:"電池 固体電解質 硫化物 全固体 二次電池 材料 solid electrolyte"},
-    {no:"特許第6711234号", field:"電池・材料", title:"リチウムイオン電池の高速充電用シリコン系負極材料", desc:"シリコン負極の膨張を抑える複合構造。サイクル寿命を向上。", year:2020, status:"live", holder:"メーカー", ipc:"H01M", kw:"電池 リチウム 負極 シリコン 急速充電 材料 anode"},
-    {no:"特開2023-018245", field:"電池・材料", title:"ナトリウムイオン電池用 希少金属フリー正極材料", desc:"コバルト・ニッケルを用いない正極組成で資源リスクを低減。", year:2023, status:"pend", holder:"スタートアップ・個人", ipc:"H01M", kw:"電池 ナトリウム 正極 希少金属フリー 材料 sodium"},
-    {no:"特許第6650441号", field:"電池・材料", title:"リチウム金属負極の デンドライト抑制セパレータ", desc:"析出を均一化する表面処理で短絡リスクを低減。", year:2019, status:"live", holder:"大学・研究機関", ipc:"H01M", kw:"電池 リチウム金属 デンドライト セパレータ 安全 材料"},
-    {no:"特許第7088310号", field:"電池・材料", title:"廃材由来の高純度シリコン回収プロセス", desc:"低コストで太陽電池・電池向けシリコンを再生。", year:2022, status:"live", holder:"メーカー", ipc:"C01B", kw:"シリコン リサイクル 回収 材料 純度 silicon"},
-    {no:"特開2024-006671", field:"電池・材料", title:"全固体電池の常温加圧成形プロセス", desc:"加熱工程を省き、積層セルの量産性を高める。", year:2024, status:"pend", holder:"大学・研究機関", ipc:"H01M", kw:"全固体 電池 成形 量産 プロセス 材料"},
-    {no:"特許第6512098号", field:"電池・材料", title:"スーパーキャパシタ用 多孔質炭素電極", desc:"比表面積を高めた炭素で高出力・長寿命を実現。", year:2018, status:"live", holder:"メーカー", ipc:"H01G", kw:"キャパシタ 炭素 電極 蓄電 材料 capacitor"},
-    {no:"特許第6803321号", field:"電池・材料", title:"電池劣化をAI推定するBMSアルゴリズム", desc:"充放電履歴から残存容量・劣化度を高精度に推定。", year:2021, status:"live", holder:"スタートアップ・個人", ipc:"G01R", kw:"電池 BMS 劣化 AI 推定 SOH ソフトウェア"},
-
-    {no:"特許第7012345号", field:"AI・ソフトウェア", title:"エッジ向け軽量モデルの推論高速化手法", desc:"量子化と枝刈りを組み合わせ、消費電力を抑えつつ精度を維持。", year:2022, status:"live", holder:"メーカー", ipc:"G06N", kw:"AI 機械学習 推論 エッジ 量子化 モデル ソフトウェア edge"},
-    {no:"特開2023-098765", field:"AI・ソフトウェア", title:"異常検知のための自己教師あり学習システム", desc:"ラベルなしデータから正常を学習し、製造ラインの異常を検出。", year:2023, status:"pend", holder:"スタートアップ・個人", ipc:"G06N", kw:"AI 異常検知 自己教師 学習 製造 ソフトウェア anomaly"},
-    {no:"特許第6655980号", field:"AI・ソフトウェア", title:"少数データ向けデータ拡張による画像分類", desc:"限られた教師データでも頑健な分類精度を確保。", year:2020, status:"live", holder:"大学・研究機関", ipc:"G06T", kw:"AI 画像 分類 データ拡張 少数 ソフトウェア image"},
-    {no:"特許第6987654号", field:"AI・ソフトウェア", title:"時系列需要予測のための注意機構モデル", desc:"季節性と外部要因を取り込み、在庫最適化に活用。", year:2021, status:"live", holder:"メーカー", ipc:"G06Q", kw:"AI 需要予測 時系列 注意機構 transformer ソフトウェア"},
-    {no:"特開2024-011234", field:"AI・ソフトウェア", title:"生成AIの出力検証・ハルシネーション検出手法", desc:"根拠文書との整合性を評価し、誤生成を抑制。", year:2024, status:"pend", holder:"スタートアップ・個人", ipc:"G06F", kw:"AI 生成 LLM 検証 幻覚 hallucination ソフトウェア"},
-    {no:"特許第6543210号", field:"AI・ソフトウェア", title:"雑音環境下の音声認識前処理", desc:"適応的な雑音抑制で認識率を改善。", year:2019, status:"live", holder:"大学・研究機関", ipc:"G10L", kw:"AI 音声認識 雑音 前処理 ソフトウェア speech"},
-    {no:"特許第7034567号", field:"AI・ソフトウェア", title:"サプライチェーン最適化の強化学習", desc:"需給変動下での発注・配送計画を自動最適化。", year:2022, status:"live", holder:"メーカー", ipc:"G06Q", kw:"AI 強化学習 サプライチェーン 最適化 ソフトウェア"},
-    {no:"特開2023-077001", field:"AI・ソフトウェア", title:"ベクトル検索による文書横断検索システム", desc:"埋め込み表現で意味の近い文書を高速に探索。", year:2023, status:"pend", holder:"スタートアップ・個人", ipc:"G06F", kw:"AI ベクトル検索 埋め込み 検索 semantic ソフトウェア"},
-
-    {no:"特許第6955001号", field:"ロボティクス", title:"農業用ドローンの自動経路生成・散布制御", desc:"圃場形状に応じた経路最適化と、風況を考慮した散布量制御。", year:2021, status:"live", holder:"メーカー", ipc:"G05D", kw:"ドローン ロボット 農業 経路 自動 散布 drone"},
-    {no:"特許第6890777号", field:"ロボティクス", title:"協働ロボットの力覚センサレス接触検知", desc:"モータ電流から接触力を推定し、追加センサなしで安全停止。", year:2020, status:"live", holder:"メーカー", ipc:"B25J", kw:"ロボット 協働 力覚 センサレス 接触 安全 cobot"},
-    {no:"特開2023-055120", field:"ロボティクス", title:"柔軟グリッパによる不定形物ピッキング", desc:"形の異なる対象を破損なく把持する空気圧グリッパ。", year:2023, status:"pend", holder:"スタートアップ・個人", ipc:"B25J", kw:"ロボット グリッパ ピッキング 把持 物流 gripper"},
-    {no:"特許第6601882号", field:"ロボティクス", title:"屋内自律移動のSLAM軽量化手法", desc:"低スペック機器でも動く自己位置推定・地図生成。", year:2019, status:"live", holder:"大学・研究機関", ipc:"G05D", kw:"ロボット SLAM 自律移動 地図 自己位置 navigation"},
-    {no:"特許第7045678号", field:"ロボティクス", title:"双腕ロボットの動作計画最適化", desc:"干渉回避とサイクルタイム短縮を同時に実現。", year:2022, status:"live", holder:"メーカー", ipc:"B25J", kw:"ロボット 双腕 動作計画 最適化 motion planning"},
-    {no:"特開2024-003388", field:"ロボティクス", title:"触覚センサ付き義手の把持力制御", desc:"接触圧に応じて握る力を自動調整する制御。", year:2024, status:"pend", holder:"大学・研究機関", ipc:"B25J", kw:"ロボット 義手 触覚 把持 福祉 prosthetic"},
-    {no:"特許第6822145号", field:"ロボティクス", title:"倉庫AGVの群制御・渋滞回避", desc:"多数台の自動搬送車を渋滞なく協調走行させる。", year:2021, status:"live", holder:"スタートアップ・個人", ipc:"G05D", kw:"ロボット AGV 群制御 物流 倉庫 渋滞 fleet"},
-    {no:"特許第6488901号", field:"ロボティクス", title:"産業用ドローンの耐風飛行制御", desc:"突風下でも安定した姿勢を保つ制御アルゴリズム。", year:2018, status:"live", holder:"メーカー", ipc:"B64C", kw:"ドローン 飛行 制御 耐風 産業 UAV"},
-
-    {no:"特許第7033210号", field:"医療機器", title:"ウェアラブル生体信号のノイズ除去回路", desc:"心電・脈波計測のSNRを改善する適応フィルタ回路。", year:2022, status:"live", holder:"メーカー", ipc:"A61B", kw:"医療 ウェアラブル 生体 心電 ノイズ センサ wearable"},
-    {no:"特開2023-066540", field:"医療機器", title:"内視鏡画像のリアルタイム病変強調表示", desc:"AIで病変候補を抽出し、術中映像に低遅延で重畳表示。", year:2023, status:"pend", holder:"スタートアップ・個人", ipc:"A61B", kw:"医療 内視鏡 画像 AI 病変 診断 endoscope"},
-    {no:"特許第6677001号", field:"医療機器", title:"ミリ波による非接触バイタル計測", desc:"心拍・呼吸を触れずに計測。睡眠・見守り用途に。", year:2020, status:"live", holder:"大学・研究機関", ipc:"A61B", kw:"医療 非接触 バイタル ミリ波 見守り vital"},
-    {no:"特許第6901230号", field:"医療機器", title:"携帯型インスリンポンプの精密投与制御", desc:"微量を安定供給する送液制御で血糖管理を支援。", year:2021, status:"live", holder:"メーカー", ipc:"A61M", kw:"医療 インスリン ポンプ 投与 糖尿病 insulin"},
-    {no:"特開2024-009912", field:"医療機器", title:"電子カルテからの重症化予測モデル", desc:"検査値の推移から重症化リスクを早期にアラート。", year:2024, status:"pend", holder:"大学・研究機関", ipc:"G16H", kw:"医療 電子カルテ 予測 重症化 AI EHR"},
-    {no:"特許第6566789号", field:"医療機器", title:"超音波画像のAIノイズ低減", desc:"スペックルノイズを抑え、微小構造の視認性を改善。", year:2019, status:"live", holder:"メーカー", ipc:"A61B", kw:"医療 超音波 画像 ノイズ AI ultrasound"},
-    {no:"特許第7029988号", field:"医療機器", title:"在宅心電モニタの不整脈検出", desc:"長時間記録から心房細動などを自動検出。", year:2022, status:"live", holder:"スタートアップ・個人", ipc:"A61B", kw:"医療 心電 不整脈 在宅 モニタ ECG"},
-    {no:"特開2023-044120", field:"医療機器", title:"低侵襲治療用 操作性マイクロカテーテル", desc:"屈曲部の追従性を高め、到達性と安全性を両立。", year:2023, status:"pend", holder:"メーカー", ipc:"A61M", kw:"医療 カテーテル 低侵襲 治療 catheter 機器"},
-
-    {no:"特許第7101010号", field:"半導体", title:"GaN系パワーデバイスの低オン抵抗構造", desc:"電界集中を緩和する終端構造で高耐圧と低損失を両立。", year:2022, status:"live", holder:"メーカー", ipc:"H01L", kw:"半導体 GaN パワー デバイス 低損失 power"},
-    {no:"特許第7056789号", field:"半導体", title:"3次元実装向けの低温銅接合プロセス", desc:"低温で銅同士を接合し、チップレット実装の歩留まり向上。", year:2021, status:"live", holder:"メーカー", ipc:"H01L", kw:"半導体 実装 接合 チップレット 3次元 bonding"},
-    {no:"特開2023-031200", field:"半導体", title:"チップレット間の光インターコネクト", desc:"電気配線の限界を超える広帯域・低遅延接続。", year:2023, status:"pend", holder:"スタートアップ・個人", ipc:"H01L", kw:"半導体 光 インターコネクト チップレット photonics"},
-    {no:"特許第6604455号", field:"半導体", title:"SiC MOSFETのゲート絶縁膜信頼性向上", desc:"界面欠陥を低減し、長期信頼性を確保。", year:2019, status:"live", holder:"大学・研究機関", ipc:"H01L", kw:"半導体 SiC MOSFET ゲート 信頼性 power"},
-    {no:"特許第6955330号", field:"半導体", title:"EUVリソグラフィ向け高感度レジスト材料", desc:"露光感度と解像度を両立する材料設計。", year:2020, status:"live", holder:"メーカー", ipc:"H01L", kw:"半導体 EUV レジスト リソグラフィ 材料 resist"},
-    {no:"特開2024-005120", field:"半導体", title:"2次元材料トランジスタの低抵抗接触", desc:"次世代チャネル材料の接触抵抗を大幅に低減。", year:2024, status:"pend", holder:"大学・研究機関", ipc:"H01L", kw:"半導体 2次元材料 トランジスタ 接触 2D"},
-    {no:"特許第6510077号", field:"半導体", title:"パワーモジュールの高放熱基板構造", desc:"熱抵抗を下げ、高密度実装での発熱を抑制。", year:2018, status:"live", holder:"メーカー", ipc:"H01L", kw:"半導体 パワーモジュール 放熱 基板 thermal"},
-    {no:"特許第7077120号", field:"半導体", title:"AIアクセラレータのデータフロー最適化", desc:"メモリ転送を削減し、電力効率を高める演算配置。", year:2022, status:"live", holder:"スタートアップ・個人", ipc:"G06F", kw:"半導体 AI アクセラレータ データフロー 演算 accelerator"},
-
-    {no:"特許第6844321号", field:"環境・エネルギー", title:"CO2を原料とする樹脂モノマー合成法", desc:"触媒設計で二酸化炭素から有用モノマーを高選択率合成。", year:2021, status:"live", holder:"メーカー", ipc:"C07C", kw:"環境 CO2 二酸化炭素 樹脂 触媒 カーボン carbon"},
-    {no:"特許第7120987号", field:"環境・エネルギー", title:"ペロブスカイト太陽電池の耐久化封止構造", desc:"水分侵入を抑える多層封止で屋外耐久性を改善。", year:2022, status:"live", holder:"メーカー", ipc:"H01L", kw:"環境 太陽電池 ペロブスカイト 封止 発電 perovskite"},
-    {no:"特開2023-088400", field:"環境・エネルギー", title:"高効率PEM水電解用 低イリジウム触媒", desc:"希少金属使用量を抑えたグリーン水素製造触媒。", year:2023, status:"pend", holder:"大学・研究機関", ipc:"C25B", kw:"環境 水素 水電解 触媒 PEM hydrogen エネルギー"},
-    {no:"特許第6677432号", field:"環境・エネルギー", title:"洋上風力の浮体動揺低減制御", desc:"波・風による動揺を抑え、発電効率と寿命を改善。", year:2020, status:"live", holder:"メーカー", ipc:"F03D", kw:"環境 風力 洋上 浮体 制御 wind エネルギー"},
-    {no:"特開2024-002201", field:"環境・エネルギー", title:"排水からのリン回収プロセス", desc:"資源として有用なリンを排水から効率回収。", year:2024, status:"pend", holder:"スタートアップ・個人", ipc:"C02F", kw:"環境 排水 リン 回収 資源 phosphorus"},
-    {no:"特許第6588120号", field:"環境・エネルギー", title:"直接空気回収(DAC)用 CO2吸着材", desc:"大気中のCO2を低エネルギーで捕集する吸着材。", year:2019, status:"live", holder:"大学・研究機関", ipc:"C01B", kw:"環境 DAC CO2 吸着 回収 carbon capture"},
-    {no:"特許第7091200号", field:"環境・エネルギー", title:"VPP向け需給調整アルゴリズム", desc:"分散電源を束ね、需給バランスを自動調整。", year:2021, status:"live", holder:"メーカー", ipc:"H02J", kw:"環境 VPP 需給 調整 電力 grid エネルギー"},
-    {no:"特開2023-099001", field:"環境・エネルギー", title:"微生物によるバイオ燃料生産プロセス", desc:"廃資源を原料に微生物で燃料を生産。", year:2022, status:"pend", holder:"スタートアップ・個人", ipc:"C12P", kw:"環境 バイオ燃料 微生物 発酵 biofuel エネルギー"}
-  ];
-
-  var FIELDS=["電池・材料","AI・ソフトウェア","ロボティクス","医療機器","半導体","環境・エネルギー"];
+  // ---- 検索：/api/search（Cloudflare D1接続。未接続時はサンプルseedで動作）----
+  var PAGE_SIZE=24;
   var STLABEL={live:"登録・権利存続", pend:"審査中（公開）"};
-  var state={q:"", field:"all", status:"all", holder:"all", sort:"rel"};
+  var FIELDS=["電池・材料","AI・ソフトウェア","ロボティクス","医療機器","半導体","環境・エネルギー"];
+  var state={q:"", field:"all", status:"all", holder:"all", sort:"rel", page:1};
+  var loaded=[], total=0, loading=false;
   var resultsEl=document.getElementById('results');
   var countEl=document.getElementById('count');
   var emptyEl=document.getElementById('empty');
   var distEl=document.getElementById('dist');
+  var moreBtn=document.getElementById('moreBtn');
 
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function statusParam(){return state.status==='登録・存続'?'live':state.status==='審査中'?'pend':'all';}
 
-  // フィールド以外の条件で絞った集合（分布バー用）
-  function baseList(ignoreField){
-    var q=state.q.trim().toLowerCase();
-    return PATENTS.filter(function(p){
-      var okF = ignoreField || state.field==='all' || p.field===state.field;
-      var stKey = p.status==='live' ? '登録・存続' : '審査中';
-      var okS = state.status==='all' || state.status===stKey;
-      var okH = state.holder==='all' || state.holder===p.holder;
-      var hay=(p.title+' '+p.desc+' '+p.kw+' '+p.field+' '+p.ipc+' '+p.no).toLowerCase();
-      var okQ = !q || q.split(/\s+/).every(function(w){return hay.indexOf(w)>=0;});
-      return okF && okS && okH && okQ;
+  function cardHTML(p){
+    var gp='https://patents.google.com/?q='+encodeURIComponent(p.title);
+    var jp='https://www.j-platpat.inpit.go.jp/c1801/PU/JP/'+encodeURIComponent(p.title)+'/';
+    var stCls=p.status==='live'?'st-live':'st-pend';
+    return '<article class="pat">'+
+      '<div class="top"><span class="no">'+esc(p.no)+'</span><span class="field">'+esc(p.field)+'</span></div>'+
+      '<h3>'+esc(p.title)+'</h3>'+
+      '<div class="metaline">'+
+        '<span class="pill '+stCls+'">'+esc(STLABEL[p.status]||'')+'</span>'+
+        '<span class="pill">出願 '+esc(p.year)+'年</span>'+
+        '<span class="pill">'+esc(p.holder)+'</span>'+
+        '<span class="pill">IPC '+esc(p.ipc)+'</span>'+
+      '</div>'+
+      '<p>'+esc(p.desc)+'</p>'+
+      '<div class="links"><a href="'+gp+'" target="_blank" rel="noopener">Google Patents ↗</a>'+
+      '<a href="'+jp+'" target="_blank" rel="noopener">J-PlatPat ↗</a>'+
+      '<a href="patent-trade.html#buy">この分野の買収を相談</a></div>'+
+    '</article>';
+  }
+
+  function renderDist(facets){
+    facets=facets||{};
+    var max=1; FIELDS.forEach(function(f){ if((facets[f]||0)>max) max=facets[f]; });
+    distEl.innerHTML='<div class="disthead">分野別ヒット件数（クリックで絞り込み）</div>'+FIELDS.map(function(f){
+      var n=facets[f]||0, w=Math.round(n/max*100), on=state.field===f?' on':'';
+      return '<div class="distrow'+on+'" data-f="'+esc(f)+'" role="button" tabindex="0">'+
+        '<span>'+esc(f)+'</span><span class="bartrack"><span class="bar" style="width:'+w+'%"></span></span>'+
+        '<span class="dn">'+n+'</span></div>';
+    }).join('');
+  }
+
+  function buildURL(){
+    var p=new URLSearchParams();
+    if(state.q) p.set('q', state.q);
+    if(state.field!=='all') p.set('field', state.field);
+    if(statusParam()!=='all') p.set('status', statusParam());
+    if(state.holder!=='all') p.set('holder', state.holder);
+    if(state.sort!=='rel') p.set('sort', state.sort);
+    p.set('page', state.page); p.set('size', PAGE_SIZE);
+    return '/api/search?'+p.toString();
+  }
+
+  function load(reset){
+    if(loading) return; loading=true;
+    if(reset){ state.page=1; loaded=[]; }
+    if(reset) countEl.textContent='検索中…';
+    fetch(buildURL(),{headers:{'Accept':'application/json'}}).then(function(r){return r.json();}).then(function(d){
+      loading=false;
+      if(!d||!d.ok) throw new Error('bad');
+      total=d.total||0;
+      loaded=loaded.concat(d.items||[]);
+      countEl.textContent = total + ' 件' + (loaded.length<total?'（'+loaded.length+'件表示中）':'');
+      renderDist(d.facets);
+      if(!loaded.length){ resultsEl.innerHTML=''; emptyEl.style.display='block'; }
+      else { emptyEl.style.display='none'; resultsEl.innerHTML=loaded.map(cardHTML).join(''); }
+      moreBtn.style.display = (loaded.length<total) ? '' : 'none';
+    }).catch(function(){
+      loading=false;
+      countEl.textContent='検索に接続できませんでした';
+      resultsEl.innerHTML='<div class="empty" style="display:block">検索サービスに一時的に接続できません。下の公式データベース（J-PlatPat / Google Patents）からお探しください。</div>';
+      distEl.innerHTML=''; moreBtn.style.display='none';
     });
   }
 
-  function renderDist(){
-    var src=baseList(true); // 分野以外の条件のみ適用
-    var counts=FIELDS.map(function(f){return {f:f, n:src.filter(function(p){return p.field===f;}).length};});
-    var max=Math.max(1, Math.max.apply(null, counts.map(function(c){return c.n;})));
-    distEl.innerHTML='<div class="disthead">分野別ヒット件数（クリックで絞り込み）</div>'+counts.map(function(c){
-      var w=Math.round(c.n/max*100);
-      var on=state.field===c.f?' on':'';
-      return '<div class="distrow'+on+'" data-f="'+esc(c.f)+'" role="button" tabindex="0">'+
-        '<span>'+esc(c.f)+'</span>'+
-        '<span class="bartrack"><span class="bar" style="width:'+w+'%"></span></span>'+
-        '<span class="dn">'+c.n+'</span></div>';
-    }).join('');
-  }
-
-  function render(){
-    var list=baseList(false);
-    if(state.sort==='new') list=list.slice().sort(function(a,b){return b.year-a.year;});
-    else if(state.sort==='old') list=list.slice().sort(function(a,b){return a.year-b.year;});
-    countEl.textContent = list.length + ' 件 / 全 ' + PATENTS.length + ' 件';
-    renderDist();
-    if(!list.length){resultsEl.innerHTML='';emptyEl.style.display='block';return;}
-    emptyEl.style.display='none';
-    resultsEl.innerHTML = list.map(function(p){
-      var gp='https://patents.google.com/?q='+encodeURIComponent(p.title);
-      var jp='https://www.j-platpat.inpit.go.jp/c1801/PU/JP/'+encodeURIComponent(p.title)+'/';
-      var stCls=p.status==='live'?'st-live':'st-pend';
-      return '<article class="pat">'+
-        '<div class="top"><span class="no">'+esc(p.no)+'</span><span class="field">'+esc(p.field)+'</span></div>'+
-        '<h3>'+esc(p.title)+'</h3>'+
-        '<div class="metaline">'+
-          '<span class="pill '+stCls+'">'+esc(STLABEL[p.status])+'</span>'+
-          '<span class="pill">出願 '+esc(p.year)+'年</span>'+
-          '<span class="pill">'+esc(p.holder)+'</span>'+
-          '<span class="pill">IPC '+esc(p.ipc)+'</span>'+
-        '</div>'+
-        '<p>'+esc(p.desc)+'</p>'+
-        '<div class="links"><a href="'+gp+'" target="_blank" rel="noopener">Google Patents ↗</a>'+
-        '<a href="'+jp+'" target="_blank" rel="noopener">J-PlatPat ↗</a>'+
-        '<a href="patent-trade.html#buy">この分野の買収を相談</a></div>'+
-      '</article>';
-    }).join('');
-  }
-
+  var deb=null;
+  function onInput(v){ state.q=v; clearTimeout(deb); deb=setTimeout(function(){load(true);},250); }
   function setField(v){
     state.field=v;
     var grp=document.querySelector('.chips[data-k="field"]');
     [].forEach.call(grp.querySelectorAll('.chip'),function(c){c.classList.toggle('active', c.getAttribute('data-v')===v);});
-    render();
+    load(true);
   }
 
-  document.getElementById('searchBtn').addEventListener('click',function(){state.q=document.getElementById('q').value;render();});
-  document.getElementById('q').addEventListener('keydown',function(e){if(e.key==='Enter'){state.q=this.value;render();}});
-  document.getElementById('q').addEventListener('input',function(){state.q=this.value;render();});
-  document.getElementById('sortsel').addEventListener('change',function(){state.sort=this.value;render();});
+  document.getElementById('searchBtn').addEventListener('click',function(){state.q=document.getElementById('q').value;load(true);});
+  document.getElementById('q').addEventListener('keydown',function(e){if(e.key==='Enter'){state.q=this.value;load(true);}});
+  document.getElementById('q').addEventListener('input',function(){onInput(this.value);});
+  document.getElementById('sortsel').addEventListener('change',function(){state.sort=this.value;load(true);});
+  moreBtn.addEventListener('click',function(){state.page++;load(false);});
 
-  // 各チップグループ（field/status/holder）共通ハンドラ
   [].forEach.call(document.querySelectorAll('.chips[data-k]'),function(grp){
     var key=grp.getAttribute('data-k');
     grp.addEventListener('click',function(e){
       var b=e.target.closest('.chip'); if(!b)return;
       [].forEach.call(grp.querySelectorAll('.chip'),function(c){c.classList.remove('active');});
-      b.classList.add('active'); state[key]=b.getAttribute('data-v'); render();
+      b.classList.add('active'); state[key]=b.getAttribute('data-v'); load(true);
     });
   });
 
-  // 分布バーのクリック／キーボードで分野を絞り込み
   distEl.addEventListener('click',function(e){var r=e.target.closest('.distrow'); if(r)setField(r.getAttribute('data-f'));});
   distEl.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){var r=e.target.closest('.distrow'); if(r){e.preventDefault();setField(r.getAttribute('data-f'));}}});
 
-  // URLの ?q= を初期検索に反映（構造化データSearchAction対応）
   try{var _qp=new URLSearchParams(location.search).get('q');if(_qp){state.q=_qp;document.getElementById('q').value=_qp;}}catch(e){}
-  render();
+  load(true);
 
   function openJP(e){e.preventDefault();var q=document.getElementById('jpQ').value.trim();
     window.open('https://www.j-platpat.inpit.go.jp/'+(q?'c1801/PU/JP/'+encodeURIComponent(q)+'/':''),'_blank','noopener');return false;}
