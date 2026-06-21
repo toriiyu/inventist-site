@@ -73,26 +73,41 @@ https://inventist.jp/api/search?q=電池
 - **Google Patents Public Datasets（BigQuery）**：JPを含む書誌・要約を抽出可能。
   GCPアカウントとBigQuery（クエリ課金）が必要。再配布条件を要確認。
 
-### 6-2. JSONL に整形
+### 6-2. ダウンロードした XML / TSV を JSONL に変換
 
-1行 = 1特許の JSON。キー：
+同梱の変換器 `scripts/jpo_to_jsonl.mjs` が、公報全文/整理標準化 **XML**（ST.36系・名前空間は無視）と
+書誌 **TSV**（日本語ヘッダを自動マッピング）の両方に対応します。
+
+```bash
+# ディレクトリ配下の .xml / .tsv をまとめて変換
+node scripts/jpo_to_jsonl.mjs ./jpo_data ./out.jsonl
+```
+
+抽出内容：文献番号・発明の名称・要約・出願年・ステータス（kind=Aは審査中, それ以外は登録）・
+出願人・出願人タイプ（名称から推定）・IPC・技術分野（IPC→6分類のマッピング）。
+
+> 実データの要素名/カラム名が想定と違う場合は、`scripts/jpo_to_jsonl.mjs` 冒頭の
+> `IPC_FIELD` マッピングや TSV カラム名（`発明の名称`/`要約`/`出願日`/`出願人`/`国際特許分類` 等）を
+> 1〜2行調整するだけで対応できます。生成された JSONL の中身を一度確認してから投入してください。
+
+1行 = 1特許の JSON（キー）：
 ```
 { "no":"特許第XXXXXXX号", "field":"電池・材料", "title":"…", "abstract":"…",
   "year":2022, "status":"live", "holder":"メーカー", "assignee":"○○(株)",
   "ipc":"H01M", "kw":"…", "pubdate":"2022-04-01" }
 ```
 - `status`: `live`=登録・権利存続 / `pend`=審査中（公開）
-- `field` はサイトの分類（6分野）に寄せると分布バー・絞り込みが効きます
+- `field` はサイトの分類（6分野）。未マップは空になります（検索は可能・分布バーには出ない）
 
 ### 6-3. SQL に変換して投入
 
 ```bash
-node scripts/build_seed_sql.mjs path/to/patents.jsonl db/import.sql
+node scripts/build_seed_sql.mjs ./out.jsonl db/import.sql
 wrangler d1 execute inventist-patents --remote --file=./db/import.sql
 ```
 
-`INSERT OR REPLACE` なので、`no`（特許番号）をキーに重複は上書きされます。
-分割投入したい場合は JSONL を分割し、複数回流してください。
+`INSERT OR REPLACE` なので、`no`（文献番号）をキーに重複は上書きされます。
+件数が多い場合は JSONL を分割（例：`split -l 5000`）して複数回投入してください。
 
 ---
 
