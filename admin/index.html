@@ -101,8 +101,14 @@
 
   <!-- 特許追加・編集 -->
   <div id="tab-patents" style="display:none">
+    <div class="toolbar">
+      <input id="psearch" type="text" placeholder="特許DBを検索（名称・番号・キーワード）">
+      <button class="btn btn--ghost" id="pload" type="button">検索 / 一覧</button>
+      <button class="bsm" id="pnew" type="button">＋ 新規追加</button>
+    </div>
+    <div id="plist" style="margin-bottom:18px"></div>
     <div class="form">
-      <h3>特許を追加・編集（文献番号が同じものは上書き）</h3>
+      <h3 id="pFormTitle">特許を追加・編集（文献番号が同じものは上書き）</h3>
       <div class="frow">
         <div class="field"><label>文献番号 *</label><input id="p_no" placeholder="例：特許第7101010号 / 特開2024-000001"></div>
         <div class="field"><label>技術分野</label><input id="p_field" placeholder="例：半導体"></div>
@@ -151,6 +157,7 @@
     b.classList.add('active');
     ['subs','deals','patents'].forEach(function(t){$('tab-'+t).style.display = (t===b.dataset.tab)?'block':'none';});
     if(b.dataset.tab==='deals') loadDeals();
+    if(b.dataset.tab==='patents') loadPatents();
   });});
 
   /* ---- 問合せ ---- */
@@ -207,18 +214,43 @@
   });
   $('d_clear').addEventListener('click',function(){dealForm({});});
 
-  /* ---- 特許追加・編集 ---- */
+  /* ---- 特許 一覧・検索・編集 ---- */
+  var PSTLABEL={live:'登録・権利存続',pend:'審査中（公開）'};
+  function pFill(p){
+    p=p||{};
+    $('p_no').value=p.no||''; $('p_field').value=p.field||''; $('p_title').value=p.title||'';
+    $('p_abstract').value=p.desc||p.abstract||''; $('p_year').value=p.year||'';
+    $('p_status').value=p.status||'live'; $('p_holder').value=p.holder||'メーカー'; $('p_ipc').value=p.ipc||'';
+    $('pFormTitle').textContent = p.no ? ('特許を編集：'+p.no) : '特許を新規追加';
+    $('p_msg').textContent='';
+  }
+  function loadPatents(){
+    var q=$('psearch').value.trim();
+    $('plist').innerHTML='<p class="muted">読み込み中…</p>';
+    fetch('/api/search?size=100&q='+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(d){
+      var items=(d&&d.items)||[];
+      if(!items.length){$('plist').innerHTML='<div class="empty">該当する特許がありません。「＋ 新規追加」から登録できます。</div>';return;}
+      $('plist').innerHTML='<p class="muted" style="margin:0 0 8px">'+ (d.total||items.length) +' 件（最大100件表示）</p><table><thead><tr><th>文献番号</th><th>分野</th><th>名称</th><th>年</th><th>状態</th><th></th></tr></thead><tbody>'+items.map(function(p){
+        return '<tr><td style="white-space:nowrap">'+esc(p.no)+'</td><td>'+esc(p.field||'')+'</td><td class="msg">'+esc(p.title)+'</td><td>'+esc(p.year||'')+'</td><td>'+esc((PSTLABEL[p.status]||'').slice(0,2))+'</td><td><button class="bsm" data-pe=\''+esc(JSON.stringify(p))+'\'>編集</button></td></tr>';
+      }).join('')+'</tbody></table>';
+      [].forEach.call($('plist').querySelectorAll('[data-pe]'),function(b){b.addEventListener('click',function(){try{pFill(JSON.parse(b.getAttribute('data-pe')));window.scrollTo(0,document.body.scrollHeight);}catch(e){}});});
+    }).catch(function(){$('plist').innerHTML='<p class="err">検索に接続できませんでした。</p>';});
+  }
+  $('pload').addEventListener('click',loadPatents);
+  $('psearch').addEventListener('keydown',function(e){if(e.key==='Enter')loadPatents();});
+  $('pnew').addEventListener('click',function(){pFill({});window.scrollTo(0,document.body.scrollHeight);});
+
   $('p_save').addEventListener('click',function(){
     var body={action:'upsert',no:$('p_no').value,field:$('p_field').value,title:$('p_title').value,abstract:$('p_abstract').value,year:$('p_year').value,status:$('p_status').value,holder:$('p_holder').value,ipc:$('p_ipc').value};
     if(!body.no||!body.title){$('p_msg').className='err';$('p_msg').textContent='文献番号と名称は必須です';return;}
     fetch('/admin/api/patents',{method:'POST',headers:HJ(),body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(x){
-      $('p_msg').className='ok';$('p_msg').textContent=x.ok?'保存しました（DBに反映）':'失敗：'+(x.error||'');});
+      $('p_msg').className='ok';$('p_msg').textContent=x.ok?'保存しました（DBに反映）':'失敗：'+(x.error||'');if(x.ok)loadPatents();});
   });
   $('p_del').addEventListener('click',function(){
     if(!$('p_no').value){$('p_msg').className='err';$('p_msg').textContent='削除する文献番号を入力';return;}
     if(!confirm('削除しますか？'))return;
     fetch('/admin/api/patents',{method:'POST',headers:HJ(),body:JSON.stringify({action:'delete',no:$('p_no').value})}).then(function(r){return r.json();}).then(function(x){
-      $('p_msg').className='ok';$('p_msg').textContent=x.ok?'削除しました':'失敗';});
+      $('p_msg').className='ok';$('p_msg').textContent=x.ok?'削除しました':'失敗';if(x.ok){pFill({});loadPatents();}});
   });
 
   $('enter').addEventListener('click',function(){token=$('token').value.trim();sessionStorage.setItem('inv_admin_token',token);loadSubs();});
