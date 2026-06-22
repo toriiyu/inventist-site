@@ -16,4 +16,6 @@
   <url><loc>https://inventist.jp/resources.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://inventist.jp/company.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://inventist.jp/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://inventist.jp/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://inventist.jp/tokushoho.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>
