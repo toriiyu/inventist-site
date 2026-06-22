@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>管理画面｜inventist.jp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<style>
+  body{background:var(--bg-soft)}
+  .adminbar{background:var(--navy);color:#fff;padding:14px 0}
+  .adminbar .container{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .adminbar .brand{color:#fff}
+  .adminbar .who{font-size:13px;color:#c2d1e6}
+  .wrap{max-width:1180px;margin:24px auto;padding:0 20px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+  .toolbar input[type=text]{border:1.5px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px;font-family:inherit;min-width:220px}
+  .toolbar select{border:1.5px solid var(--line);border-radius:999px;padding:9px 14px;font-size:13px;font-family:inherit;background:#fff}
+  .kpis{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  .kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 18px;box-shadow:var(--shadow)}
+  .kpi b{font-family:var(--serif-en);font-size:22px;color:var(--ink)}
+  .kpi span{display:block;font-size:12px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--bg-soft);color:var(--ink);font-weight:700;white-space:nowrap;font-size:12px;letter-spacing:.04em}
+  td .msg{max-width:360px;color:var(--text)}
+  .pill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--bg-tint);color:var(--steel)}
+  .st-new{background:#eaf1fb;color:#2256a8}.st-in_progress{background:#fdf3e1;color:#9a6b12}.st-done{background:#e7f4ec;color:#1f7a45}.st-archived{background:#eee;color:#777}
+  select.stsel{border:1px solid var(--line);border-radius:6px;padding:4px 6px;font-size:12px;font-family:inherit}
+  .login{max-width:420px;margin:60px auto;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:30px}
+  .login h2{font-size:20px;margin-bottom:8px}
+  .login p{color:var(--muted);font-size:14px;margin-bottom:18px}
+  .login input{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:11px 14px;font-size:15px;font-family:inherit;margin-bottom:12px}
+  .muted{color:var(--muted);font-size:13px}
+  .empty{padding:40px;text-align:center;color:var(--muted)}
+  .err{color:#b3261e;font-size:13px;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="adminbar"><div class="container">
+  <a class="brand" href="../index.html">inventist<span class="dot">.</span>jp <small>ADMIN</small></a>
+  <span class="who" id="who"></span>
+</div></div>
+
+<div class="wrap" id="app" style="display:none">
+  <div class="kpis" id="kpis"></div>
+  <div class="toolbar">
+    <input id="q" type="text" placeholder="名前・会社・メール・本文で検索">
+    <select id="status">
+      <option value="all">すべてのステータス</option>
+      <option value="new">新規</option>
+      <option value="in_progress">対応中</option>
+      <option value="done">完了</option>
+      <option value="archived">アーカイブ</option>
+    </select>
+    <select id="kind">
+      <option value="all">すべての種別</option>
+      <option value="contact">お問い合わせ</option>
+      <option value="sell">売却登録</option>
+      <option value="buy">買収登録</option>
+      <option value="resource">資料請求</option>
+    </select>
+    <button class="btn btn--ghost" id="reload" type="button">更新</button>
+    <a class="btn btn--primary" id="csv" href="#">CSVダウンロード</a>
+  </div>
+  <div id="tablewrap"></div>
+</div>
+
+<div class="login" id="login" style="display:none">
+  <h2>管理画面ログイン</h2>
+  <p>Cloudflare Access で保護されている場合は自動でログインされます。トークン運用の場合は <code>ADMIN_TOKEN</code> を入力してください。</p>
+  <input id="token" type="password" placeholder="ADMIN_TOKEN" autocomplete="off">
+  <button class="btn btn--primary" id="enter" type="button" style="width:100%">入る</button>
+  <div class="err" id="loginerr"></div>
+</div>
+
+<script>
+  var STLABEL={new:'新規',in_progress:'対応中',done:'完了',archived:'アーカイブ'};
+  var token = sessionStorage.getItem('inv_admin_token') || '';
+  var state = {q:'', status:'all', kind:'all'};
+
+  function headers(){ var h={}; if(token) h['x-admin-token']=token; return h; }
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  function showLogin(msg){
+    document.getElementById('app').style.display='none';
+    document.getElementById('login').style.display='block';
+    if(msg) document.getElementById('loginerr').textContent=msg;
+  }
+  function showApp(){ document.getElementById('login').style.display='none'; document.getElementById('app').style.display='block'; }
+
+  function load(){
+    var qs='?status='+encodeURIComponent(state.status)+'&kind='+encodeURIComponent(state.kind)+'&q='+encodeURIComponent(state.q)+'&size=200';
+    fetch('/admin/api/submissions'+qs,{headers:headers()}).then(function(r){
+      if(r.status===403){ showLogin(token?'トークンが正しくありません。':''); throw new Error('403'); }
+      return r.json();
+    }).then(function(d){
+      showApp();
+      document.getElementById('who').textContent = token?'token認証':'Cloudflare Access';
+      document.getElementById('csv').href = '/admin/api/export' + (token?('?key='+encodeURIComponent(token)):'');
+      if(!d.configured){
+        document.getElementById('tablewrap').innerHTML='<div class="empty">D1（submissionsテーブル）が未設定です。<br>db/admin_schema.sql を実行し、フォーム送信が入ると一覧表示されます。</div>';
+        document.getElementById('kpis').innerHTML='';
+        return;
+      }
+      renderKPIs(d.items, d.total);
+      renderTable(d.items);
+    }).catch(function(){});
+  }
+
+  function renderKPIs(items,total){
+    var by={new:0,in_progress:0,done:0,archived:0};
+    items.forEach(function(r){ if(by[r.status]!=null) by[r.status]++; });
+    document.getElementById('kpis').innerHTML =
+      kpi(total,'総件数')+kpi(by.new,'新規')+kpi(by.in_progress,'対応中')+kpi(by.done,'完了');
+  }
+  function kpi(n,l){return '<div class="kpi"><b>'+n+'</b><span>'+l+'</span></div>';}
+
+  function renderTable(items){
+    if(!items.length){ document.getElementById('tablewrap').innerHTML='<div class="empty">該当する送信はありません。</div>'; return; }
+    var rows = items.map(function(r){
+      var opts=['new','in_progress','done','archived'].map(function(s){return '<option value="'+s+'"'+(s===r.status?' selected':'')+'>'+STLABEL[s]+'</option>';}).join('');
+      return '<tr>'+
+        '<td>'+r.id+'</td>'+
+        '<td style="white-space:nowrap">'+esc(r.created_at)+'</td>'+
+        '<td><span class="pill">'+esc(r.kind||'')+'</span></td>'+
+        '<td>'+esc(r.name||'')+'<br><span class="muted">'+esc(r.company||'')+'</span></td>'+
+        '<td>'+esc(r.email||'')+'<br><span class="muted">'+esc(r.tel||'')+'</span></td>'+
+        '<td class="msg">'+esc(r.message||'')+'</td>'+
+        '<td><select class="stsel st-'+r.status+'" data-id="'+r.id+'">'+opts+'</select></td>'+
+      '</tr>';
+    }).join('');
+    document.getElementById('tablewrap').innerHTML =
+      '<table><thead><tr><th>ID</th><th>日時</th><th>種別</th><th>氏名/会社</th><th>連絡先</th><th>内容</th><th>ステータス</th></tr></thead><tbody>'+rows+'</tbody></table>';
+    [].forEach.call(document.querySelectorAll('.stsel'),function(sel){
+      sel.addEventListener('change',function(){
+        fetch('/admin/api/update',{method:'POST',headers:Object.assign({'Content-Type':'application/json'},headers()),
+          body:JSON.stringify({id:parseInt(this.getAttribute('data-id'),10),status:this.value})}).then(function(){load();});
+      });
+    });
+  }
+
+  document.getElementById('q').addEventListener('input',function(){state.q=this.value;clearTimeout(window._t);window._t=setTimeout(load,250);});
+  document.getElementById('status').addEventListener('change',function(){state.status=this.value;load();});
+  document.getElementById('kind').addEventListener('change',function(){state.kind=this.value;load();});
+  document.getElementById('reload').addEventListener('click',load);
+  document.getElementById('enter').addEventListener('click',function(){
+    token=document.getElementById('token').value.trim();
+    sessionStorage.setItem('inv_admin_token',token); load();
+  });
+  document.getElementById('token').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('enter').click();});
+
+  load();
+</script>
+</body>
+</html>
