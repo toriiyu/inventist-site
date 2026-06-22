@@ -14,30 +14,38 @@
   body{background:var(--bg-soft)}
   .adminbar{background:var(--navy);color:#fff;padding:14px 0}
   .adminbar .container{display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .adminbar .brand{color:#fff}
-  .adminbar .who{font-size:13px;color:#c2d1e6}
-  .wrap{max-width:1180px;margin:24px auto;padding:0 20px}
-  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+  .adminbar .brand{color:#fff}.adminbar .who{font-size:13px;color:#c2d1e6}
+  .wrap{max-width:1180px;margin:22px auto;padding:0 20px}
+  .tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .tab{border:1.5px solid var(--line);background:#fff;color:var(--text);font-weight:700;font-size:14px;padding:9px 18px;border-radius:999px;cursor:pointer;font-family:inherit}
+  .tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
   .toolbar input[type=text]{border:1.5px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px;font-family:inherit;min-width:220px}
   .toolbar select{border:1.5px solid var(--line);border-radius:999px;padding:9px 14px;font-size:13px;font-family:inherit;background:#fff}
   .kpis{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
   .kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 18px;box-shadow:var(--shadow)}
-  .kpi b{font-family:var(--serif-en);font-size:22px;color:var(--ink)}
-  .kpi span{display:block;font-size:12px;color:var(--muted)}
+  .kpi b{font-family:var(--serif-en);font-size:22px;color:var(--ink)}.kpi span{display:block;font-size:12px;color:var(--muted)}
   table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
   th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{background:var(--bg-soft);color:var(--ink);font-weight:700;white-space:nowrap;font-size:12px;letter-spacing:.04em}
-  td .msg{max-width:360px;color:var(--text)}
+  th{background:var(--bg-soft);color:var(--ink);font-weight:700;white-space:nowrap;font-size:12px}
+  td .msg{max-width:340px;color:var(--text)}
   .pill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--bg-tint);color:var(--steel)}
-  .st-new{background:#eaf1fb;color:#2256a8}.st-in_progress{background:#fdf3e1;color:#9a6b12}.st-done{background:#e7f4ec;color:#1f7a45}.st-archived{background:#eee;color:#777}
-  select.stsel{border:1px solid var(--line);border-radius:6px;padding:4px 6px;font-size:12px;font-family:inherit}
+  select.mini{border:1px solid var(--line);border-radius:6px;padding:4px 6px;font-size:12px;font-family:inherit}
+  .btns{display:flex;gap:6px}
+  .bsm{font-size:12px;padding:5px 10px;border-radius:6px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-family:inherit}
+  .bsm:hover{border-color:var(--steel);color:var(--steel)} .bdel:hover{border-color:#b3261e;color:#b3261e}
+  .form{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:20px;max-width:760px;margin-bottom:18px}
+  .form h3{font-size:16px;margin-bottom:14px}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:4px}
+  .field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:9px 12px;font-size:14px;font-family:inherit}
+  .field textarea{min-height:64px}
   .login{max-width:420px;margin:60px auto;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:30px}
-  .login h2{font-size:20px;margin-bottom:8px}
-  .login p{color:var(--muted);font-size:14px;margin-bottom:18px}
+  .login h2{font-size:20px;margin-bottom:8px}.login p{color:var(--muted);font-size:14px;margin-bottom:18px}
   .login input{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:11px 14px;font-size:15px;font-family:inherit;margin-bottom:12px}
-  .muted{color:var(--muted);font-size:13px}
-  .empty{padding:40px;text-align:center;color:var(--muted)}
-  .err{color:#b3261e;font-size:13px;margin-top:8px}
+  .muted{color:var(--muted);font-size:13px}.empty{padding:36px;text-align:center;color:var(--muted)}
+  .err{color:#b3261e;font-size:13px;margin-top:8px}.ok{color:#1f7a45;font-size:13px}
+  @media(max-width:640px){.frow{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -48,32 +56,77 @@
 </div></div>
 
 <div class="wrap" id="app" style="display:none">
-  <div class="kpis" id="kpis"></div>
-  <div class="toolbar">
-    <input id="q" type="text" placeholder="名前・会社・メール・本文で検索">
-    <select id="status">
-      <option value="all">すべてのステータス</option>
-      <option value="new">新規</option>
-      <option value="in_progress">対応中</option>
-      <option value="done">完了</option>
-      <option value="archived">アーカイブ</option>
-    </select>
-    <select id="kind">
-      <option value="all">すべての種別</option>
-      <option value="contact">お問い合わせ</option>
-      <option value="sell">売却登録</option>
-      <option value="buy">買収登録</option>
-      <option value="resource">資料請求</option>
-    </select>
-    <button class="btn btn--ghost" id="reload" type="button">更新</button>
-    <a class="btn btn--primary" id="csv" href="#">CSVダウンロード</a>
+  <div class="tabs">
+    <button class="tab active" data-tab="subs" type="button">問合せ</button>
+    <button class="tab" data-tab="deals" type="button">売買案件</button>
+    <button class="tab" data-tab="patents" type="button">特許追加・編集</button>
   </div>
-  <div id="tablewrap"></div>
+
+  <!-- 問合せ -->
+  <div id="tab-subs">
+    <div class="kpis" id="kpis"></div>
+    <div class="toolbar">
+      <input id="q" type="text" placeholder="名前・会社・メール・本文で検索">
+      <select id="status"><option value="all">すべてのステータス</option><option value="new">新規</option><option value="in_progress">対応中</option><option value="done">完了</option><option value="archived">アーカイブ</option></select>
+      <select id="kind"><option value="all">すべての種別</option><option value="contact">お問い合わせ</option><option value="sell">売却登録</option><option value="buy">買収登録</option><option value="resource">資料請求</option></select>
+      <button class="btn btn--ghost" id="reload" type="button">更新</button>
+      <a class="btn btn--primary" id="csv" href="#">CSVダウンロード</a>
+    </div>
+    <div id="subwrap"></div>
+  </div>
+
+  <!-- 売買案件 -->
+  <div id="tab-deals" style="display:none">
+    <div class="form">
+      <h3 id="dealFormTitle">案件を追加</h3>
+      <input type="hidden" id="d_id">
+      <div class="frow">
+        <div class="field"><label>側</label><select id="d_side"><option value="sell">売却</option><option value="buy">買い手募集</option></select></div>
+        <div class="field"><label>取引形態</label><select id="d_type"><option value="譲渡">譲渡</option><option value="ライセンス">ライセンス</option></select></div>
+      </div>
+      <div class="frow">
+        <div class="field"><label>技術分野</label><input id="d_field" placeholder="例：電池・材料"></div>
+        <div class="field"><label>案件番号（任意）</label><input id="d_ref" placeholder="例：S-2026-001"></div>
+      </div>
+      <div class="field" style="margin-bottom:12px"><label>タイトル（概要）*</label><input id="d_title" placeholder="例：全固体電池向け固体電解質の特許群（5件）"></div>
+      <div class="field" style="margin-bottom:12px"><label>説明（機微情報は伏せる）</label><textarea id="d_summary"></textarea></div>
+      <div class="frow">
+        <div class="field"><label>ステータス</label><select id="d_status"><option value="open">募集中</option><option value="talk">商談中</option><option value="closed">成約・終了</option></select></div>
+        <div class="field"><label>サイト掲載</label><select id="d_published"><option value="1">掲載する</option><option value="0">非掲載</option></select></div>
+      </div>
+      <div class="btns"><button class="btn btn--primary" id="d_save" type="button">保存</button><button class="bsm" id="d_clear" type="button">クリア</button><span id="d_msg" class="ok"></span></div>
+    </div>
+    <div id="dealwrap"></div>
+  </div>
+
+  <!-- 特許追加・編集 -->
+  <div id="tab-patents" style="display:none">
+    <div class="form">
+      <h3>特許を追加・編集（文献番号が同じものは上書き）</h3>
+      <div class="frow">
+        <div class="field"><label>文献番号 *</label><input id="p_no" placeholder="例：特許第7101010号 / 特開2024-000001"></div>
+        <div class="field"><label>技術分野</label><input id="p_field" placeholder="例：半導体"></div>
+      </div>
+      <div class="field" style="margin-bottom:12px"><label>発明の名称 *</label><input id="p_title"></div>
+      <div class="field" style="margin-bottom:12px"><label>要約</label><textarea id="p_abstract"></textarea></div>
+      <div class="frow">
+        <div class="field"><label>出願年</label><input id="p_year" type="number" placeholder="2024"></div>
+        <div class="field"><label>ステータス</label><select id="p_status"><option value="live">登録・権利存続</option><option value="pend">審査中（公開）</option></select></div>
+      </div>
+      <div class="frow">
+        <div class="field"><label>出願人タイプ</label><select id="p_holder"><option value="メーカー">メーカー</option><option value="大学・研究機関">大学・研究機関</option><option value="スタートアップ・個人">スタートアップ・個人</option></select></div>
+        <div class="field"><label>IPC</label><input id="p_ipc" placeholder="例：H01L"></div>
+      </div>
+      <div class="btns"><button class="btn btn--primary" id="p_save" type="button">保存（追加/上書き）</button><span id="p_msg" class="ok"></span></div>
+      <p class="muted" style="margin-top:10px">＊ 保存すると <a href="../database.html" target="_blank">特許データベース</a> に即時反映されます。削除は文献番号を入れて「削除」。</p>
+      <div class="btns" style="margin-top:6px"><button class="bsm bdel" id="p_del" type="button">この文献番号を削除</button></div>
+    </div>
+  </div>
 </div>
 
 <div class="login" id="login" style="display:none">
   <h2>管理画面ログイン</h2>
-  <p>Cloudflare Access で保護されている場合は自動でログインされます。トークン運用の場合は <code>ADMIN_TOKEN</code> を入力してください。</p>
+  <p>Cloudflare Access で保護されている場合は自動ログインされます。トークン運用の場合は <code>ADMIN_TOKEN</code> を入力してください。</p>
   <input id="token" type="password" placeholder="ADMIN_TOKEN" autocomplete="off">
   <button class="btn btn--primary" id="enter" type="button" style="width:100%">入る</button>
   <div class="err" id="loginerr"></div>
@@ -81,81 +134,98 @@
 
 <script>
   var STLABEL={new:'新規',in_progress:'対応中',done:'完了',archived:'アーカイブ'};
-  var token = sessionStorage.getItem('inv_admin_token') || '';
-  var state = {q:'', status:'all', kind:'all'};
-
-  function headers(){ var h={}; if(token) h['x-admin-token']=token; return h; }
+  var DEALSIDE={sell:'売却',buy:'買い手募集'};
+  var DEALST={open:'募集中',talk:'商談中',closed:'成約・終了'};
+  var token = sessionStorage.getItem('inv_admin_token')||'';
+  var state={q:'',status:'all',kind:'all'};
+  function H(){var h={};if(token)h['x-admin-token']=token;return h;}
+  function HJ(){return Object.assign({'Content-Type':'application/json'},H());}
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function $(id){return document.getElementById(id);}
+  function showLogin(m){$('app').style.display='none';$('login').style.display='block';if(m)$('loginerr').textContent=m;}
+  function showApp(){$('login').style.display='none';$('app').style.display='block';}
 
-  function showLogin(msg){
-    document.getElementById('app').style.display='none';
-    document.getElementById('login').style.display='block';
-    if(msg) document.getElementById('loginerr').textContent=msg;
-  }
-  function showApp(){ document.getElementById('login').style.display='none'; document.getElementById('app').style.display='block'; }
+  // タブ切替
+  [].forEach.call(document.querySelectorAll('.tab'),function(b){b.addEventListener('click',function(){
+    [].forEach.call(document.querySelectorAll('.tab'),function(x){x.classList.remove('active');});
+    b.classList.add('active');
+    ['subs','deals','patents'].forEach(function(t){$('tab-'+t).style.display = (t===b.dataset.tab)?'block':'none';});
+    if(b.dataset.tab==='deals') loadDeals();
+  });});
 
-  function load(){
+  /* ---- 問合せ ---- */
+  function loadSubs(){
     var qs='?status='+encodeURIComponent(state.status)+'&kind='+encodeURIComponent(state.kind)+'&q='+encodeURIComponent(state.q)+'&size=200';
-    fetch('/admin/api/submissions'+qs,{headers:headers()}).then(function(r){
-      if(r.status===403){ showLogin(token?'トークンが正しくありません。':''); throw new Error('403'); }
+    fetch('/admin/api/submissions'+qs,{headers:H()}).then(function(r){
+      if(r.status===403){showLogin(token?'トークンが正しくありません。':'');throw new Error('403');}
       return r.json();
     }).then(function(d){
-      showApp();
-      document.getElementById('who').textContent = token?'token認証':'Cloudflare Access';
-      document.getElementById('csv').href = '/admin/api/export' + (token?('?key='+encodeURIComponent(token)):'');
-      if(!d.configured){
-        document.getElementById('tablewrap').innerHTML='<div class="empty">D1（submissionsテーブル）が未設定です。<br>db/admin_schema.sql を実行し、フォーム送信が入ると一覧表示されます。</div>';
-        document.getElementById('kpis').innerHTML='';
-        return;
-      }
-      renderKPIs(d.items, d.total);
-      renderTable(d.items);
+      showApp(); $('who').textContent=token?'token認証':'Cloudflare Access';
+      $('csv').href='/admin/api/export'+(token?('?key='+encodeURIComponent(token)):'');
+      if(!d.configured){$('subwrap').innerHTML='<div class="empty">D1（submissions）未設定です。db/admin_schema.sql を実行してください。</div>';$('kpis').innerHTML='';return;}
+      var by={new:0,in_progress:0,done:0,archived:0};(d.items||[]).forEach(function(r){if(by[r.status]!=null)by[r.status]++;});
+      $('kpis').innerHTML=['総件数:'+d.total,'新規:'+by.new,'対応中:'+by.in_progress,'完了:'+by.done].map(function(s){var p=s.split(':');return '<div class="kpi"><b>'+p[1]+'</b><span>'+p[0]+'</span></div>';}).join('');
+      var items=d.items||[];
+      if(!items.length){$('subwrap').innerHTML='<div class="empty">該当する送信はありません。</div>';return;}
+      $('subwrap').innerHTML='<table><thead><tr><th>ID</th><th>日時</th><th>種別</th><th>氏名/会社</th><th>連絡先</th><th>内容</th><th>状態</th></tr></thead><tbody>'+items.map(function(r){
+        var opt=['new','in_progress','done','archived'].map(function(s){return '<option value="'+s+'"'+(s===r.status?' selected':'')+'>'+STLABEL[s]+'</option>';}).join('');
+        return '<tr><td>'+r.id+'</td><td style="white-space:nowrap">'+esc(r.created_at)+'</td><td><span class="pill">'+esc(r.kind||'')+'</span></td><td>'+esc(r.name||'')+'<br><span class="muted">'+esc(r.company||'')+'</span></td><td>'+esc(r.email||'')+'<br><span class="muted">'+esc(r.tel||'')+'</span></td><td class="msg">'+esc(r.message||'')+'</td><td><select class="mini" data-id="'+r.id+'">'+opt+'</select></td></tr>';
+      }).join('')+'</tbody></table>';
+      [].forEach.call($('subwrap').querySelectorAll('select.mini'),function(sel){sel.addEventListener('change',function(){
+        fetch('/admin/api/update',{method:'POST',headers:HJ(),body:JSON.stringify({id:parseInt(this.dataset.id,10),status:this.value})}).then(loadSubs);});});
     }).catch(function(){});
   }
+  $('q').addEventListener('input',function(){state.q=this.value;clearTimeout(window._t);window._t=setTimeout(loadSubs,250);});
+  $('status').addEventListener('change',function(){state.status=this.value;loadSubs();});
+  $('kind').addEventListener('change',function(){state.kind=this.value;loadSubs();});
+  $('reload').addEventListener('click',loadSubs);
 
-  function renderKPIs(items,total){
-    var by={new:0,in_progress:0,done:0,archived:0};
-    items.forEach(function(r){ if(by[r.status]!=null) by[r.status]++; });
-    document.getElementById('kpis').innerHTML =
-      kpi(total,'総件数')+kpi(by.new,'新規')+kpi(by.in_progress,'対応中')+kpi(by.done,'完了');
+  /* ---- 売買案件 ---- */
+  function dealForm(d){
+    d=d||{};$('d_id').value=d.id||'';$('d_side').value=d.side||'sell';$('d_type').value=d.type||'譲渡';
+    $('d_field').value=d.field||'';$('d_ref').value=d.ref||'';$('d_title').value=d.title||'';$('d_summary').value=d.summary||'';
+    $('d_status').value=d.status||'open';$('d_published').value=(d.published===0?'0':'1');
+    $('dealFormTitle').textContent=d.id?('案件を編集（#'+d.id+'）'):'案件を追加';
   }
-  function kpi(n,l){return '<div class="kpi"><b>'+n+'</b><span>'+l+'</span></div>';}
-
-  function renderTable(items){
-    if(!items.length){ document.getElementById('tablewrap').innerHTML='<div class="empty">該当する送信はありません。</div>'; return; }
-    var rows = items.map(function(r){
-      var opts=['new','in_progress','done','archived'].map(function(s){return '<option value="'+s+'"'+(s===r.status?' selected':'')+'>'+STLABEL[s]+'</option>';}).join('');
-      return '<tr>'+
-        '<td>'+r.id+'</td>'+
-        '<td style="white-space:nowrap">'+esc(r.created_at)+'</td>'+
-        '<td><span class="pill">'+esc(r.kind||'')+'</span></td>'+
-        '<td>'+esc(r.name||'')+'<br><span class="muted">'+esc(r.company||'')+'</span></td>'+
-        '<td>'+esc(r.email||'')+'<br><span class="muted">'+esc(r.tel||'')+'</span></td>'+
-        '<td class="msg">'+esc(r.message||'')+'</td>'+
-        '<td><select class="stsel st-'+r.status+'" data-id="'+r.id+'">'+opts+'</select></td>'+
-      '</tr>';
-    }).join('');
-    document.getElementById('tablewrap').innerHTML =
-      '<table><thead><tr><th>ID</th><th>日時</th><th>種別</th><th>氏名/会社</th><th>連絡先</th><th>内容</th><th>ステータス</th></tr></thead><tbody>'+rows+'</tbody></table>';
-    [].forEach.call(document.querySelectorAll('.stsel'),function(sel){
-      sel.addEventListener('change',function(){
-        fetch('/admin/api/update',{method:'POST',headers:Object.assign({'Content-Type':'application/json'},headers()),
-          body:JSON.stringify({id:parseInt(this.getAttribute('data-id'),10),status:this.value})}).then(function(){load();});
-      });
+  function loadDeals(){
+    fetch('/admin/api/deals',{headers:H()}).then(function(r){return r.json();}).then(function(d){
+      if(!d.configured){$('dealwrap').innerHTML='<div class="empty">D1（deals）未設定です。db/deals_schema.sql を実行してください。</div>';return;}
+      var items=d.items||[];
+      $('dealwrap').innerHTML=items.length?('<table><thead><tr><th>ID</th><th>側</th><th>形態</th><th>分野</th><th>タイトル</th><th>状態</th><th>掲載</th><th></th></tr></thead><tbody>'+items.map(function(r){
+        return '<tr><td>'+r.id+'</td><td>'+esc(DEALSIDE[r.side]||r.side)+'</td><td>'+esc(r.type||'')+'</td><td>'+esc(r.field||'')+'</td><td class="msg">'+esc(r.title)+'</td><td>'+esc(DEALST[r.status]||r.status)+'</td><td>'+(r.published?'掲載':'非掲載')+'</td><td><div class="btns"><button class="bsm" data-edit="'+r.id+'">編集</button><button class="bsm bdel" data-del="'+r.id+'">削除</button></div></td></tr>';
+      }).join('')+'</tbody></table>'):'<div class="empty">案件はまだありません。上のフォームから追加してください。</div>';
+      window._deals=items;
+      [].forEach.call($('dealwrap').querySelectorAll('[data-edit]'),function(b){b.addEventListener('click',function(){var it=window._deals.filter(function(x){return x.id==b.dataset.edit;})[0];dealForm(it);window.scrollTo(0,0);});});
+      [].forEach.call($('dealwrap').querySelectorAll('[data-del]'),function(b){b.addEventListener('click',function(){if(confirm('削除しますか？'))fetch('/admin/api/deals',{method:'POST',headers:HJ(),body:JSON.stringify({action:'delete',id:parseInt(b.dataset.del,10)})}).then(loadDeals);});});
     });
   }
-
-  document.getElementById('q').addEventListener('input',function(){state.q=this.value;clearTimeout(window._t);window._t=setTimeout(load,250);});
-  document.getElementById('status').addEventListener('change',function(){state.status=this.value;load();});
-  document.getElementById('kind').addEventListener('change',function(){state.kind=this.value;load();});
-  document.getElementById('reload').addEventListener('click',load);
-  document.getElementById('enter').addEventListener('click',function(){
-    token=document.getElementById('token').value.trim();
-    sessionStorage.setItem('inv_admin_token',token); load();
+  $('d_save').addEventListener('click',function(){
+    var body={action:'upsert',id:$('d_id').value||undefined,side:$('d_side').value,type:$('d_type').value,field:$('d_field').value,ref:$('d_ref').value,title:$('d_title').value,summary:$('d_summary').value,status:$('d_status').value,published:parseInt($('d_published').value,10)};
+    if(!body.title){$('d_msg').textContent='タイトルは必須です';$('d_msg').className='err';return;}
+    fetch('/admin/api/deals',{method:'POST',headers:HJ(),body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(x){
+      $('d_msg').className='ok';$('d_msg').textContent=x.ok?'保存しました':'失敗';if(x.ok){dealForm({});loadDeals();}});
   });
-  document.getElementById('token').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('enter').click();});
+  $('d_clear').addEventListener('click',function(){dealForm({});});
 
-  load();
+  /* ---- 特許追加・編集 ---- */
+  $('p_save').addEventListener('click',function(){
+    var body={action:'upsert',no:$('p_no').value,field:$('p_field').value,title:$('p_title').value,abstract:$('p_abstract').value,year:$('p_year').value,status:$('p_status').value,holder:$('p_holder').value,ipc:$('p_ipc').value};
+    if(!body.no||!body.title){$('p_msg').className='err';$('p_msg').textContent='文献番号と名称は必須です';return;}
+    fetch('/admin/api/patents',{method:'POST',headers:HJ(),body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(x){
+      $('p_msg').className='ok';$('p_msg').textContent=x.ok?'保存しました（DBに反映）':'失敗：'+(x.error||'');});
+  });
+  $('p_del').addEventListener('click',function(){
+    if(!$('p_no').value){$('p_msg').className='err';$('p_msg').textContent='削除する文献番号を入力';return;}
+    if(!confirm('削除しますか？'))return;
+    fetch('/admin/api/patents',{method:'POST',headers:HJ(),body:JSON.stringify({action:'delete',no:$('p_no').value})}).then(function(r){return r.json();}).then(function(x){
+      $('p_msg').className='ok';$('p_msg').textContent=x.ok?'削除しました':'失敗';});
+  });
+
+  $('enter').addEventListener('click',function(){token=$('token').value.trim();sessionStorage.setItem('inv_admin_token',token);loadSubs();});
+  $('token').addEventListener('keydown',function(e){if(e.key==='Enter')$('enter').click();});
+
+  dealForm({});
+  loadSubs();
 </script>
 </body>
 </html>
