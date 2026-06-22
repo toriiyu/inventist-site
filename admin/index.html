@@ -45,7 +45,20 @@
   .login input{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:11px 14px;font-size:15px;font-family:inherit;margin-bottom:12px}
   .muted{color:var(--muted);font-size:13px}.empty{padding:36px;text-align:center;color:var(--muted)}
   .err{color:#b3261e;font-size:13px;margin-top:8px}.ok{color:#1f7a45;font-size:13px}
-  @media(max-width:640px){.frow{grid-template-columns:1fr}}
+  .facetbox{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:14px 16px;margin-bottom:14px}
+  .fgroup{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;flex-wrap:wrap}
+  .fgroup:last-child{margin-bottom:0}
+  .fgroup .flbl{font-size:12px;font-weight:700;color:var(--muted);min-width:84px;padding-top:7px}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+  .chip{border:1.5px solid var(--line);background:#fff;color:var(--text);font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:999px;cursor:pointer;font-family:inherit;transition:.15s}
+  .chip:hover{border-color:var(--steel)}
+  .chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+  .chip .cnt{opacity:.6;font-weight:600;margin-left:5px;font-size:11px}
+  .chip.on .cnt{opacity:.85}
+  .htag{font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap}
+  .htag.live{background:#e6f4ec;color:#1f7a45}.htag.pend{background:#fdf0e3;color:#b9740d}
+  .ipc{font-family:var(--serif-en,monospace);font-size:12px;color:var(--muted)}
+  @media(max-width:640px){.frow{grid-template-columns:1fr}.fgroup .flbl{min-width:100%}}
 </style>
 </head>
 <body>
@@ -104,7 +117,16 @@
     <div class="toolbar">
       <input id="psearch" type="text" placeholder="特許DBを検索（名称・番号・キーワード）">
       <button class="btn btn--ghost" id="pload" type="button">検索 / 一覧</button>
+      <select id="psort" class="mini" style="padding:9px 12px;border-radius:999px"><option value="rel">並び順：登録順</option><option value="new">新しい順</option><option value="old">古い順</option></select>
       <button class="bsm" id="pnew" type="button">＋ 新規追加</button>
+      <button class="bsm" id="preset" type="button">絞り込み解除</button>
+    </div>
+    <div class="kpis" id="pkpis"></div>
+    <div class="facetbox" id="pfacets">
+      <div class="fgroup"><span class="flbl">技術分野</span><div class="chips" id="cf-field"></div></div>
+      <div class="fgroup"><span class="flbl">ステータス</span><div class="chips" id="cf-status"></div></div>
+      <div class="fgroup"><span class="flbl">出願人タイプ</span><div class="chips" id="cf-holder"></div></div>
+      <div class="fgroup"><span class="flbl">出願年代</span><div class="chips" id="cf-era"></div></div>
     </div>
     <div id="plist" style="margin-bottom:18px"></div>
     <div class="form">
@@ -216,6 +238,10 @@
 
   /* ---- 特許 一覧・検索・編集 ---- */
   var PSTLABEL={live:'登録・権利存続',pend:'審査中（公開）'};
+  var P_FIELDS=["電池・材料","AI・ソフトウェア","ロボティクス","医療機器","半導体","環境・エネルギー"];
+  var P_HOLDERS=["メーカー","大学・研究機関","スタートアップ・個人"];
+  var P_ERAS=[['~2019','〜2019年',0,2019],['2020-2021','2020–2021年',2020,2021],['2022-2023','2022–2023年',2022,2023],['2024~','2024年〜',2024,9999]];
+  var pstate={q:'',field:'all',status:'all',holder:'all',era:'all',sort:'rel'};
   function pFill(p){
     p=p||{};
     $('p_no').value=p.no||''; $('p_field').value=p.field||''; $('p_title').value=p.title||'';
@@ -224,20 +250,51 @@
     $('pFormTitle').textContent = p.no ? ('特許を編集：'+p.no) : '特許を新規追加';
     $('p_msg').textContent='';
   }
+  function pchip(group,val,label,cnt,active){
+    return '<button class="chip'+(active?' on':'')+'" data-g="'+group+'" data-v="'+esc(val)+'">'+esc(label)+(cnt!=null?'<span class="cnt">'+cnt+'</span>':'')+'</button>';
+  }
+  function eraOf(y){y=parseInt(y,10)||0;for(var i=0;i<P_ERAS.length;i++){if(y>=P_ERAS[i][2]&&y<=P_ERAS[i][3])return P_ERAS[i][0];}return '';}
+  function renderFacets(stats){
+    var bf={},bh={},bs={},be={},total=0;
+    if(stats){
+      total=stats.total||0;
+      (stats.byField||[]).forEach(function(r){bf[r.k]=r.n;});
+      (stats.byHolder||[]).forEach(function(r){bh[r.k]=r.n;});
+      (stats.byStatus||[]).forEach(function(r){bs[r.k]=r.n;});
+      (stats.byYear||[]).forEach(function(r){var e=eraOf(r.k);if(e)be[e]=(be[e]||0)+r.n;});
+    }
+    $('cf-field').innerHTML=[pchip('field','all','すべて',total,pstate.field==='all')].concat(P_FIELDS.map(function(f){return pchip('field',f,f,bf[f]||0,pstate.field===f);})).join('');
+    $('cf-status').innerHTML=[pchip('status','all','すべて',total,pstate.status==='all'),pchip('status','live','登録',bs.live||0,pstate.status==='live'),pchip('status','pend','審査中',bs.pend||0,pstate.status==='pend')].join('');
+    $('cf-holder').innerHTML=[pchip('holder','all','すべて',total,pstate.holder==='all')].concat(P_HOLDERS.map(function(h){return pchip('holder',h,h,bh[h]||0,pstate.holder===h);})).join('');
+    $('cf-era').innerHTML=[pchip('era','all','すべて',total,pstate.era==='all')].concat(P_ERAS.map(function(e){return pchip('era',e[0],e[1],be[e[0]]||0,pstate.era===e[0]);})).join('');
+    [].forEach.call($('pfacets').querySelectorAll('.chip'),function(b){b.addEventListener('click',function(){pstate[b.dataset.g]=b.dataset.v;loadPatents();});});
+  }
   function loadPatents(){
-    var q=$('psearch').value.trim();
+    pstate.q=$('psearch').value.trim();
     $('plist').innerHTML='<p class="muted">読み込み中…</p>';
-    fetch('/api/search?size=100&q='+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(d){
+    var qs='?size=100&sort='+pstate.sort+'&q='+encodeURIComponent(pstate.q)+'&field='+encodeURIComponent(pstate.field)+'&status='+pstate.status+'&holder='+encodeURIComponent(pstate.holder);
+    Promise.all([
+      fetch('/api/search'+qs).then(function(r){return r.json();}),
+      fetch('/api/stats').then(function(r){return r.json();}).catch(function(){return null;})
+    ]).then(function(res){
+      var d=res[0]||{}, stats=res[1];
+      renderFacets(stats);
       var items=(d&&d.items)||[];
-      if(!items.length){$('plist').innerHTML='<div class="empty">該当する特許がありません。「＋ 新規追加」から登録できます。</div>';return;}
-      $('plist').innerHTML='<p class="muted" style="margin:0 0 8px">'+ (d.total||items.length) +' 件（最大100件表示）</p><table><thead><tr><th>文献番号</th><th>分野</th><th>名称</th><th>年</th><th>状態</th><th></th></tr></thead><tbody>'+items.map(function(p){
-        return '<tr><td style="white-space:nowrap">'+esc(p.no)+'</td><td>'+esc(p.field||'')+'</td><td class="msg">'+esc(p.title)+'</td><td>'+esc(p.year||'')+'</td><td>'+esc((PSTLABEL[p.status]||'').slice(0,2))+'</td><td><button class="bsm" data-pe=\''+esc(JSON.stringify(p))+'\'>編集</button></td></tr>';
+      if(pstate.era!=='all') items=items.filter(function(p){return eraOf(p.year)===pstate.era;});
+      var liveN=0,pendN=0;items.forEach(function(p){if(p.status==='pend')pendN++;else liveN++;});
+      $('pkpis').innerHTML=[['総件数',(stats&&stats.total)||d.total||0],['絞り込み結果',items.length],['登録',liveN],['審査中',pendN]].map(function(p){return '<div class="kpi"><b>'+p[1]+'</b><span>'+p[0]+'</span></div>';}).join('');
+      if(!items.length){$('plist').innerHTML='<div class="empty">該当する特許がありません。条件を変えるか「＋ 新規追加」から登録できます。</div>';return;}
+      $('plist').innerHTML='<table><thead><tr><th>文献番号</th><th>分野</th><th>名称</th><th>出願人</th><th>年</th><th>状態</th><th>IPC</th><th></th></tr></thead><tbody>'+items.map(function(p){
+        var st=p.status==='pend'?'<span class="htag pend">審査</span>':'<span class="htag live">登録</span>';
+        return '<tr><td style="white-space:nowrap">'+esc(p.no)+'</td><td>'+esc(p.field||'')+'</td><td class="msg">'+esc(p.title)+'</td><td>'+esc(p.holder||'')+'</td><td>'+esc(p.year||'')+'</td><td>'+st+'</td><td class="ipc">'+esc(p.ipc||'')+'</td><td><button class="bsm" data-pe=\''+esc(JSON.stringify(p))+'\'>編集</button></td></tr>';
       }).join('')+'</tbody></table>';
       [].forEach.call($('plist').querySelectorAll('[data-pe]'),function(b){b.addEventListener('click',function(){try{pFill(JSON.parse(b.getAttribute('data-pe')));window.scrollTo(0,document.body.scrollHeight);}catch(e){}});});
     }).catch(function(){$('plist').innerHTML='<p class="err">検索に接続できませんでした。</p>';});
   }
   $('pload').addEventListener('click',loadPatents);
   $('psearch').addEventListener('keydown',function(e){if(e.key==='Enter')loadPatents();});
+  $('psort').addEventListener('change',function(){pstate.sort=this.value;loadPatents();});
+  $('preset').addEventListener('click',function(){pstate={q:'',field:'all',status:'all',holder:'all',era:'all',sort:'rel'};$('psearch').value='';$('psort').value='rel';loadPatents();});
   $('pnew').addEventListener('click',function(){pFill({});window.scrollTo(0,document.body.scrollHeight);});
 
   $('p_save').addEventListener('click',function(){
