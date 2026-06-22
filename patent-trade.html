@@ -307,7 +307,24 @@
       this.classList.add('active'); state[k]=this.getAttribute('data-v'); render();
     });
   });
-  render();
+  render(); // まずサンプルを表示
+
+  // 管理画面（admin）で登録された「掲載中」の案件を D1 から取得し、先頭に追加
+  (function(){
+    function mapD1(it){
+      var side=it.side, status=it.status;
+      var st = side==='buy' ? 'buy' : (status==='talk' ? 'talk' : 'open');
+      return {
+        id: it.ref || ('INV-'+it.id), field: it.field || '', title: it.title || '',
+        desc: it.summary || '', region: (side==='buy' ? '買い手募集' : '売却案件'),
+        type: it.type ? [it.type] : [], status: st,
+        kw: (it.title||'')+' '+(it.field||'')+' '+(it.summary||'')
+      };
+    }
+    fetch('/api/deals').then(function(r){return r.json();}).then(function(d){
+      if(d && d.items && d.items.length){ DEALS = d.items.map(mapD1).concat(DEALS); render(); }
+    }).catch(function(){});
+  })();
 </script>
 <script src="form-handler.js" defer></script>
 <!-- Cloudflare Web Analytics（Cookieレス）: ダッシュボードで取得したトークンを下記 TOKEN に貼り、この行のコメントを外すと有効化 -->
