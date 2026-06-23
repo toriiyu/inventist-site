@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI関連発明の特許 ― 発明者性・記載要件・審査で問われる論点｜inventist.jp</title>
+<meta name="description" content="AI・機械学習に関する発明を特許化するときの実務ポイントを整理。AIは発明者になれるか、学習データや精度をどう書くか、進歩性・記載要件で問われる観点を解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="canonical" href="https://inventist.jp/article-ai-patent-trends.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="inventist.jp">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="AI関連発明の特許 ― 発明者性・記載要件・審査で問われる論点｜inventist.jp">
+<meta property="og:description" content="AIは発明者になれるか、学習データや精度をどう書くか、進歩性・記載要件で問われる観点を実務目線で解説します。">
+<meta property="og:url" content="https://inventist.jp/article-ai-patent-trends.html">
+<meta property="og:image" content="https://inventist.jp/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI関連発明の特許 ― 発明者性・記載要件・審査で問われる論点｜inventist.jp">
+<meta name="twitter:description" content="AIは発明者になれるか、学習データや精度をどう書くか、進歩性・記載要件で問われる観点を実務目線で解説します。">
+<meta name="twitter:image" content="https://inventist.jp/og-image.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "inventist.jp", "url": "https://inventist.jp/", "logo": "https://inventist.jp/favicon.svg", "image": "https://inventist.jp/og-image.png", "description": "発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。特許データベース検索、特許取得支援、特許の買収・売却マッチングを提供。", "email": "contact@inventist.jp", "areaServed": "JP", "sameAs": []}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI関連発明の特許 ― 発明者性・記載要件・審査で問われる論点", "description": "AIは発明者になれるか、学習データや精度をどう書くか、進歩性・記載要件で問われる観点を実務目線で解説します。", "image": "https://inventist.jp/og-image.png", "datePublished": "2026-06-22", "dateModified": "2026-06-22", "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://inventist.jp/article-ai-patent-trends.html"}, "author": {"@type": "Organization", "name": "inventist.jp"}, "publisher": {"@type": "Organization", "name": "inventist.jp", "logo": {"@type": "ImageObject", "url": "https://inventist.jp/favicon.svg"}}}</script>
+<style>
+  .article{max-width:760px;margin:0 auto}
+  .article h2{font-size:clamp(20px,2.4vw,26px);margin:38px 0 14px}
+  .article h3{font-size:18px;margin:26px 0 10px}
+  .article p{margin-bottom:16px;color:var(--text)}
+  .article ul{margin:0 0 16px 0;padding-left:0;list-style:none;display:grid;gap:10px}
+  .article ul li{position:relative;padding-left:26px;color:var(--text)}
+  .article ul li::before{content:"●";position:absolute;left:0;top:5px;color:var(--steel);font-size:11px}
+  .article .lead{font-size:18px;color:var(--muted);margin-bottom:8px}
+  .article .meta{font-size:13px;color:var(--muted);margin-bottom:24px}
+  .article-cta{margin-top:40px}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
+    <nav><ul class="nav-links" id="navLinks">
+      <li><a href="services.html">サービス</a></li>
+      <li><a href="database.html">特許データベース</a></li>
+      <li><a href="patent-acquisition.html">特許取得支援</a></li>
+      <li><a href="patent-trade.html">買収・売却</a></li>
+      <li><a href="knowledge.html">ナレッジ</a></li>
+      <li><a href="company.html">会社情報</a></li>
+    </ul></nav>
+    <div class="nav-cta"><a href="company.html#contact" class="btn btn--primary">お問い合わせ</a></div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="pagehero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">ホーム</a> ／ <a href="knowledge.html">ナレッジ</a> ／ AI関連発明の特許</div>
+    <h1>AI関連発明の特許 ― 発明者性・記載要件・審査で問われる論点</h1>
+    <p>機械学習やAIを使った発明は、出願件数が大きく伸びている一方、書き方しだいで権利化の成否が分かれます。AIならではの論点を、実務目線で整理します。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <article class="article">
+      <p class="meta">AI知財 ／ 最終更新：2026年6月</p>
+      <p class="lead">AI関連発明とは、機械学習モデルそのものや、AIを使って課題を解決する仕組み・装置・サービスに関する発明を指します。技術が新しいぶん、「誰が発明者か」「どこまで書けば権利になるか」といった点で、従来の発明にはない論点が生じます。</p>
+
+      <h2>AIは「発明者」になれるのか</h2>
+      <p>近年、AIを発明者として記載した出願が各国で議論を呼びました。現在の日本を含む主要国の運用では、<strong>発明者は自然人（人間）であることが前提</strong>とされ、AI自体を発明者とする出願は認められていません。AIを道具として使って人間が発明した場合は、当然ながら人間が発明者になります。制度の議論は続いているため、最新の運用は出願時に確認が必要です。</p>
+
+      <h2>記載要件 ― 「動く」ことをどう示すか</h2>
+      <p>AI発明でとくに問われやすいのが、明細書の<strong>記載要件（実施可能要件・サポート要件）</strong>です。「AIで高精度に判定する」とだけ書いても、当業者が再現できなければ権利になりません。次のような点を具体的に書けるかが分かれ目になります。</p>
+      <ul>
+        <li><strong>入力と出力の関係</strong>：どんなデータを入れ、何を出すのか。前処理や特徴量の作り方を含めて具体化する。</li>
+        <li><strong>学習データの性質</strong>：データの種類・集め方・ラベリングの考え方など、再現に必要な情報を示す。</li>
+        <li><strong>効果の裏づけ</strong>：精度向上などの効果を主張するなら、その根拠（実験条件や比較）を伴わせる。</li>
+        <li><strong>課題と解決の対応</strong>：解こうとする技術課題と、AI構成がそれをどう解決するかを結びつける。</li>
+      </ul>
+
+      <h2>進歩性 ― 「既存手法の単なる適用」を超えられるか</h2>
+      <p>AI発明の進歩性でよく論点になるのが、「既知の機械学習手法を、ある分野に当てはめただけではないか」という見方です。汎用的なモデルを単に適用しただけだと、容易に想到できると判断されやすくなります。逆に、対象分野特有の課題に対して<strong>データの作り方・モデル構成・前後処理に工夫</strong>があり、それが効果に結びついていれば、進歩性を主張しやすくなります。</p>
+
+      <h2>権利範囲とビジネスの設計</h2>
+      <p>AI発明は、学習の段階（モデルを作る側）と推論の段階（モデルを使う側）で、実施者が分かれることがあります。誰の・どの行為を権利でカバーしたいのかを意識して、装置・方法・プログラム・学習済みモデルなど複数の切り口で請求項を組み立てると、実効性のある権利になりやすくなります。一方で、中身がブラックボックスで侵害立証が難しい場合は、あえて出願せず<strong>ノウハウ（営業秘密）として秘匿</strong>する選択も検討に値します。「出すべきか、隠すべきか」の見極めも、AI知財の重要な判断です。</p>
+
+      <h2>出願が伸びている今だからこそ</h2>
+      <p>AI関連の出願が増えるほど、先行技術も厚くなり、調査と書き分けの重要性が増します。出願前の先行技術調査で「すでにある工夫」を把握し、自社の差分を明確にすることが、無駄打ちを避ける近道です。</p>
+
+      <div class="note article-cta">
+        <strong>inventist.jp の支援。</strong> AI関連の先行技術調査から、出すべきか秘匿すべきかの整理、出願準備の段取りまでを伴走します。明細書の作成・出願代理は提携弁理士が担当し、私たちは調査と全体設計を支援します。初回相談は無料です。
+        <div class="mt-s" style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="patent-research.html" class="btn btn--primary">調査支援を見る</a>
+          <a href="company.html#contact" class="btn btn--ghost">無料で相談する</a>
+        </div>
+      </div>
+
+      <p class="disclaimer mt-l">＊ 本記事は一般的な情報の整理であり、法的助言ではありません。発明者性や記載要件の運用は制度改正や審査基準の改定で変わります。個別の判断は弁理士・弁護士等の専門家にご確認ください。</p>
+    </article>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="brand">inventist<span class="dot">.</span>jp</div><p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。</p></div>
+      <div><h5>サービス</h5><ul><li><a href="services.html">サービス一覧</a></li><li><a href="patent-research.html">特許調査支援</a></li><li><a href="dashboard.html">知財BIダッシュボード</a></li><li><a href="database.html">特許データベース</a></li><li><a href="patent-acquisition.html">特許取得支援</a></li><li><a href="patent-trade.html">特許の買収・売却</a></li></ul></div>
+      <div><h5>会社</h5><ul><li><a href="cases.html">導入事例</a></li><li><a href="resources.html">資料・セミナー</a></li><li><a href="knowledge.html">ナレッジ</a></li><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li><li><a href="terms.html">利用規約</a></li><li><a href="tokushoho.html">特定商取引法に基づく表記</a></li></ul></div>
+      <div><h5>はじめる</h5><ul><li><a href="patent-trade.html#sell">売却を登録</a></li><li><a href="patent-trade.html#buy">買収ニーズを登録</a></li><li><a href="database.html">特許を検索</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 inventist.jp</span><span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span></div>
+  </div>
+</footer>
+
+<script>var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');if(t)t.addEventListener('click',function(){n.classList.toggle('open');});</script>
+<!-- Cloudflare Web Analytics（Cookieレス）: ダッシュボードで取得したトークンを下記 TOKEN に貼り、この行のコメントを外すと有効化 -->
+<!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;REPLACE_WITH_TOKEN&quot;}"></script> -->
+</body>
+</html>
