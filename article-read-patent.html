@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>特許公報の読み方入門 ― 請求項・要約・図面の見方｜inventist.jp</title>
+<meta name="description" content="特許公報のどこを見れば技術と権利範囲が分かるのか。書誌・要約・請求項・明細書・図面・IPCの役割と、最初に読むべき順番を、はじめての方向けにやさしく解説します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="canonical" href="https://inventist.jp/article-read-patent.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="inventist.jp">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="特許公報の読み方入門 ― 請求項・要約・図面の見方｜inventist.jp">
+<meta property="og:description" content="書誌・要約・請求項・明細書・図面・IPCの役割と、最初に読むべき順番をやさしく解説します。">
+<meta property="og:url" content="https://inventist.jp/article-read-patent.html">
+<meta property="og:image" content="https://inventist.jp/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="特許公報の読み方入門 ― 請求項・要約・図面の見方｜inventist.jp">
+<meta name="twitter:description" content="書誌・要約・請求項・明細書・図面・IPCの役割と、最初に読むべき順番をやさしく解説します。">
+<meta name="twitter:image" content="https://inventist.jp/og-image.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "inventist.jp", "url": "https://inventist.jp/", "logo": "https://inventist.jp/favicon.svg", "image": "https://inventist.jp/og-image.png", "description": "発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。特許データベース検索、特許取得支援、特許の買収・売却マッチングを提供。", "email": "contact@inventist.jp", "areaServed": "JP", "sameAs": []}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "特許公報の読み方入門 ― 請求項・要約・図面の見方", "description": "書誌・要約・請求項・明細書・図面・IPCの役割と、最初に読むべき順番をやさしく解説します。", "image": "https://inventist.jp/og-image.png", "datePublished": "2026-06-22", "dateModified": "2026-06-22", "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://inventist.jp/article-read-patent.html"}, "author": {"@type": "Organization", "name": "inventist.jp"}, "publisher": {"@type": "Organization", "name": "inventist.jp", "logo": {"@type": "ImageObject", "url": "https://inventist.jp/favicon.svg"}}}</script>
+<style>
+  .article{max-width:760px;margin:0 auto}
+  .article h2{font-size:clamp(20px,2.4vw,26px);margin:38px 0 14px}
+  .article h3{font-size:18px;margin:26px 0 10px}
+  .article p{margin-bottom:16px;color:var(--text)}
+  .article ul{margin:0 0 16px 0;padding-left:0;list-style:none;display:grid;gap:10px}
+  .article ul li{position:relative;padding-left:26px;color:var(--text)}
+  .article ul li::before{content:"●";position:absolute;left:0;top:5px;color:var(--steel);font-size:11px}
+  .article .lead{font-size:18px;color:var(--muted);margin-bottom:8px}
+  .article .meta{font-size:13px;color:var(--muted);margin-bottom:24px}
+  .article-cta{margin-top:40px}
+  .related{margin-top:40px;border-top:1px solid var(--line);padding-top:20px}
+  .related h2{font-size:18px;margin:0 0 12px}
+  .related ul{display:grid;gap:8px}
+  .related a{font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">inventist<span class="dot">.</span>jp <small>PATENT PLATFORM</small></a>
+    <nav><ul class="nav-links" id="navLinks">
+      <li><a href="services.html">サービス</a></li>
+      <li><a href="database.html">特許データベース</a></li>
+      <li><a href="patent-acquisition.html">特許取得支援</a></li>
+      <li><a href="patent-trade.html">買収・売却</a></li>
+      <li><a href="knowledge.html">ナレッジ</a></li>
+      <li><a href="company.html">会社情報</a></li>
+    </ul></nav>
+    <div class="nav-cta"><a href="company.html#contact" class="btn btn--primary">お問い合わせ</a></div>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="pagehero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">ホーム</a> ／ <a href="knowledge.html">ナレッジ</a> ／ 特許公報の読み方入門</div>
+    <h1>特許公報の読み方入門 ― 請求項・要約・図面の見方</h1>
+    <p>特許公報は情報量が多く、最初は読みにくく感じます。でも「どこに何が書いてあるか」が分かれば、技術と権利範囲はぐっと見通せます。読む順番から整理します。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <article class="article">
+      <p class="meta">調査の基礎 ／ 最終更新：2026年6月</p>
+      <p class="lead">特許公報は、決まった構成で書かれています。役割を知っておけば、全部を頭から読まなくても、必要な情報に最短でたどり着けます。まずは各パートが「何のためにあるか」を押さえましょう。</p>
+
+      <h2>公報を構成する主なパート</h2>
+      <ul>
+        <li><strong>書誌事項</strong>：出願番号・公開/登録番号、出願人・発明者、出願日や公開日などの基本情報。いつ・誰の・どの案件かが分かる。</li>
+        <li><strong>要約（要約書）</strong>：発明の概要を短くまとめた部分。最初のスクリーニングに使う。</li>
+        <li><strong>請求項（特許請求の範囲）</strong>：権利の範囲を定義する、最重要パート。</li>
+        <li><strong>明細書</strong>：技術の背景・課題・解決手段・実施例など、発明を詳しく説明する本文。</li>
+        <li><strong>図面</strong>：構造や処理の流れを示す図。文章だけでは掴みにくい点を補う。</li>
+        <li><strong>IPC／FI</strong>：技術分野を示す分類コード。同じ分野の特許を芋づる式に探すのに役立つ。</li>
+      </ul>
+
+      <h2>最初に読むべき順番</h2>
+      <h3>1. 要約と代表図でざっくり掴む</h3>
+      <p>まず要約と、図面の中の代表図に目を通し、「何の発明か」「どんな仕組みか」の当たりをつけます。関係なさそうなら、ここで次の公報に進めます。</p>
+      <h3>2. 請求項1を読む</h3>
+      <p>権利範囲は請求項で決まります。とくに<strong>請求項1（独立請求項）</strong>が、その特許の中心的な権利です。請求項に書かれた構成要件を「すべて」満たすと侵害になり得る、という読み方が基本になります（オールエレメントルール）。</p>
+      <h3>3. 明細書で意味を確かめる</h3>
+      <p>請求項の言葉が抽象的なときは、明細書の「課題」「解決手段」「実施例」を読んで、その用語が何を指しているのかを確認します。明細書は請求項を解釈するための“辞書”として使います。</p>
+
+      <h2>ステータスの確認を忘れずに</h2>
+      <p>その特許が今どういう状態かも重要です。<strong>出願中（公開のみ）</strong>なのか、<strong>登録されて権利が存続中</strong>なのか、すでに<strong>満了・消滅</strong>しているのかで、意味がまったく変わります。FTO（侵害予防）の観点では、生きている権利かどうかが決定的です。</p>
+
+      <h2>分類コードで横に広げる</h2>
+      <p>関連特許を網羅したいときは、キーワード検索だけでなく、IPC／FIなどの分類コードを使って同じ技術分野を横断的にたどると、表現が違って検索に引っかからない関連特許も拾えます。キーワードと分類の両輪で攻めるのが、調査の基本です。</p>
+
+      <div class="related">
+        <h2>関連記事</h2>
+        <ul>
+          <li><a href="article-prior-art-search.html">先行技術調査の重要性 ― 出願前に「似た特許」を確かめる</a></li>
+          <li><a href="article-fto-search.html">FTO調査（侵害予防調査）とは ― 製品を出す前に「他社特許」を確かめる</a></li>
+          <li><a href="article-patent-map.html">パテントマップ入門 ― 特許情報を「地図」にして戦略に使う</a></li>
+        </ul>
+      </div>
+
+      <div class="note article-cta">
+        <strong>inventist.jp の調査支援とデータベース。</strong> 公報の読み解きから、関連特許の抽出・整理、分野横断の調査までを支援します。まずは特許データベースで、気になるキーワードを検索してみてください。
+        <div class="mt-s" style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="database.html" class="btn btn--primary">特許を検索する</a>
+          <a href="company.html#contact" class="btn btn--ghost">無料で相談する</a>
+        </div>
+      </div>
+
+      <p class="disclaimer mt-l">＊ 本記事は一般的な情報の整理であり、法的助言ではありません。権利範囲や侵害の判断は弁理士・弁護士等の専門家にご確認ください。</p>
+    </article>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="brand">inventist<span class="dot">.</span>jp</div><p>発明者・特許保有者・事業者・投資家をつなぐ特許プラットフォーム。</p></div>
+      <div><h5>サービス</h5><ul><li><a href="services.html">サービス一覧</a></li><li><a href="patent-research.html">特許調査支援</a></li><li><a href="dashboard.html">知財BIダッシュボード</a></li><li><a href="database.html">特許データベース</a></li><li><a href="patent-acquisition.html">特許取得支援</a></li><li><a href="patent-trade.html">特許の買収・売却</a></li></ul></div>
+      <div><h5>会社</h5><ul><li><a href="cases.html">導入事例</a></li><li><a href="resources.html">資料・セミナー</a></li><li><a href="knowledge.html">ナレッジ</a></li><li><a href="company.html">会社情報</a></li><li><a href="company.html#contact">お問い合わせ</a></li><li><a href="privacy.html">プライバシーポリシー</a></li><li><a href="terms.html">利用規約</a></li><li><a href="tokushoho.html">特定商取引法に基づく表記</a></li></ul></div>
+      <div><h5>はじめる</h5><ul><li><a href="patent-trade.html#sell">売却を登録</a></li><li><a href="patent-trade.html#buy">買収ニーズを登録</a></li><li><a href="database.html">特許を検索</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 inventist.jp</span><span>本サイトの内容は一般的な情報であり、法的助言ではありません。</span></div>
+  </div>
+</footer>
+
+<script>var t=document.getElementById('navToggle'),n=document.getElementById('navLinks');if(t)t.addEventListener('click',function(){n.classList.toggle('open');});</script>
+<!-- Cloudflare Web Analytics（Cookieレス）: ダッシュボードで取得したトークンを下記 TOKEN に貼り、この行のコメントを外すと有効化 -->
+<!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;REPLACE_WITH_TOKEN&quot;}"></script> -->
+</body>
+</html>
